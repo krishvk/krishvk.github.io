@@ -13,6 +13,15 @@ Languages
   Extensively, SystemVerilog, Perl, Python, Tcsh, Makefile, C++, Assembly
   Limitedly, Verilog, E, Java, SQLite
 
+Worked On
+=========
+
+.. csv-table::
+  :stub-columns: 1
+  
+  Extensively, Random Program Generators, Processor Verification, Co-Simulation
+  Limitedly, UVM
+
 Tools and Software
 ==================
 
