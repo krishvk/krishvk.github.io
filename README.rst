@@ -7,12 +7,8 @@ Skill set
 Languages
 ---------
 
-Extensively
-###########
-
-:code:`SystemVerilog`, :code:`Perl`
-
-Limitedly
-#########
-
-:code:`Verilog`
+.. csv-table::
+  :delimiter: |
+  
+Extensively|SystemVerilog, Perl, Python, Tcsh, Makefile, C++, Assembly
+Limitedly|Verilog, E, Java, SQLite
