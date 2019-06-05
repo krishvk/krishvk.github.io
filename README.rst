@@ -29,6 +29,6 @@ Tools and Software
   :stub-columns: 1
   
   HDL, DVE, Verdi
-  Python, Pandas, Matplotlib, Pygls, SLY, graphviz
+  Python, Pandas, Matplotlib, Pygls, SLY, (py)?graphviz
   Documentation, Sphinx, Doxygen
   Project Monitoring, Grafana
