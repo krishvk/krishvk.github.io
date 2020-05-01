@@ -48,7 +48,6 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
-html_logo = '_static/ppic_tNm_icon.ico'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -61,6 +60,7 @@ html_theme_options = {
 
 master_doc = 'index'
 
-def setup(app):
+"""def setup(app):
     '''Use customizations'''
     app.add_css_file('my_theme.css')
+"""
