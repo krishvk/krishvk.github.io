@@ -60,7 +60,6 @@ html_theme_options = {
 
 master_doc = 'index'
 
-"""def setup(app):
+def setup(app):
     '''Use customizations'''
     app.add_css_file('my_theme.css')
-"""

@@ -9,6 +9,7 @@ Random Program Generators for processor verification. My other areas of work inc
 :code:`Co-Simulation`
 :code:`Compilers`
 :code:`Language Servers`
+:code:`Databases`
 :code:`UVM`
 
 :code:`SystemVerilog`
