@@ -11,6 +11,7 @@ Krishna
    :caption: Contents:
 
    me.rst
+   work_profile.rst
 
 
 Indices and tables
