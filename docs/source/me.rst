@@ -1,28 +1,76 @@
 About Me
 ++++++++
 
-.. sidebar:: keywords
+.. tabs::
 
-  **Areas**
-  :code:`Random Program Generators` :code:`Processor Verification` :code:`Co-Simulation`
-  :code:`Automation` :code:`Compilers` :code:`Language Servers` :code:`Databases` :code:`DITA`
-  :code:`UVM`
+  .. tab:: Areas Worked
 
-  **Processors** :code:`Multicore Systems` :code:`Caches (L1 & L2)` :code:`Cache coherency`
-  :code:`MMU` :code:`MPU` :code:`Debug Features` :code:`VLIW` :code:`SIMD` :code:`Multi issue pipes`
-  :code:`IPXACT`
+    * :code:`Random Program Generators`
+    * :code:`Processor Verification`
+    * :code:`Co-Simulation`
+    * :code:`Automation`
+    * :code:`Databases`
+    * :code:`DITA`
+    * :code:`Language Servers`
+    * :code:`UVM`
 
-  **Languages** :code:`SystemVerilog` :code:`Python` :code:`Assembly` :code:`Perl` :code:`tcsh`
-  :code:`Makefile` :code:`C++` :code:`C` :code:`SQLite` :code:`MySQL` :code:`bash` :code:`zsh`
-  :code:`Java` :code:`Verilog` :code:`E (Specman)`
+  .. tab:: Processors
 
-  **Software** :code:`git` :code:`perforce` :code:`svn`
+    * :code:`Multicore Systems`
+    * :code:`Caches (L1 & L2)`
+    * :code:`Cache coherency`
+    * :code:`MMU`
+    * :code:`MPU`
+    * :code:`Debug Features`
+    * :code:`VLIW`
+    * :code:`SIMD`
+    * :code:`Multi issue pipes`
+    * :code:`IPXACT`
 
-  **Libraries** :code:`pygraphviz` :code:`graphviz` :code:`Pygls` :code:`SLY` :code:`Matplotlib`
-  :code:`Pandas`
+  .. tab:: Languages
 
-  **Tools** :code:`VS Code` :code:`vim/gvim` :code:`Grafana` :code:`gitlab` :code:`Sphinx`
-  :code:`Doxygen` :code:`JIRA` :code:`JAMA` :code:`DVE` :code:`Verdi`
+    * :code:`SystemVerilog`
+    * :code:`Python`
+    * :code:`Assembly`
+    * :code:`Perl`
+    * :code:`tcsh`
+    * :code:`Makefile`
+    * :code:`C++`
+    * :code:`C`
+    * :code:`SQLite`
+    * :code:`MySQL`
+    * :code:`bash`
+    * :code:`zsh`
+    * :code:`Verilog`
+    * :code:`E (Specman)`
+
+  .. tab:: Software
+
+    * :code:`git`
+    * :code:`perforce`
+    * :code:`svn`
+
+  .. tab:: Libraries
+
+    * :code:`pygraphviz`
+    * :code:`graphviz`
+    * :code:`Pygls`
+    * :code:`SLY`
+    * :code:`Matplotlib`
+    * :code:`Pandas`
+
+  .. tab:: Tools
+
+    * :code:`VSCode`
+    * :code:`vim/gvim`
+    * :code:`Grafana`
+    * :code:`gitlab`
+    * :code:`Sphinx`
+    * :code:`Doxygen`
+    * :code:`JIRA`
+    * :code:`JAMA`
+    * :code:`DVE`
+    * :code:`Verdi`
 
 A software enthusiast and programmer, with 10+ years of relevant experience. I extensively worked on
-Random Program Generators for processor verification. My other areas of work include the following.
+Random Program Generators for processor verification.
