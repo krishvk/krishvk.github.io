@@ -16,8 +16,9 @@ pages:
     - sphinx-build --version
     - cp -rf build/html ../public
     - git clone --depth 1 $GH/krishvk.github.io.git ghpages
-    - rm -rf ghpages/docs
+    - rm -rf ghpages/*
     - cp -rf build/html/* ghpages
+    - cp -rf ../html ghpages
     - cd ghpages
     - touch .nojekyll
     - git add .
