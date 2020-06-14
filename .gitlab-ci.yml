@@ -5,6 +5,8 @@ before_script:
     - apt-get update -qq && apt-get install -yqq python3-pip python3-dev
     - pip3 install -U sphinx
     - pip3 install -U sphinx_rtd_theme sphinx-tabs
+    - git config --global user.email "krishna.vijay4444@gmail.com"
+    - git config --global user.name Krishna
 
 pages:
   stage: deploy
