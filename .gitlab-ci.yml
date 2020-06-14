@@ -13,6 +13,13 @@ pages:
     - make html
     - sphinx-build --version
     - mv build/html ../public
+    - git clone --depth 1 $GH/krishvk.github.io.git ghpages
+    - rm -rf ghpages/docs
+    - cp -rf build/html ghpages/docs
+    - cd ghpages
+    - git add .
+    - git commit -m 'Mirror docs' .
+    - git push $GH/krishvk.github.io.git
   artifacts:
     paths:
     - public
