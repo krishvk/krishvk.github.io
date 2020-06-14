@@ -23,7 +23,7 @@ pages:
     - cd ghpages
     - touch .nojekyll
     - git add .
-    - git commit -m 'Mirror docs' .
+    - git diff-index --quiet HEAD || git commit -m 'Mirror docs' .
     - git push $GH/krishvk.github.io.git
   artifacts:
     paths:
