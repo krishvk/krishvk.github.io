@@ -1,31 +1,11 @@
 About Me
 ++++++++
 
+A software enthusiast and programmer, with 10+ years of relevant experience. My primary focus is
+Random Program Generators for processor verification. More areas I worked on are as follows (Most
+worked on the top)
+
 .. tabs::
-
-  .. tab:: Areas Worked
-
-    * :code:`Random Program Generators`
-    * :code:`Processor Verification`
-    * :code:`Co-Simulation`
-    * :code:`Automation`
-    * :code:`Databases`
-    * :code:`DITA`
-    * :code:`Language Servers`
-    * :code:`UVM`
-
-  .. tab:: Processors
-
-    * :code:`Multicore Systems`
-    * :code:`Caches (L1 & L2)`
-    * :code:`Cache coherency`
-    * :code:`MMU`
-    * :code:`MPU`
-    * :code:`Debug Features`
-    * :code:`VLIW`
-    * :code:`SIMD`
-    * :code:`Multi issue pipes`
-    * :code:`IPXACT`
 
   .. tab:: Languages
 
@@ -39,16 +19,36 @@ About Me
     * :code:`C`
     * :code:`SQLite`
     * :code:`MySQL`
-    * :code:`bash`
     * :code:`zsh`
+    * :code:`bash`
     * :code:`Verilog`
     * :code:`E (Specman)`
 
-  .. tab:: Software
+  .. tab:: Areas Worked
 
-    * :code:`git`
-    * :code:`perforce`
-    * :code:`svn`
+    * :code:`Random Program Generators`
+    * :code:`Processor Verification`
+    * :code:`Co-Simulation`
+    * :code:`Automation`
+    * :code:`Databases`
+    * :code:`DITA`
+    * :code:`Language Servers`
+    * :code:`UVM`
+    * :code:`Compilers`
+
+  .. tab:: Processor Features
+
+    * :code:`ISA`
+    * :code:`Multicore Systems`
+    * :code:`Caches (L1 & L2)`
+    * :code:`Cache coherency`
+    * :code:`MMU`
+    * :code:`MPU`
+    * :code:`Debug Features`
+    * :code:`VLIW`
+    * :code:`SIMD`
+    * :code:`Multi issue pipes`
+    * :code:`IPXACT`
 
   .. tab:: Libraries
 
@@ -59,18 +59,18 @@ About Me
     * :code:`Matplotlib`
     * :code:`Pandas`
 
-  .. tab:: Tools
+  .. tab:: Tools & Software
 
     * :code:`VSCode`
-    * :code:`vim/gvim`
-    * :code:`Grafana`
-    * :code:`gitlab`
+    * :code:`vim`
+    * :code:`perforce`
+    * :code:`git`
     * :code:`Sphinx`
     * :code:`Doxygen`
+    * :code:`Grafana`
+    * :code:`gitlab`
     * :code:`JIRA`
     * :code:`JAMA`
     * :code:`DVE`
     * :code:`Verdi`
-
-A software enthusiast and programmer, with 10+ years of relevant experience. I extensively worked on
-Random Program Generators for processor verification.
+    * :code:`svn`
