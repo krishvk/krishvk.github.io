@@ -12,7 +12,7 @@ pages:
     - cd docs
     - make html
     - sphinx-build --version
-    - mv build/html ../public
+    - cp -rf build/html ../public
     - git clone --depth 1 $GH/krishvk.github.io.git ghpages
     - rm -rf ghpages/docs
     - cp -rf build/html ghpages/docs
