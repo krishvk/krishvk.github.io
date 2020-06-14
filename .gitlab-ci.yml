@@ -15,6 +15,7 @@ pages:
     - make html
     - sphinx-build --version
     - cp -rf build/html ../public
+    - cp -rf ../html ../public/dhtml
     - git clone --depth 1 $GH/krishvk.github.io.git ghpages
     - rm -rf ghpages/*
     - cp -rf build/html/* ghpages
