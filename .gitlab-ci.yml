@@ -7,26 +7,31 @@ before_script:
     - pip3 install -U sphinx_rtd_theme sphinx-tabs
     - git config --global user.email "krishna.vijay4444@gmail.com"
     - git config --global user.name Krishna
+    - make -C docs html
 
-pages:
+ghpages:
   stage: deploy
   script:
     - cd docs
-    - make html
-    - sphinx-build --version
-    - cp -rf build/html ../public
-    - cp -rf ../html ../public/dhtml
     - git clone --depth 1 $GH/krishvk.github.io.git ghpages
     - rm -rf ghpages/*
     - cp -rf build/html/* ghpages
     - cp -rf ../html ghpages
     - cd ghpages
-    - grep -rl 'UA-36650734' . | xargs sed -i 's/UA-36650734-\d+/UA-36650734-4/g'
+    - grep -r 'UA-36650734' .
+    - grep -rl 'UA-36650734' . | xargs 's/UA-36650734-[[:digit:]]/UA-36650734-4/g'
     - grep -r 'UA-36650734' .
     - touch .nojekyll
     - git add .
     - git diff-index --quiet HEAD || git commit -m 'Mirror docs' .
     - git push $GH/krishvk.github.io.git
+
+pages:
+  stage: deploy
+  script:
+    - cd docs
+    - cp -rf build/html ../public
+    - cp -rf ../html ../public/dhtml
   artifacts:
     paths:
     - public
