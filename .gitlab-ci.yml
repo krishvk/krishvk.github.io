@@ -18,9 +18,7 @@ ghpages:
     - cp -rf build/html/* ghpages
     - cp -rf ../html ghpages
     - cd ghpages
-    - grep -r 'UA-36650734' .
     - grep -rl 'UA-36650734' . | xargs sed -i 's/UA-36650734-[[:digit:]]/UA-36650734-4/g'
-    - grep -r 'UA-36650734' .
     - touch .nojekyll
     - git add .
     - git diff-index --quiet HEAD || git commit -m 'Mirror docs' .
