@@ -58,6 +58,10 @@ worked on the top)
     * :code:`SLY`
     * :code:`Matplotlib`
     * :code:`Pandas`
+    * :code:`NumPy`
+    * :code:`Flask`
+    * :code:`Plotly`
+    * :code:`Dash`
 
   .. tab:: Tools & Software
 
