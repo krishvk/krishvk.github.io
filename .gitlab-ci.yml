@@ -9,20 +9,20 @@ before_script:
     - git config --global user.name Krishna
     - make -C docs html
 
-ghpages:
-  stage: deploy
-  script:
-    - cd docs
-    - git clone --depth 1 $GH/krishvk.github.io.git ghpages
-    - rm -rf ghpages/*
-    - cp -rf build/html/* ghpages
-    - cp -rf ../html ghpages
-    - cd ghpages
-    - grep -rl 'UA-36650734' . | xargs sed -i 's/UA-36650734-[[:digit:]]/UA-36650734-4/g'
-    - touch .nojekyll
-    - git add .
-    - git diff-index --quiet HEAD || git commit -m 'Mirror docs' .
-    - git push $GH/krishvk.github.io.git
+# ghpages:
+#   stage: deploy
+#   script:
+#     - cd docs
+#     - git clone --depth 1 $GH/krishvk.github.io.git ghpages
+#     - rm -rf ghpages/*
+#     - cp -rf build/html/* ghpages
+#     - cp -rf ../html ghpages
+#     - cd ghpages
+#     - grep -rl 'UA-36650734' . | xargs sed -i 's/UA-36650734-[[:digit:]]/UA-36650734-4/g'
+#     - touch .nojekyll
+#     - git add .
+#     - git diff-index --quiet HEAD || git commit -m 'Mirror docs' .
+#     - git push $GH/krishvk.github.io.git
 
 pages:
   stage: deploy
