@@ -2,7 +2,8 @@ Personal Profile
 ++++++++++++++++
 
 A software enthusiast and programmer, with 11+ years of relevant experience. My primary area of work
-is Random Program Generators for processor verification. More areas I have worked on are as follows
+is **Random Program Generators** for processor verification. More areas I have worked on are as
+follows
 
 
 Skillset
@@ -23,7 +24,7 @@ Education
 ---------
 
 Being a self and continuous learner, I enjoy acquiring new knowledge all the time. Below are the
-**structured education** I have perceived apart from the above skills I have acquired through on the
+**structured courses** I have perceived apart from the above skills I have acquired through on the
 fly learning.
 
 .. csv-table::
