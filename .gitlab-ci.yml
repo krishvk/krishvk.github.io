@@ -8,6 +8,8 @@ before_script:
     - git config --global user.email "krishna.vijay4444@gmail.com"
     - git config --global user.name Krishna
     - make -C docs html
+    - sed -i 's#</head>#<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0345144302905101" crossorigin="anonymous"></script></head>#g' docs/build/html/*.html
+
 
 # ghpages:
 #   stage: deploy
