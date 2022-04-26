@@ -50,10 +50,10 @@ Publications
 #. `Kasula, Vijaya Krishna; Tadiboina, Gopi Krishna. (2016)` **Test Generation for Processors with Extended Address Capability** Synopsys India Technical Conference (SITC). Bangalore.
 
 
-Open Source Contributions
--------------------------
+OSS
+---
 
-Developed an open source library in Python `txtoflow <https://pypi.org/project/txtoflow/>`__ which
+Developed an opensource library in Python `txtoflow <https://pypi.org/project/txtoflow/>`__ which
 can **generate flow chart from pseudo-code** written in C-like languages.
 
 
