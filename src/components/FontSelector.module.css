@@ -1,0 +1,186 @@
+.fontSelector {
+  position: fixed;
+  bottom: 20px;
+  right: 180px;
+  z-index: 1000;
+}
+
+.fontSelectorButton {
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.fontSelectorButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.fontButtonText {
+  display: inline;
+}
+
+@media (max-width: 600px) {
+  .fontButtonText {
+    display: none;
+  }
+
+  .fontSelectorButton {
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 20px;
+  }
+
+  .fontSelector {
+    right: 80px;
+  }
+}
+
+.fontDropdown {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  background: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  width: 320px;
+  max-height: 500px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Ensure solid background in light mode */
+[data-theme='light'] .fontDropdown {
+  background: #ffffff;
+}
+
+/* Ensure solid background in dark mode */
+[data-theme='dark'] .fontDropdown {
+  background: #1b1b1d;
+  border-color: #2e2e32;
+}
+
+@media (max-width: 600px) {
+  .fontDropdown {
+    width: 280px;
+    right: -20px;
+  }
+}
+
+.fontDropdownHeader {
+  padding: 16px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* Ensure opaque header backgrounds */
+[data-theme='light'] .fontDropdownHeader {
+  background: #f8f9fa;
+}
+
+[data-theme='dark'] .fontDropdownHeader {
+  background: #242427;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--ifm-color-emphasis-700);
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.closeButton:hover {
+  background: var(--ifm-color-emphasis-200);
+}
+
+.fontList {
+  overflow-y: auto;
+  max-height: 360px;
+}
+
+.fontOption {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.2s;
+  text-align: left;
+}
+
+.fontOption:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.fontOption.active {
+  background: var(--ifm-color-emphasis-200);
+}
+
+.fontInfo {
+  flex: 1;
+}
+
+.fontName {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ifm-color-emphasis-900);
+  margin-bottom: 2px;
+}
+
+.fontDesc {
+  font-size: 12px;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.checkmark {
+  color: var(--ifm-color-primary);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.fontFooter {
+  padding: 12px 16px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 12px;
+  color: var(--ifm-color-emphasis-600);
+  text-align: center;
+  background: var(--ifm-color-emphasis-50);
+}
+
+/* Ensure opaque footer backgrounds */
+[data-theme='light'] .fontFooter {
+  background: #f8f9fa;
+}
+
+[data-theme='dark'] .fontFooter {
+  background: #1b1b1d;
+}

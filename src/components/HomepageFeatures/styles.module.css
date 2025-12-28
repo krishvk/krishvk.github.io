@@ -1,0 +1,28 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.aboutContent {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.aboutContent p {
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-content);
+}
+
+.aboutContent p:last-child {
+  margin-bottom: 0;
+}
+
+.aboutContent strong {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}

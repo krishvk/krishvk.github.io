@@ -1,0 +1,317 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Material Icons */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Footer icon styling */
+.footer__link-item .material-icons {
+  font-size: 18px;
+  vertical-align: middle;
+  margin-right: 6px;
+  opacity: 0.8;
+}
+
+.footer__link-item:hover .material-icons {
+  opacity: 1;
+}
+
+:root {
+  /* Font stacks - dynamically set by FontSelector, defaults to Inter */
+  --font-heading: var(--font-heading, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  --font-body: var(--font-body, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  --font-code: var(--font-code, 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace);
+
+  /* Legacy font variable for compatibility */
+  --site-font: var(--font-body);
+
+  /* ===== TRI-COLOR THEME: Tech Gradient (Blue + Teal + Purple) ===== */
+  /* Modern, vibrant, professional - perfect for tech/engineering */
+
+  /* Primary: Deep Blue */
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(37, 99, 235, 0.1);
+
+  /* Hero - Blue to Teal to Purple gradient */
+  --hero-bg: linear-gradient(135deg, #dbeafe 0%, #ccfbf1 40%, #e9d5ff 100%);
+  --hero-text-color: #1e3a8a;
+  --hero-ring: rgba(37, 99, 235, 0.2);
+
+  /* Tri-color palette */
+  --color-blue: #2563eb;
+  --color-teal: #14b8a6;
+  --color-purple: #7c3aed;
+
+  /* Accent usage */
+  --accent-teal: #14b8a6;
+  --accent-purple: #7c3aed;
+}
+
+/* Dark mode - uses dynamically set variables or defaults */
+[data-theme='dark'] {
+  /* Use JS-set dark theme variables if available, otherwise fallback to defaults */
+  --ifm-color-primary: var(--dark-primary, #60a5fa);
+  --ifm-color-primary-dark: #3b82f6;
+  --ifm-color-primary-darker: #2563eb;
+  --ifm-color-primary-darkest: #1d4ed8;
+  --ifm-color-primary-light: #93c5fd;
+  --ifm-color-primary-lighter: #bfdbfe;
+  --ifm-color-primary-lightest: #dbeafe;
+  --docusaurus-highlighted-code-line-bg: rgba(96, 165, 250, 0.15);
+
+  /* Dark mode hero - uses JS-set values or defaults */
+  --hero-bg: var(--dark-hero-bg, linear-gradient(135deg, #0f172a 0%, #0c4a6e 40%, #312e81 100%));
+  --hero-text-color: var(--dark-hero-text, #f1f5f9);
+  --hero-ring: rgba(96, 165, 250, 0.25);
+
+  /* Dark mode tri-color palette - inherits from light mode or uses defaults */
+  --color-blue: var(--dark-primary, #60a5fa);
+  --color-teal: var(--accent-teal, #2dd4bf);
+  --color-purple: var(--accent-purple, #a78bfa);
+}
+
+/* Hero tweaks */
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--hero-bg);
+  color: var(--hero-text-color);
+  font-family: var(--site-font);
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+/* Font application - Different fonts for different parts */
+body {
+  font-family: var(--font-body);
+}
+
+/* Headings use heading font */
+h1, h2, h3, h4, h5, h6,
+.hero__title,
+.navbar__title,
+.navbar__brand {
+  font-family: var(--font-heading);
+}
+
+/* Code and monospace use code font */
+code,
+pre,
+.code-block {
+  font-family: var(--font-code);
+}
+
+/* Hero Profile Image - Circular */
+.heroProfile {
+  width: 160px;
+  height: 160px;
+  max-width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.2),
+              0 0 0 4px rgba(20, 184, 166, 0.15),
+              0 0 0 8px rgba(124, 58, 237, 0.1);
+  margin: 0 auto 1rem auto;
+  image-rendering: auto;
+  transition: transform 0.3s ease;
+}
+
+.heroProfile:hover {
+  transform: scale(1.05);
+}
+
+@media screen and (max-width: 600px) {
+  .heroProfile {
+    width: 112px;
+    height: 112px;
+  }
+}
+
+/* Positions Held and Education page styling - Minimal table layout */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 0.5rem 0 2rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.positions-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0;
+  table-layout: fixed;
+  min-width: 800px;
+}
+
+.table-wrapper .positions-table {
+  margin: 0;
+}
+
+.position-row {
+  border: none;
+}
+
+.position-row:hover {
+  background-color: var(--ifm-color-emphasis-50);
+}
+
+.position-role-cell {
+  padding: 0.4rem 0.75rem 0.4rem 0;
+  vertical-align: middle;
+  border: none;
+  width: 28%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Positions Held page - ensure all tables have same width and column alignment */
+/* Tables with only 3 columns (role, period, note) */
+.positions-table.positions-held-table {
+  width: 800px;
+  min-width: 800px;
+}
+
+.positions-table.positions-held-table .position-role-cell {
+  width: 400px;
+}
+
+.positions-table.positions-held-table .position-period-cell {
+  width: 200px;
+}
+
+.positions-table.positions-held-table .position-note-cell {
+  width: 200px;
+}
+
+.position-degree-type-cell {
+  padding: 0.4rem 0.75rem;
+  vertical-align: middle;
+  border: none;
+  width: 8%;
+  white-space: nowrap;
+  color: var(--ifm-color-gray-700);
+  font-size: 0.9em;
+}
+
+.position-institution-cell {
+  padding: 0.4rem 0.75rem;
+  vertical-align: middle;
+  border: none;
+  width: 32%;
+  color: var(--ifm-color-gray-700);
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.position-provider-cell {
+  padding: 0.4rem 0.75rem;
+  vertical-align: middle;
+  border: none;
+  width: 22%;
+  color: var(--ifm-color-gray-700);
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.position-period-cell {
+  padding: 0.4rem 0.75rem;
+  vertical-align: middle;
+  text-align: right;
+  white-space: nowrap;
+  border: none;
+  width: 15%;
+}
+
+.position-note-cell {
+  padding: 0.4rem 0 0.4rem 0.75rem;
+  vertical-align: middle;
+  border: none;
+  width: 15%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.company-period {
+  font-weight: 400;
+  color: var(--ifm-color-gray-600);
+  font-size: 0.85em;
+  margin-left: 0.5rem;
+}
+
+.position-dept {
+  font-weight: 400;
+  color: var(--ifm-color-gray-600);
+  font-size: 0.9em;
+}
+
+.position-note {
+  font-weight: 400;
+  color: var(--ifm-color-gray-500);
+  font-size: 0.85em;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.position-role-cell a {
+  color: var(--ifm-heading-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.position-role-cell a:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: underline;
+}
+
+.position-institution-cell a {
+  color: var(--ifm-color-gray-700);
+  text-decoration: none;
+}
+
+.position-institution-cell a:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: underline;
+}

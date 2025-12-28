@@ -1,0 +1,29 @@
+# Cursor Rules for krishvk.gitlab.io
+
+## Page Titles
+
+- **Always use short, concise titles for all pages that will appear in the left sidebar**
+- Page titles should fit on a single line in the sidebar without wrapping
+- Aim for titles that are 50 characters or less
+- Use abbreviations when appropriate (e.g., "RPGs" instead of "Random Program Generators")
+- Prioritize clarity and brevity over full descriptive names
+- If a longer description is needed, use the page content or frontmatter description field
+
+## Examples of Good Titles:
+- "Positions Held" ✓
+- "RPGs" ✓
+- "Formal Education" ✓
+- "C-Forge" ✓
+- "Co-Simulation" ✓
+
+## Examples of Titles to Avoid:
+- "Random Program Generators (RPGs) for Processor Verification" ✗
+- "AI-ML Log Analyzer for Verification Failure Triaging" ✗
+- "Co-Simulation Environment for Processor-Level Verification" ✗
+
+## Markdown Frontmatter
+
+When creating new pages, ensure the `#` heading (H1) matches the sidebar title requirement:
+- Keep H1 headings short and single-line
+- Use H2 and H3 for detailed section headings within the page
+- The H1 title will appear in the sidebar, so it must be concise

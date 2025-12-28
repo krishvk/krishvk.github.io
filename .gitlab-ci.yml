@@ -1,39 +1,44 @@
+image: node:20
+
 variables:
   GIT_DEPTH: 1
+  NODE_VERSION: "20"
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - deploy
 
 before_script:
-    - apt-get update -qq && apt-get install -yqq python3-pip python3-dev
-    - pip3 install -U sphinx
-    - pip3 install -U sphinx_rtd_theme sphinx-tabs
-    - git config --global user.email "krishna.vijay4444@gmail.com"
-    - git config --global user.name Krishna
-    - make -C docs html
-    - sed -i 's#</head>#<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0345144302905101" crossorigin="anonymous"></script></head>#g' docs/build/html/*.html
+  - node --version
+  - npm --version
+  - npm ci
 
-
-# ghpages:
-#   stage: deploy
-#   script:
-#     - cd docs
-#     - git clone --depth 1 $GH/krishvk.github.io.git ghpages
-#     - rm -rf ghpages/*
-#     - cp -rf build/html/* ghpages
-#     - cp -rf ../html ghpages
-#     - cd ghpages
-#     - grep -rl 'UA-36650734' . | xargs sed -i 's/UA-36650734-[[:digit:]]/UA-36650734-4/g'
-#     - touch .nojekyll
-#     - git add .
-#     - git diff-index --quiet HEAD || git commit -m 'Mirror docs' .
-#     - git push $GH/krishvk.github.io.git
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 hour
+  only:
+    - main
+    - master
 
 pages:
   stage: deploy
+  dependencies:
+    - build
   script:
-    - cd docs
-    - cp -rf build/html ../public
-    - cp -rf ../html ../public/dhtml
+    - mkdir -p public
+    - cp -r build/* public/
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - main
+    - master
