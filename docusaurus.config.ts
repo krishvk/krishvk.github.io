@@ -4,6 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 const isDevelopment = process.env.NODE_ENV === 'development';
+const isGitHubPages = process.env.GITHUB_PAGES === 'true';
 
 const config: Config = {
   title: 'Krishna',
@@ -80,7 +81,7 @@ const config: Config = {
           customCss: './src/css/custom.css',
         },
         gtag: {
-          trackingID: 'G-3F7D7EHLZ2',
+          trackingID: isGitHubPages ? 'G-Y7GTJ06HHF' : 'G-3F7D7EHLZ2',
           anonymizeIP: true,
         },
       } satisfies Preset.Options,
