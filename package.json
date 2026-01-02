@@ -5,8 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build && npm run generate-resume-from-build",
-    "generate-resume-from-build": "node resume/generate-resume-in-build.js",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -16,7 +15,9 @@
     "typecheck": "tsc",
     "generate-resume-html": "node resume/generate-html-from-react.js",
     "generate-resume-pdf": "node resume/generate-pdf-from-html.js",
-    "generate-resume": "npm run generate-resume-html && npm run generate-resume-pdf"
+    "generate-resume": "npm run generate-resume-html && npm run generate-resume-pdf",
+    "generate-resume-local": "node scripts/generate-resume-local.js",
+    "postinstall": "./scripts/setup-git-hooks.sh"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
