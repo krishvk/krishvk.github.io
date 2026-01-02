@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Complete Team Git Migration
+# Git Migration
 
 *[To be filled]*
 
