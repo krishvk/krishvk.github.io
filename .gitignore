@@ -8,6 +8,9 @@
 .docusaurus
 .cache-loader
 
+# Auto-generated resume template
+resume/resume-template.html
+
 # Misc
 .DS_Store
 .env.local

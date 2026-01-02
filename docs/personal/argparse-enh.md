@@ -6,8 +6,6 @@ tags:
 
 # argparse-enh
 
-## Overview
-
 Developed argparse-enh, an enhanced version of Python's built-in argparse module that extends command-line argument parsing capabilities beyond traditional CLI usage. This library provides three powerful modes: API integration, shell script support, and automatic GUI generation.
 
 ## Key Features
@@ -43,6 +41,6 @@ Developed argparse-enh, an enhanced version of Python's built-in argparse module
 
 ---
 
-*Repository: [GitHub](https://github.com/krishvk) / [GitLab](https://gitlab.com/krishvk)*
+*Repository: [GitLab](https://gitlab.com/argparse-enh/argparse-enh)*
 *Package: [PyPI - argparse-enh](https://pypi.org/project/argparse-enh/)*
 *Status: Active Open-Source Project*

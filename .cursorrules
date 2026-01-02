@@ -10,7 +10,6 @@
 - If a longer description is needed, use the page content or frontmatter description field
 
 ## Examples of Good Titles:
-- "Positions Held" ✓
 - "RPGs" ✓
 - "Formal Education" ✓
 - "C-Forge" ✓
@@ -27,3 +26,10 @@ When creating new pages, ensure the `#` heading (H1) matches the sidebar title r
 - Keep H1 headings short and single-line
 - Use H2 and H3 for detailed section headings within the page
 - The H1 title will appear in the sidebar, so it must be concise
+
+## Line Length
+
+- **Limit all code and markup files to 100 characters per line**
+- This applies to: `.ts`, `.tsx`, `.js`, `.jsx`, `.css`, `.md`, `.html`, `.json`, `.yml`, `.yaml`, and other code/markup files
+- Break long lines appropriately to maintain readability
+- Use proper indentation when wrapping lines

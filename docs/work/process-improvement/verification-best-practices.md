@@ -4,8 +4,6 @@ sidebar_position: 4
 
 # Verification Best Practices
 
-## Overview
-
 Leading the Verification Best Practices team responsible for monitoring and solving critical issues in verification to improve overall verification efficiency. Focused on standardizing methodologies and bringing up centralized monitoring solutions.
 
 ## Key Responsibilities

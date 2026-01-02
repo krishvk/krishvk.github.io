@@ -1,12 +1,18 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
+tags:
+  - co-simulation
+  - verification
+  - systemverilog
+  - processor level verification
 ---
 
 # Co-Simulation
 
-## Overview
-
-Designed and implemented a robust co-simulation environment that enables Processor-Level Verification by seamlessly integrating testbenches with golden reference models. This environment became a critical component of the verification infrastructure for Synopsys ARC processors.
+Prototyped the experimental co-simulation flow to automate the verification of processor level
+simulations. Worked with the team managing Golden model and implemented and maintained reusable
+interface that can be used in multiple verification components. This environment which was later managed by a dedicated team became a critical
+component of the verification infrastructure for Synopsys ARC processors.
 
 ## Key Features
 
@@ -33,5 +39,5 @@ Designed and implemented a robust co-simulation environment that enables Process
 
 ---
 
-*Duration: Dec 2012 — Mar 2014*
+*Duration: Dec 2012 — Mar 2013*<br/>
 *Role: Lead Developer*

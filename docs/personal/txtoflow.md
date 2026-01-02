@@ -6,8 +6,6 @@ tags:
 
 # txtoflow
 
-## Overview
-
 Developed txtoflow, an open-source Python library that automatically generates flowcharts from pseudo-code written in C-like languages. This tool simplifies documentation and visualization of algorithms and program logic.
 
 ## Key Features

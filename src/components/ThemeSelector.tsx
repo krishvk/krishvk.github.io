@@ -245,6 +245,107 @@ const themes = {
       heroText: '#E8EAED',
     }
   },
+  // New CSS-based palettes using data-theme-palette attribute
+  'palette-microsoft': {
+    name: 'Microsoft Azure',
+    description: 'Corporate Blue + Orange',
+    palette: 'microsoft',
+    colors: {
+      primary: '#0078d4',
+      accentTeal: '#00bcf2',
+      accentPurple: '#ff8c00',
+    },
+  },
+  'palette-ibm': {
+    name: 'IBM Corporate',
+    description: 'Deep Blue + Gray',
+    palette: 'ibm',
+    colors: {
+      primary: '#0f62fe',
+      accentTeal: '#0072c3',
+      accentPurple: '#8a3ffc',
+    },
+  },
+  'palette-salesforce': {
+    name: 'Salesforce',
+    description: 'Blue + Teal',
+    palette: 'salesforce',
+    colors: {
+      primary: '#0176d3',
+      accentTeal: '#00a1e0',
+      accentPurple: '#4bca81',
+    },
+  },
+  'palette-adobe': {
+    name: 'Adobe',
+    description: 'Red + Purple',
+    palette: 'adobe',
+    colors: {
+      primary: '#ff0000',
+      accentTeal: '#9d4edd',
+      accentPurple: '#ff6b35',
+    },
+  },
+  'palette-amazon': {
+    name: 'Amazon',
+    description: 'Orange + Blue',
+    palette: 'amazon',
+    colors: {
+      primary: '#ff9900',
+      accentTeal: '#146eb4',
+      accentPurple: '#ffd700',
+    },
+  },
+  'palette-meta': {
+    name: 'Meta/Facebook',
+    description: 'Blue + Purple',
+    palette: 'meta',
+    colors: {
+      primary: '#1877f2',
+      accentTeal: '#8b5cf6',
+      accentPurple: '#00d4aa',
+    },
+  },
+  'palette-google': {
+    name: 'Google',
+    description: 'Blue + Red + Green',
+    palette: 'google',
+    colors: {
+      primary: '#4285f4',
+      accentTeal: '#ea4335',
+      accentPurple: '#34a853',
+    },
+  },
+  'palette-apple': {
+    name: 'Apple',
+    description: 'Minimal Blue + Gray',
+    palette: 'apple',
+    colors: {
+      primary: '#007aff',
+      accentTeal: '#86868b',
+      accentPurple: '#30d158',
+    },
+  },
+  'palette-oracle': {
+    name: 'Oracle',
+    description: 'Red + Gray',
+    palette: 'oracle',
+    colors: {
+      primary: '#f80000',
+      accentTeal: '#6c757d',
+      accentPurple: '#0066cc',
+    },
+  },
+  'palette-github': {
+    name: 'GitHub',
+    description: 'Purple + Blue',
+    palette: 'github',
+    colors: {
+      primary: '#6f42c1',
+      accentTeal: '#0366d6',
+      accentPurple: '#28a745',
+    },
+  },
 };
 
 export default function ThemeSelector(): React.ReactElement {
@@ -257,26 +358,57 @@ export default function ThemeSelector(): React.ReactElement {
 
     const root = document.documentElement;
 
-    // Apply light mode colors
-    root.style.setProperty('--ifm-color-primary', theme.colors.primary);
-    root.style.setProperty('--ifm-color-primary-dark', theme.colors.primaryDark);
-    root.style.setProperty('--ifm-color-primary-darker', theme.colors.primaryDarker);
-    root.style.setProperty('--ifm-color-primary-darkest', theme.colors.primaryDarkest);
-    root.style.setProperty('--ifm-color-primary-light', theme.colors.primaryLight);
-    root.style.setProperty('--ifm-color-primary-lighter', theme.colors.primaryLighter);
-    root.style.setProperty('--ifm-color-primary-lightest', theme.colors.primaryLightest);
-    root.style.setProperty('--hero-bg', theme.colors.heroGradient);
-    root.style.setProperty('--hero-text-color', theme.colors.heroText);
-    root.style.setProperty('--accent-teal', theme.colors.accentTeal);
-    root.style.setProperty('--accent-purple', theme.colors.accentPurple);
-    root.style.setProperty('--color-blue', theme.colors.primary);
-    root.style.setProperty('--color-teal', theme.colors.accentTeal);
-    root.style.setProperty('--color-purple', theme.colors.accentPurple);
+    // Check if this is a palette-based theme (new CSS palettes)
+    if (theme.palette) {
+      // Remove any existing palette attribute
+      root.removeAttribute('data-theme-palette');
+      // Set the new palette attribute
+      root.setAttribute('data-theme-palette', theme.palette);
 
-    // Apply dark mode colors
-    root.style.setProperty('--dark-primary', theme.darkColors.primary);
-    root.style.setProperty('--dark-hero-bg', theme.darkColors.heroGradient);
-    root.style.setProperty('--dark-hero-text', theme.darkColors.heroText);
+      // Clear any CSS variables that might conflict
+      root.style.removeProperty('--ifm-color-primary');
+      root.style.removeProperty('--ifm-color-primary-dark');
+      root.style.removeProperty('--ifm-color-primary-darker');
+      root.style.removeProperty('--ifm-color-primary-darkest');
+      root.style.removeProperty('--ifm-color-primary-light');
+      root.style.removeProperty('--ifm-color-primary-lighter');
+      root.style.removeProperty('--ifm-color-primary-lightest');
+      root.style.removeProperty('--hero-bg');
+      root.style.removeProperty('--hero-text-color');
+      root.style.removeProperty('--accent-teal');
+      root.style.removeProperty('--accent-purple');
+      root.style.removeProperty('--color-blue');
+      root.style.removeProperty('--color-teal');
+      root.style.removeProperty('--color-purple');
+      root.style.removeProperty('--dark-primary');
+      root.style.removeProperty('--dark-hero-bg');
+      root.style.removeProperty('--dark-hero-text');
+    } else {
+      // Legacy theme using CSS variables
+      // Remove any palette attribute
+      root.removeAttribute('data-theme-palette');
+
+      // Apply light mode colors
+      root.style.setProperty('--ifm-color-primary', theme.colors.primary);
+      root.style.setProperty('--ifm-color-primary-dark', theme.colors.primaryDark);
+      root.style.setProperty('--ifm-color-primary-darker', theme.colors.primaryDarker);
+      root.style.setProperty('--ifm-color-primary-darkest', theme.colors.primaryDarkest);
+      root.style.setProperty('--ifm-color-primary-light', theme.colors.primaryLight);
+      root.style.setProperty('--ifm-color-primary-lighter', theme.colors.primaryLighter);
+      root.style.setProperty('--ifm-color-primary-lightest', theme.colors.primaryLightest);
+      root.style.setProperty('--hero-bg', theme.colors.heroGradient);
+      root.style.setProperty('--hero-text-color', theme.colors.heroText);
+      root.style.setProperty('--accent-teal', theme.colors.accentTeal);
+      root.style.setProperty('--accent-purple', theme.colors.accentPurple);
+      root.style.setProperty('--color-blue', theme.colors.primary);
+      root.style.setProperty('--color-teal', theme.colors.accentTeal);
+      root.style.setProperty('--color-purple', theme.colors.accentPurple);
+
+      // Apply dark mode colors
+      root.style.setProperty('--dark-primary', theme.darkColors.primary);
+      root.style.setProperty('--dark-hero-bg', theme.darkColors.heroGradient);
+      root.style.setProperty('--dark-hero-text', theme.darkColors.heroText);
+    }
 
     // Save to localStorage
     localStorage.setItem('siteTheme', themeKey);
@@ -290,7 +422,8 @@ export default function ThemeSelector(): React.ReactElement {
       setCurrentTheme(savedTheme);
       applyTheme(savedTheme);
     } else {
-      // Apply default theme
+      // Clear any existing palette attribute and apply default theme
+      document.documentElement.removeAttribute('data-theme-palette');
       applyTheme('tri-tech');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -333,8 +466,8 @@ export default function ThemeSelector(): React.ReactElement {
               >
                 <div className={styles.themeColorPreview}>
                   <span style={{ background: theme.colors.primary }}></span>
-                  <span style={{ background: theme.colors.accentTeal }}></span>
-                  <span style={{ background: theme.colors.accentPurple }}></span>
+                  <span style={{ background: theme.colors.accentTeal || theme.colors.primary }}></span>
+                  <span style={{ background: theme.colors.accentPurple || theme.colors.primary }}></span>
                 </div>
                 <div className={styles.themeInfo}>
                   <div className={styles.themeName}>{theme.name}</div>
