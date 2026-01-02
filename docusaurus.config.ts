@@ -103,6 +103,7 @@ const config: Config = {
       {
         docs: false, // Disable default docs since we're using separate plugins
         blog: false,
+        sitemap: false, // Disable default sitemap since we're configuring it explicitly
         theme: {
           customCss: './src/css/custom.css',
         },
