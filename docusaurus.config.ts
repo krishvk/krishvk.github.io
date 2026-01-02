@@ -79,22 +79,6 @@ const config: Config = {
         showLastUpdateTime: false,
       },
     ],
-    [
-      '@docusaurus/plugin-sitemap',
-      {
-        changefreq: 'weekly',
-        priority: 0.5,
-      },
-    ],
-    [
-      '@docusaurus/plugin-ideal-image',
-      {
-        quality: 70,
-        max: 1030,
-        min: 640,
-        steps: 2,
-      },
-    ],
   ],
 
   presets: [
@@ -103,7 +87,6 @@ const config: Config = {
       {
         docs: false, // Disable default docs since we're using separate plugins
         blog: false,
-        sitemap: false, // Disable default sitemap since we're configuring it explicitly
         theme: {
           customCss: './src/css/custom.css',
         },

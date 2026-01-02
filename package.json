@@ -16,14 +16,10 @@
     "generate-resume-html": "node resume/generate-html-from-react.js",
     "generate-resume-pdf": "node resume/generate-pdf-from-html.js",
     "generate-resume": "npm run generate-resume-html && npm run generate-resume-pdf",
-    "generate-resume-local": "node scripts/generate-resume-local.js",
-    "postinstall": "./scripts/setup-git-hooks.sh"
+    "generate-resume-local": "node scripts/generate-resume-local.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
-    "@docusaurus/plugin-google-gtag": "^3.9.2",
-    "@docusaurus/plugin-ideal-image": "^3.9.2",
-    "@docusaurus/plugin-sitemap": "^3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
@@ -32,7 +28,6 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "puppeteer": "^23.11.1",

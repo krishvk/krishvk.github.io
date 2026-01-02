@@ -9,10 +9,17 @@ resume-related files are being committed. This ensures the PDF is always
 up-to-date and included in the same commit, avoiding the need for Puppeteer
 in CI/CD.
 
-**Setup:**
+**Manual Setup (required for local development):**
+
+After cloning the repository, run this command once to set up the git hooks:
+
 ```bash
 ./scripts/setup-git-hooks.sh
 ```
+
+**Note:** This is a manual step and should only be run in your local
+development environment. It is not needed (and will not run) in CI/CD
+pipelines.
 
 **What it does:**
 - Runs before each `git commit`
