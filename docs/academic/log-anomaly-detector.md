@@ -1,49 +1,62 @@
 ---
 sidebar_position: 1
+tags:
+  - python
+  - scikit-learn
+  - nltk
+  - scikit-learn
+  - anomaly-detection
+  - clustering
+  - streamlit
+  - plotly-dash
+  - parquet
+  - json
+  - kd-tree
+  - hashing-vectorizer
 ---
 
 # Log Anomaly Detector
 
-Developed an intelligent log analyzer tool as part of my Master's thesis in Data Science & Engineering that automates the triaging of verification failure logs. This machine learning system with NLP capabilities automates the analysis of log files in automated regression testing environments by suppressing common patterns that persist across logfiles while emphasizing unique patterns that indicate failures, significantly reducing the time domain experts spend analyzing log files.
+The idea was born when triaging different failures from regressions, especially when a bug was
+introduced in a sanity suit. Instead of spending engineer's time in manually analyzing the log
+files, the tool automates this process by approximately comparing the log files with a reference log
+files. A lot of persistant warning or error messages that can be misleading to (especially fresher)
+engineers can be handled diligently by the tool as it compares the log files with a reference log
+files, which likely have similar messages.
 
-The solution addresses the challenge of identifying failure root causes buried in millions of log lines produced by automated testing processes. Unlike traditional approaches that require enumerating all possible failure messages, this system uses unsupervised learning to dynamically detect new anomalies without requiring retraining for each new tool release or enhancement.
+## Idea
 
-## Key Features
-
-- **Anomaly Detection**: Automatically identifies log lines that are present in failing logs but absent from reference (passing) logs
-- **Anomaly Classification**: Clusters detected anomalies to group logfiles failing due to the same root cause
-- **Dynamic Learning**: Unsupervised approach that adapts to new failure patterns without manual retraining
-- **Web Interface**: HTML-based regression analysis tool with user feedback collection
-- **Scalable Processing**: Handles millions of log lines efficiently using optimized preprocessing and data structures
-- **Pattern Recognition**: Intelligent triaging to reduce debugging time in verification failures
-- **Integration**: Works with existing verification infrastructure
+If a message is present in a passing and failing log, its most likely not contributing
+to the failure. But a message that is present in a failing log but not in a passing log, is likely
+contributing to the failure. Such a unique pattern is called as anomaly.
 
 ## Technical Approach
 
-The system uses a multi-stage pipeline:
+A simple diff won't work due to noise (timestamps, file paths), unordered lines, parallel jobs, and
+template messages with variable parts. The system uses a multi-stage ML pipeline to handle this
+complexity.
 
-1. **Preprocessing**: Reference (passing) and test (failing) logfiles undergo noise filtering, lemmatization, stop word removal, and tokenization
-2. **Vectorization**: Hashing Vectorizer with N-gram models (Unigram to Trigram) converts log lines into feature vectors, capturing context while handling template messages with variable parts
-3. **Anomaly Detection**: Nearest Neighbor classifier with "kd_tree" algorithm assigns distance scores to failing log lines relative to reference log lines. Low scores indicate similarity to reference patterns, while high scores indicate anomalies
-4. **Classification**: Agglomerative Clustering groups similar anomalies together, enabling automatic regression summaries that highlight different failure types
+### Pipeline Architecture
 
-The system was evaluated on 10 datasets with approximately 400 million reference log lines and 70 failing log lines per dataset, testing 36 different model combinations to identify the optimal approach. Built using scikit-learn and Python, with optimized data structures for handling large-scale log processing.
+- **Preprocessing**: Noise filtering, lemmatization (NLTK WordNet), stop word removal, duplicate
+  elimination, custom rules for timestamps/pathnames
+- **Vectorization**: Hashing Vectorizer with Trigram N-grams (Unigram→0.92 score, Trigram→1.0
+  score)
+- **Anomaly Detection**: Nearest Neighbor (KD-Tree) with Euclidean distance.
+- **Classification**: Agglomerative Clustering (no cluster count required) groups similar anomalies
+- **HTML Interface**: Interactive regression analysis with embedded feedback collection to grade the
+  algorithm.
 
-## Impact
+## Status
 
-- **Time Savings**: Dramatically reduced time spent by domain experts in manual log file analysis
-- **Cost Reduction**: Significant cost savings through automation of regression analysis
-- **Scalability**: Addresses the bottleneck of human-limited analysis in exponentially growing log file volumes
-- **Accuracy**: Successfully detects and classifies anomalies across diverse failure patterns
-- **Maintainability**: Dynamic system that adapts to new failure messages without requiring constant retraining
-- **Efficiency**: Significantly reduced verification cycles spent on log analysis, enabling faster failure resolution
-- **Practical Application**: Demonstrated successful application of AI-ML in hardware verification and automated repetitive debugging tasks
+Deployed for a while in production at Synopsys, however it is now not being maintained after it
+encountered scalability issues due to the large number of log files overwhelming the server. With
+the advent of Large Language Models (LLMs), it is possible to build a similar tool with less effort
+and more accuracy. Exploring this as a next version.
 
 ---
 
-*Duration: Nov 2021 — Feb 2022 (Final Semester)*
-*Role: Developer (Master's Thesis Project)*
-*Institution: BITS Pilani*
-*Degree: M.Tech in Data Science & Engineering*
-*Supervisor: Praveen Reddy Pullagurla, Mgr II, ASIC Digital Design, Synopsys India Pvt. Ltd.*
-*Status: Deployed and actively used in Synopsys verification infrastructure*
+*Duration: Nov 2021 — Feb 2022 (Final Semester)*<br/>
+*Role: Developer (Master's Thesis Project)*<br/>
+*Institution: BITS Pilani*<br/>
+*Degree: M.Tech in Data Science & Engineering*<br/>

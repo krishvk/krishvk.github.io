@@ -8,11 +8,12 @@ tags:
 
 # argparse-enh
 
-Developed [argparse-enh](https://pypi.org/project/argparse-enh/), an enhanced version of Python's built-in argparse module that extends
-command-line argument parsing capabilities beyond traditional CLI usage. This library provides three
-powerful modes: API integration, shell script support, and automatic GUI generation.
+Developed [argparse-enh](https://pypi.org/project/argparse-enh/), an enhanced version of Python's
+built-in argparse module that extends command-line argument parsing capabilities beyond traditional
+CLI usage. This library provides three powerful modes: API integration, shell script support, and
+automatic GUI generation.
 
-## Key Features
+## Features
 
 ### Argparse-API
 
@@ -24,7 +25,8 @@ integration of independent scripts into larger workflows.
 
 ### Argparse-Shell
 
-Provides full power of Python's argparse module in shell scripts, with very minimal changes to the existing shell script.
+Provides full power of Python's argparse module in shell scripts, with very minimal changes to the
+existing shell script.
 
 ## Use Cases
 
