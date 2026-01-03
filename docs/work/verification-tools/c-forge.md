@@ -7,9 +7,9 @@ tags:
   - coverage
   - cov2gen
   - verification
-  - configuration space
-  - random forest
-  - decision tree
+  - configuration-space
+  - random-forest
+  - decision-tree
   - scikit-learn
   - pandas
   - streamlit

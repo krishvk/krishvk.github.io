@@ -1,8 +1,8 @@
 ---
-sidebar_position: 0
+sidebar_position: 3
 ---
 
-# Points in VBPT
+# Verification Tracks
 
 *[To be filled]*
 
