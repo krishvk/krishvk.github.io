@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 tags:
-  - python
+  - Python
   - compilers
   - flex
   - bison

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 tags:
-  - python
+  - Python
   - scikit-learn
   - nltk
   - scikit-learn

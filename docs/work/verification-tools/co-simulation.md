@@ -3,8 +3,8 @@ sidebar_position: 1
 tags:
   - co-simulation
   - verification
-  - systemverilog
-  - processor level verification
+  - SystemVerilog
+  - PLV
 ---
 
 # Co-Simulation

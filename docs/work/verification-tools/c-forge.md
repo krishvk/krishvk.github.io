@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 tags:
-  - python
+  - Python
   - vcs
   - ICO
   - coverage
@@ -13,7 +13,7 @@ tags:
   - scikit-learn
   - pandas
   - streamlit
-  - systemverilog
+  - SystemVerilog
 ---
 
 # C-Forge

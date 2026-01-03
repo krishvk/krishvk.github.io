@@ -16,12 +16,12 @@ CATEGORIES = {
         'hashing-vectorizer', 'kd-tree', 'decision-tree', 'random-forest',
         'streamlit', 'plotly-dash', 'pandas'
     ],
-    'Programming': [
-        'python', 'systemverilog', 'c', 'c++', 'shell', 'javascript'
+    'Programming Languages': [
+        'Python', 'SystemVerilog', 'C', 'C++', 'Shell'
     ],
     'Verification & Testing': [
         'verification', 'test-generation', 'co-simulation', 'vcs',
-        'processor-level-verification', 'coverage', 'cov2gen', 'constraints',
+        'PLV', 'MLV', 'coverage', 'cov2gen', 'constraints',
         'configuration-space', 'processor-state'
     ],
     'Data & Storage': [
@@ -360,7 +360,7 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
 """
 
     # Generate content for each category
-    for category in ['AI & ML', 'Programming', 'Verification & Testing', 'Data & Storage', 'Tools & Frameworks', 'Other']:
+    for category in list(CATEGORIES.keys()) + ['Other']:
         if category not in categorized_tags:
             continue
 
