@@ -6,3 +6,4 @@ sidebar_position: 6
 
 - Chess
 - YouTube Videos and Podcasts
+- Movies: SciFi & Comic
