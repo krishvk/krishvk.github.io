@@ -1,12 +1,31 @@
 #!/bin/bash
 
-# Pre-commit hook to generate resume PDF if resume files are being committed
-# This ensures the resume.pdf is always up-to-date and included in the commit
+# Pre-commit hook to:
+# 1. Generate resume PDF if resume files are being committed
+# 2. Generate skillset page if markdown files with tags are being committed
 
 set -e
 
 # Get list of files being committed
 STAGED_FILES=$(git diff --cached --name-only)
+
+# Check if any markdown files in docs/ are being committed
+MD_FILES_IN_COMMIT=$(echo "$STAGED_FILES" | grep -E "^docs/.*\.md$" || true)
+
+# If markdown files are being committed, regenerate skillset
+if [ -n "$MD_FILES_IN_COMMIT" ]; then
+  echo "Markdown files detected in commit. Regenerating skillset page..."
+  ./scripts/generate-skillset.py
+
+  # Check if skillset.mdx has changes
+  if ! git diff --quiet HEAD -- src/pages/skillset.mdx 2>/dev/null; then
+    echo "Adding updated skillset.mdx to commit..."
+    git add src/pages/skillset.mdx
+    echo "✓ Skillset page added to commit"
+  else
+    echo "✓ Skillset page is up-to-date (no changes detected)"
+  fi
+fi
 
 # Check if any resume-related files are being committed
 RESUME_FILES_IN_COMMIT=$(echo "$STAGED_FILES" | grep -E "(resume|src/pages/resume)" || true)

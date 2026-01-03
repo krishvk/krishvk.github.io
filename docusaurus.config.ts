@@ -131,6 +131,7 @@ const config: Config = {
         {type: 'doc', docId: 'log-anomaly-detector', docsPluginId: 'academic', position: 'left', label: 'Academic'},
         {type: 'doc', docId: 'argparse-enh', docsPluginId: 'personal', position: 'left', label: 'Personal'},
         {type: 'doc', docId: 'publications', docsPluginId: 'about-me', position: 'left', label: 'About'},
+        {to: '/skillset', label: 'Skillset', position: 'right'},
         {to: '/resume', label: 'Resume', position: 'right'}
       ],
     },

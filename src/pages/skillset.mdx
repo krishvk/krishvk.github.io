@@ -1,0 +1,440 @@
+---
+title: Skillset
+description: Technologies, tools, and methodologies I worked with
+---
+
+<style>{`
+.skillset-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.skill-item {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  padding: 0.15rem 0.65rem;
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: middle;
+  transition: all 0.2s ease;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  position: relative;
+}
+
+.skill-pill:hover {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.skill-pill .count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.25rem;
+  background-color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-800);
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.skill-pill:hover .count {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.skill-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.skill-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  padding: 0.15rem 0.65rem;
+  margin: 0;
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: middle;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.skill-dropdown-btn:focus {
+  outline: none;
+}
+
+.skill-dropdown-btn:hover {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: white;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.skill-dropdown-btn .count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.25rem;
+  background-color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-800);
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.skill-dropdown-btn:hover .count {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.skill-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.125rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 180px;
+  padding: 0.5rem 0;
+}
+
+.skill-dropdown:hover .skill-dropdown-menu {
+  display: block;
+}
+
+.skill-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+  font-size: 0.875rem;
+}
+
+.skill-dropdown-item:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  text-decoration: none;
+}
+
+.section-label {
+  font-weight: 500;
+}
+
+.section-count {
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-600);
+  background-color: var(--ifm-color-emphasis-200);
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  margin-left: 0.5rem;
+}
+
+[data-theme='dark'] .skill-pill {
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-900);
+  border-color: var(--ifm-color-emphasis-400);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .skill-pill:hover {
+  background-color: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .skill-pill .count {
+  background-color: var(--ifm-color-emphasis-400);
+  color: var(--ifm-color-emphasis-900);
+}
+
+[data-theme='dark'] .skill-pill:hover .count {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+[data-theme='dark'] .skill-dropdown-btn {
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-900);
+  border-color: var(--ifm-color-emphasis-400);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .skill-dropdown-btn:hover {
+  background-color: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .skill-dropdown-btn .count {
+  background-color: var(--ifm-color-emphasis-400);
+  color: var(--ifm-color-emphasis-900);
+}
+
+[data-theme='dark'] .skill-dropdown-btn:hover .count {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+[data-theme='dark'] .skill-dropdown-menu {
+  background: var(--ifm-background-surface-color);
+  border-color: var(--ifm-color-emphasis-400);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .skill-dropdown-item:hover {
+  background-color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .section-count {
+  background-color: var(--ifm-color-emphasis-400);
+  color: var(--ifm-color-emphasis-900);
+}
+`}</style>
+
+# Skillset
+
+A comprehensive view of technologies, tools, and methodologies I worked with across my projects.
+
+
+## AI & ML
+
+<div className="skillset-pills">
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">anomaly-detection<span className="count">2</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/anomaly-detection" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">1</span>
+      </a>
+      <a href="/academic/tags/anomaly-detection" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">clustering<span className="count">2</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/clustering" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">1</span>
+      </a>
+      <a href="/academic/tags/clustering" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <a href="/work/tags/decision-tree" className="skill-pill" title="C-Forge">decision-tree<span className="count">1</span></a>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">hashing-vectorizer<span className="count">2</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/hashing-vectorizer" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">1</span>
+      </a>
+      <a href="/academic/tags/hashing-vectorizer" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">kd-tree<span className="count">2</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/kd-tree" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">1</span>
+      </a>
+      <a href="/academic/tags/kd-tree" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">nltk<span className="count">2</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/nltk" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">1</span>
+      </a>
+      <a href="/academic/tags/nltk" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <a href="/work/tags/pandas" className="skill-pill" title="C-Forge">pandas<span className="count">1</span></a>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">plotly-dash<span className="count">2</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/plotly-dash" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">1</span>
+      </a>
+      <a href="/academic/tags/plotly-dash" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <a href="/work/tags/random-forest" className="skill-pill" title="C-Forge">random-forest<span className="count">1</span></a>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">scikit-learn<span className="count">5</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/scikit-learn" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">3</span>
+      </a>
+      <a href="/academic/tags/scikit-learn" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">2</span>
+      </a>
+    </div>
+  </div>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">streamlit<span className="count">3</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/streamlit" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">2</span>
+      </a>
+      <a href="/academic/tags/streamlit" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+## Programming
+
+<div className="skillset-pills">
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">python<span className="count">5</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/python" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">2</span>
+      </a>
+      <a href="/personal/tags/python" className="skill-dropdown-item">
+        <span className="section-label">Personal</span>
+        <span className="section-count">2</span>
+      </a>
+      <a href="/academic/tags/python" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <a href="/personal/tags/shell" className="skill-pill" title="argparse-enh">shell<span className="count">1</span></a>
+  <a href="/work/tags/systemverilog" className="skill-pill" title="C-Forge, Co-Simulation, G2: State Aware Generator">systemverilog<span className="count">3</span></a>
+</div>
+
+## Verification & Testing
+
+<div className="skillset-pills">
+  <a href="/work/tags/co-simulation" className="skill-pill" title="Co-Simulation">co-simulation<span className="count">1</span></a>
+  <a href="/work/tags/configuration-space" className="skill-pill" title="C-Forge">configuration-space<span className="count">1</span></a>
+  <a href="/work/tags/constraints" className="skill-pill" title="G2: State Aware Generator">constraints<span className="count">1</span></a>
+  <a href="/work/tags/cov2gen" className="skill-pill" title="C-Forge, G2: State Aware Generator">cov2gen<span className="count">2</span></a>
+  <a href="/work/tags/coverage" className="skill-pill" title="C-Forge, G2: State Aware Generator">coverage<span className="count">2</span></a>
+  <a href="/work/tags/vcs" className="skill-pill" title="C-Forge">vcs<span className="count">1</span></a>
+  <a href="/work/tags/verification" className="skill-pill" title="C-Forge, Co-Simulation, G2: State Aware Generator">verification<span className="count">3</span></a>
+</div>
+
+## Data & Storage
+
+<div className="skillset-pills">
+  <a href="/personal/tags/argparse" className="skill-pill" title="argparse-enh">argparse<span className="count">1</span></a>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">json<span className="count">2</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/json" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">1</span>
+      </a>
+      <a href="/academic/tags/json" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">parquet<span className="count">2</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/parquet" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">1</span>
+      </a>
+      <a href="/academic/tags/parquet" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+## Other
+
+<div className="skillset-pills">
+  <a href="/work/tags/ico" className="skill-pill" title="C-Forge">ICO<span className="count">1</span></a>
+  <a href="/personal/tags/bison" className="skill-pill" title="txtoflow">bison<span className="count">1</span></a>
+  <a href="/personal/tags/compilers" className="skill-pill" title="txtoflow">compilers<span className="count">1</span></a>
+  <a href="/personal/tags/dot" className="skill-pill" title="txtoflow">dot<span className="count">1</span></a>
+  <a href="/personal/tags/flex" className="skill-pill" title="txtoflow">flex<span className="count">1</span></a>
+  <a href="/personal/tags/graphviz" className="skill-pill" title="txtoflow">graphviz<span className="count">1</span></a>
+  <a href="/work/tags/processor-level-verification" className="skill-pill" title="Co-Simulation">processor level verification<span className="count">1</span></a>
+  <a href="/work/tags/processor-state" className="skill-pill" title="G2: State Aware Generator">processor state<span className="count">1</span></a>
+  <a href="/work/tags/test-generation" className="skill-pill" title="G2: State Aware Generator">test generation<span className="count">1</span></a>
+</div>
