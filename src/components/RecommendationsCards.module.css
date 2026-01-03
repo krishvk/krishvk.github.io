@@ -1,0 +1,77 @@
+.container {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.scrollContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 0.5rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.quoteIcon {
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--ifm-color-primary);
+  opacity: 0.2;
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  font-family: Georgia, serif;
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ifm-font-color-base);
+  margin: 2rem 0 1.5rem 0;
+  white-space: pre-line;
+  position: relative;
+  z-index: 1;
+}
+
+.author {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  font-style: italic;
+  text-align: right;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5rem;
+  }
+
+  .text {
+    font-size: 0.95rem;
+  }
+
+  .quoteIcon {
+    font-size: 3rem;
+  }
+
+  .scrollContainer {
+    gap: 1.5rem;
+  }
+}
