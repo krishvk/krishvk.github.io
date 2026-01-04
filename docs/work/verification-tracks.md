@@ -1,17 +1,19 @@
 ---
 sidebar_position: 3
 tags:
-    - verification
+    - Verification
     - SystemVerilog
     - MLV
     - PLV
     - MMU
-    - debug-unit
-    - action-points
-    - coverage
-    - testbench
+    - Debug-Unit
+    - Action-Points
+    - Coverage
+    - Testbench
     - VDS-DVE
     - Assembly-Language
+    - E
+    - Specman
 ---
 
 # Verification Tracks

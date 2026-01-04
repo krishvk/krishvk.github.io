@@ -2,17 +2,17 @@
 sidebar_position: 2
 tags:
   - Python
-  - vcs
+  - VCS
   - ICO
-  - coverage
-  - cov2gen
-  - verification
-  - configuration-space
+  - Coverage
+  - Cov2Gen
+  - Verification
+  - Configuration-Space
   - random-forest
   - decision-tree
   - scikit-learn
-  - pandas
-  - streamlit
+  - Pandas
+  - Streamlit
   - SystemVerilog
 ---
 

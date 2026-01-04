@@ -3,14 +3,13 @@ sidebar_position: 1
 tags:
   - Python
   - scikit-learn
-  - nltk
-  - scikit-learn
+  - NLTK
   - anomaly-detection
   - clustering
-  - streamlit
-  - plotly-dash
-  - parquet
-  - json
+  - Streamlit
+  - Plotly-Dash
+  - Parquet
+  - JSON
   - kd-tree
   - hashing-vectorizer
 ---

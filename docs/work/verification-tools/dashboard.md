@@ -5,8 +5,8 @@ tags:
   - MySQL
   - Streamlit
   - Python
-  - verification
-  - project-dashboard
+  - Verification
+  - Project-Dashboard
   - Docusaurus
 ---
 

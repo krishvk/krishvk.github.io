@@ -2,11 +2,11 @@
 sidebar_position: 2
 tags:
   - Python
-  - compilers
-  - flex
-  - bison
-  - graphviz
-  - dot
+  - Compilers
+  - Flex
+  - Bison
+  - Graphviz
+  - Dot
 ---
 
 # txtoflow

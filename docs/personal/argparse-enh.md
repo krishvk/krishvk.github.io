@@ -3,7 +3,7 @@ sidebar_position: 1
 tags:
   - Python
   - argparse
-  - shell
+  - Shell
 ---
 
 # argparse-enh
