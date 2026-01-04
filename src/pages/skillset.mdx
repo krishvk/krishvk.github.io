@@ -23,7 +23,7 @@ description: Technologies, tools, and methodologies I worked with
   justify-content: center;
   gap: 0.4rem;
   text-decoration: none;
-  padding: 0.15rem 0.65rem;
+  padding: 0.25rem 0.65rem;
   background-color: var(--ifm-color-emphasis-100);
   color: var(--ifm-font-color-base);
   border-radius: 50px;
@@ -62,8 +62,18 @@ description: Technologies, tools, and methodologies I worked with
   line-height: 1;
 }
 
+.skill-pill .count.zero {
+  background-color: #ff4444;
+  color: white;
+}
+
 .skill-pill:hover .count {
   background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.skill-pill:hover .count.zero {
+  background-color: #cc0000;
   color: white;
 }
 
@@ -78,7 +88,7 @@ description: Technologies, tools, and methodologies I worked with
   justify-content: center;
   gap: 0.4rem;
   text-decoration: none;
-  padding: 0.15rem 0.65rem;
+  padding: 0.25rem 0.65rem;
   margin: 0;
   background-color: var(--ifm-color-emphasis-100);
   color: var(--ifm-font-color-base);
@@ -123,8 +133,18 @@ description: Technologies, tools, and methodologies I worked with
   line-height: 1;
 }
 
+.skill-dropdown-btn .count.zero {
+  background-color: #ff4444;
+  color: white;
+}
+
 .skill-dropdown-btn:hover .count {
   background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.skill-dropdown-btn:hover .count.zero {
+  background-color: #cc0000;
   color: white;
 }
 
@@ -195,8 +215,18 @@ description: Technologies, tools, and methodologies I worked with
   color: var(--ifm-color-emphasis-900);
 }
 
+[data-theme='dark'] .skill-pill .count.zero {
+  background-color: #ff4444;
+  color: white;
+}
+
 [data-theme='dark'] .skill-pill:hover .count {
   background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+[data-theme='dark'] .skill-pill:hover .count.zero {
+  background-color: #cc0000;
   color: white;
 }
 
@@ -219,8 +249,18 @@ description: Technologies, tools, and methodologies I worked with
   color: var(--ifm-color-emphasis-900);
 }
 
+[data-theme='dark'] .skill-dropdown-btn .count.zero {
+  background-color: #ff4444;
+  color: white;
+}
+
 [data-theme='dark'] .skill-dropdown-btn:hover .count {
   background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+[data-theme='dark'] .skill-dropdown-btn:hover .count.zero {
+  background-color: #cc0000;
   color: white;
 }
 
@@ -245,9 +285,54 @@ description: Technologies, tools, and methodologies I worked with
 A comprehensive view of technologies, tools, and methodologies I worked with across my projects.
 
 
-## AI & ML
+## Programming & Scripting Languages
 
 <div className="skillset-pills">
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">Python<span className="count">7</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/python" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">4</span>
+      </a>
+      <a href="/personal/tags/python" className="skill-dropdown-item">
+        <span className="section-label">Personal</span>
+        <span className="section-count">2</span>
+      </a>
+      <a href="/academic/tags/python" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <a href="/work/tags/systemverilog" className="skill-pill" title="Verification Tracks, C-Forge, Co-Simulation, +1 more">SystemVerilog<span className="count">4</span></a>
+  <a href="/work/tags/c" className="skill-pill" title="G3: C Based Scenario Generator">C<span className="count">1</span></a>
+  <a href="/work/tags/c++" className="skill-pill" title="G3: C Based Scenario Generator">C++<span className="count">1</span></a>
+  <a href="/work/tags/e" className="skill-pill" title="Verification Tracks">E<span className="count">1</span></a>
+  <a href="/work/tags/mysql" className="skill-pill" title="Project Dashboard">MySQL<span className="count">1</span></a>
+  <a href="/personal/tags/shell" className="skill-pill" title="argparse-enh">Shell<span className="count">1</span></a>
+  <span className="skill-pill" style={{cursor: 'default'}}>Bash<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>Perl<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>Tcsh<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>Zsh<span className="count zero">0</span></span>
+</div>
+
+## AI & Machine Learning
+
+<div className="skillset-pills">
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">scikit-learn<span className="count">3</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/scikit-learn" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">2</span>
+      </a>
+      <a href="/academic/tags/scikit-learn" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
   <div className="skill-dropdown">
     <button className="skill-dropdown-btn">anomaly-detection<span className="count">2</span></button>
     <div className="skill-dropdown-menu">
@@ -274,7 +359,6 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
       </a>
     </div>
   </div>
-  <a href="/work/tags/decision-tree" className="skill-pill" title="C-Forge">decision-tree<span className="count">1</span></a>
   <div className="skill-dropdown">
     <button className="skill-dropdown-btn">hashing-vectorizer<span className="count">2</span></button>
     <div className="skill-dropdown-menu">
@@ -302,7 +386,7 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
     </div>
   </div>
   <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">nltk<span className="count">2</span></button>
+    <button className="skill-dropdown-btn">NLTK<span className="count">2</span></button>
     <div className="skill-dropdown-menu">
       <a href="/work/tags/nltk" className="skill-dropdown-item">
         <span className="section-label">Work</span>
@@ -314,9 +398,29 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
       </a>
     </div>
   </div>
-  <a href="/work/tags/pandas" className="skill-pill" title="C-Forge">pandas<span className="count">1</span></a>
+  <a href="/work/tags/decision-tree" className="skill-pill" title="C-Forge">decision-tree<span className="count">1</span></a>
+  <a href="/work/tags/pandas" className="skill-pill" title="C-Forge">Pandas<span className="count">1</span></a>
+  <a href="/work/tags/random-forest" className="skill-pill" title="C-Forge">random-forest<span className="count">1</span></a>
+</div>
+
+## Data Visualization
+
+<div className="skillset-pills">
   <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">plotly-dash<span className="count">2</span></button>
+    <button className="skill-dropdown-btn">Streamlit<span className="count">4</span></button>
+    <div className="skill-dropdown-menu">
+      <a href="/work/tags/streamlit" className="skill-dropdown-item">
+        <span className="section-label">Work</span>
+        <span className="section-count">3</span>
+      </a>
+      <a href="/academic/tags/streamlit" className="skill-dropdown-item">
+        <span className="section-label">Academic</span>
+        <span className="section-count">1</span>
+      </a>
+    </div>
+  </div>
+  <div className="skill-dropdown">
+    <button className="skill-dropdown-btn">Plotly-Dash<span className="count">2</span></button>
     <div className="skill-dropdown-menu">
       <a href="/work/tags/plotly-dash" className="skill-dropdown-item">
         <span className="section-label">Work</span>
@@ -328,81 +432,85 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
       </a>
     </div>
   </div>
-  <a href="/work/tags/random-forest" className="skill-pill" title="C-Forge">random-forest<span className="count">1</span></a>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">scikit-learn<span className="count">5</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/scikit-learn" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">3</span>
-      </a>
-      <a href="/academic/tags/scikit-learn" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">2</span>
-      </a>
-    </div>
-  </div>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">streamlit<span className="count">3</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/streamlit" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">2</span>
-      </a>
-      <a href="/academic/tags/streamlit" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
-  </div>
+  <a href="/work/tags/grafana" className="skill-pill" title="Project Dashboard">Grafana<span className="count">1</span></a>
 </div>
 
-## Programming Languages
-
-<div className="skillset-pills">
-  <a href="/work/tags/c" className="skill-pill" title="G3: C Based Scenario Generator">C<span className="count">1</span></a>
-  <a href="/work/tags/c++" className="skill-pill" title="G3: C Based Scenario Generator">C++<span className="count">1</span></a>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">Python<span className="count">7</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/python" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">4</span>
-      </a>
-      <a href="/personal/tags/python" className="skill-dropdown-item">
-        <span className="section-label">Personal</span>
-        <span className="section-count">2</span>
-      </a>
-      <a href="/academic/tags/python" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
-  </div>
-  <a href="/work/tags/systemverilog" className="skill-pill" title="Verification Tracks, C-Forge, Co-Simulation, +1 more">SystemVerilog<span className="count">4</span></a>
-</div>
-
-## Verification & Testing
-
-<div className="skillset-pills">
-  <a href="/work/tags/mlv" className="skill-pill" title="Verification Tracks">MLV<span className="count">1</span></a>
-  <a href="/work/tags/plv" className="skill-pill" title="Verification Tracks, Co-Simulation, G3: C Based Scenario Generator">PLV<span className="count">3</span></a>
-  <a href="/work/tags/co-simulation" className="skill-pill" title="Co-Simulation">co-simulation<span className="count">1</span></a>
-  <a href="/work/tags/configuration-space" className="skill-pill" title="C-Forge">configuration-space<span className="count">1</span></a>
-  <a href="/work/tags/constraints" className="skill-pill" title="G2: State Aware Generator">constraints<span className="count">1</span></a>
-  <a href="/work/tags/cov2gen" className="skill-pill" title="C-Forge, G2: State Aware Generator">cov2gen<span className="count">2</span></a>
-  <a href="/work/tags/coverage" className="skill-pill" title="Verification Tracks, C-Forge, G2: State Aware Generator">coverage<span className="count">3</span></a>
-  <a href="/work/tags/test-generation" className="skill-pill" title="G3: C Based Scenario Generator">test-generation<span className="count">1</span></a>
-  <a href="/work/tags/vcs" className="skill-pill" title="C-Forge">vcs<span className="count">1</span></a>
-  <a href="/work/tags/verification" className="skill-pill" title="Verification Tracks, C-Forge, Project Dashboard, +2 more">verification<span className="count">5</span></a>
-</div>
-
-## Data & Storage
+## Programming Tools & Libraries
 
 <div className="skillset-pills">
   <a href="/personal/tags/argparse" className="skill-pill" title="argparse-enh">argparse<span className="count">1</span></a>
+  <a href="/personal/tags/bison" className="skill-pill" title="txtoflow">Bison<span className="count">1</span></a>
+  <a href="/personal/tags/compilers" className="skill-pill" title="txtoflow">Compilers<span className="count">1</span></a>
+  <a href="/personal/tags/dot" className="skill-pill" title="txtoflow">Dot<span className="count">1</span></a>
+  <a href="/personal/tags/flex" className="skill-pill" title="txtoflow">Flex<span className="count">1</span></a>
+  <a href="/personal/tags/graphviz" className="skill-pill" title="txtoflow">Graphviz<span className="count">1</span></a>
+  <span className="skill-pill" style={{cursor: 'default'}}>Yacc<span className="count zero">0</span></span>
+</div>
+
+## Version Control & CI/CD
+
+<div className="skillset-pills">
+  <span className="skill-pill" style={{cursor: 'default'}}>Farm<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>Git<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>GitHub<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>GitLab<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>LSF<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>Perforce<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>SVN<span className="count zero">0</span></span>
+</div>
+
+## Documentation Tools
+
+<div className="skillset-pills">
+  <a href="/work/tags/docusaurus" className="skill-pill" title="Project Dashboard">Docusaurus<span className="count">1</span></a>
+  <span className="skill-pill" style={{cursor: 'default'}}>Doxygen<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>Sphinx<span className="count zero">0</span></span>
+</div>
+
+## EDA & Verification Tools
+
+<div className="skillset-pills">
+  <a href="/work/tags/csmith" className="skill-pill" title="G3: C Based Scenario Generator">CSmith<span className="count">1</span></a>
+  <a href="/work/tags/ico" className="skill-pill" title="C-Forge">ICO<span className="count">1</span></a>
+  <a href="/work/tags/specman" className="skill-pill" title="Verification Tracks">Specman<span className="count">1</span></a>
+  <a href="/work/tags/testbench" className="skill-pill" title="Verification Tracks">Testbench<span className="count">1</span></a>
+  <a href="/work/tags/vcs" className="skill-pill" title="C-Forge">VCS<span className="count">1</span></a>
+  <a href="/work/tags/vds-dve" className="skill-pill" title="Verification Tracks">VDS-DVE<span className="count">1</span></a>
+  <span className="skill-pill" style={{cursor: 'default'}}>Verdi<span className="count zero">0</span></span>
+</div>
+
+## Processor Architecture
+
+<div className="skillset-pills">
+  <a href="/work/tags/action-points" className="skill-pill" title="Verification Tracks">Action-Points<span className="count">1</span></a>
+  <a href="/work/tags/assembly-language" className="skill-pill" title="Verification Tracks">Assembly-Language<span className="count">1</span></a>
+  <a href="/work/tags/debug-unit" className="skill-pill" title="Verification Tracks">Debug-Unit<span className="count">1</span></a>
+  <a href="/work/tags/mmu" className="skill-pill" title="Verification Tracks">MMU<span className="count">1</span></a>
+  <a href="/work/tags/processor-state" className="skill-pill" title="G2: State Aware Generator">Processor-State<span className="count">1</span></a>
+  <a href="/work/tags/risc-v" className="skill-pill" title="G3: C Based Scenario Generator">RISC-V<span className="count">1</span></a>
+  <span className="skill-pill" style={{cursor: 'default'}}>ISA<span className="count zero">0</span></span>
+  <span className="skill-pill" style={{cursor: 'default'}}>ISA-Coverage<span className="count zero">0</span></span>
+</div>
+
+## Processor Verification
+
+<div className="skillset-pills">
+  <a href="/work/tags/verification" className="skill-pill" title="Verification Tracks, C-Forge, Project Dashboard, +2 more">Verification<span className="count">5</span></a>
+  <a href="/work/tags/coverage" className="skill-pill" title="Verification Tracks, C-Forge, G2: State Aware Generator">Coverage<span className="count">3</span></a>
+  <a href="/work/tags/plv" className="skill-pill" title="Verification Tracks, Co-Simulation, G3: C Based Scenario Generator">PLV<span className="count">3</span></a>
+  <a href="/work/tags/cov2gen" className="skill-pill" title="C-Forge, G2: State Aware Generator">Cov2Gen<span className="count">2</span></a>
+  <a href="/work/tags/test-generation" className="skill-pill" title="G3: C Based Scenario Generator, G2: State Aware Generator">Test-Generation<span className="count">2</span></a>
+  <a href="/work/tags/co-simulation" className="skill-pill" title="Co-Simulation">Co-Simulation<span className="count">1</span></a>
+  <a href="/work/tags/configuration-space" className="skill-pill" title="C-Forge">Configuration-Space<span className="count">1</span></a>
+  <a href="/work/tags/constraints" className="skill-pill" title="G2: State Aware Generator">Constraints<span className="count">1</span></a>
+  <a href="/work/tags/mlv" className="skill-pill" title="Verification Tracks">MLV<span className="count">1</span></a>
+</div>
+
+## Data Formats
+
+<div className="skillset-pills">
   <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">json<span className="count">2</span></button>
+    <button className="skill-dropdown-btn">JSON<span className="count">2</span></button>
     <div className="skill-dropdown-menu">
       <a href="/work/tags/json" className="skill-dropdown-item">
         <span className="section-label">Work</span>
@@ -415,7 +523,7 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
     </div>
   </div>
   <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">parquet<span className="count">2</span></button>
+    <button className="skill-dropdown-btn">Parquet<span className="count">2</span></button>
     <div className="skill-dropdown-menu">
       <a href="/work/tags/parquet" className="skill-dropdown-item">
         <span className="section-label">Work</span>
@@ -427,31 +535,11 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
       </a>
     </div>
   </div>
+  <span className="skill-pill" style={{cursor: 'default'}}>YAML<span className="count zero">0</span></span>
 </div>
 
 ## Other
 
 <div className="skillset-pills">
-  <a href="/work/tags/assembly-language" className="skill-pill" title="Verification Tracks">Assembly-Language<span className="count">1</span></a>
-  <a href="/work/tags/docusaurus" className="skill-pill" title="Project Dashboard">Docusaurus<span className="count">1</span></a>
-  <a href="/work/tags/grafana" className="skill-pill" title="Project Dashboard">Grafana<span className="count">1</span></a>
-  <a href="/work/tags/ico" className="skill-pill" title="C-Forge">ICO<span className="count">1</span></a>
-  <a href="/work/tags/mmu" className="skill-pill" title="Verification Tracks">MMU<span className="count">1</span></a>
-  <a href="/work/tags/mysql" className="skill-pill" title="Project Dashboard">MySQL<span className="count">1</span></a>
-  <a href="/work/tags/streamlit" className="skill-pill" title="Project Dashboard">Streamlit<span className="count">1</span></a>
-  <a href="/work/tags/vds-dve" className="skill-pill" title="Verification Tracks">VDS-DVE<span className="count">1</span></a>
-  <a href="/work/tags/action-points" className="skill-pill" title="Verification Tracks">action-points<span className="count">1</span></a>
-  <a href="/personal/tags/bison" className="skill-pill" title="txtoflow">bison<span className="count">1</span></a>
-  <a href="/personal/tags/compilers" className="skill-pill" title="txtoflow">compilers<span className="count">1</span></a>
-  <a href="/work/tags/csmith" className="skill-pill" title="G3: C Based Scenario Generator">csmith<span className="count">1</span></a>
-  <a href="/work/tags/debug-unit" className="skill-pill" title="Verification Tracks">debug-unit<span className="count">1</span></a>
-  <a href="/personal/tags/dot" className="skill-pill" title="txtoflow">dot<span className="count">1</span></a>
-  <a href="/personal/tags/flex" className="skill-pill" title="txtoflow">flex<span className="count">1</span></a>
-  <a href="/personal/tags/graphviz" className="skill-pill" title="txtoflow">graphviz<span className="count">1</span></a>
-  <a href="/work/tags/processor-state" className="skill-pill" title="G2: State Aware Generator">processor state<span className="count">1</span></a>
-  <a href="/work/tags/project-dashboard" className="skill-pill" title="Project Dashboard">project-dashboard<span className="count">1</span></a>
-  <a href="/work/tags/risc-v" className="skill-pill" title="G3: C Based Scenario Generator">risc-v<span className="count">1</span></a>
-  <a href="/personal/tags/shell" className="skill-pill" title="argparse-enh">shell<span className="count">1</span></a>
-  <a href="/work/tags/test-generation" className="skill-pill" title="G2: State Aware Generator">test generation<span className="count">1</span></a>
-  <a href="/work/tags/testbench" className="skill-pill" title="Verification Tracks">testbench<span className="count">1</span></a>
+  <a href="/work/tags/project-dashboard" className="skill-pill" title="Project Dashboard">Project-Dashboard<span className="count">1</span></a>
 </div>

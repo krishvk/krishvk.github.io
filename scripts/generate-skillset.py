@@ -11,24 +11,40 @@ import yaml
 
 # Category mappings - categorize tags into skill areas
 CATEGORIES = {
-    'AI & ML': [
-        'scikit-learn', 'nltk', 'anomaly-detection', 'clustering',
-        'hashing-vectorizer', 'kd-tree', 'decision-tree', 'random-forest',
-        'streamlit', 'plotly-dash', 'pandas'
+    'Programming & Scripting Languages': [
+        'Python', 'C', 'C++', 'SystemVerilog', 'MySQL', 'E',
+        'Perl', 'Shell', 'Bash', 'Tcsh', 'Zsh'
     ],
-    'Programming Languages': [
-        'Python', 'SystemVerilog', 'C', 'C++', 'Shell'
+    'AI & Machine Learning': [
+        'scikit-learn', 'NLTK', 'Pandas',
+        'anomaly-detection', 'clustering', 'hashing-vectorizer',
+        'kd-tree', 'decision-tree', 'random-forest'
     ],
-    'Verification & Testing': [
-        'verification', 'test-generation', 'co-simulation', 'vcs',
-        'PLV', 'MLV', 'coverage', 'cov2gen', 'constraints',
-        'configuration-space', 'processor-state'
+    'Data Visualization': [
+        'Streamlit', 'Plotly-Dash', 'Grafana'
     ],
-    'Data & Storage': [
-        'json', 'parquet', 'argparse'
+    'Programming Tools & Libraries': [
+        'Bison', 'Flex', 'Yacc', 'Graphviz', 'Dot', 'Compilers', 'argparse'
     ],
-    'Tools & Frameworks': [
-        'ico'
+    'Version Control & CI/CD': [
+        'Git', 'GitLab', 'GitHub', 'SVN', 'Perforce', 'LSF', 'Farm'
+    ],
+    'Documentation Tools': [
+        'Docusaurus', 'Sphinx', 'Doxygen'
+    ],
+    'EDA & Verification Tools': [
+        'Verdi', 'VCS', 'Specman', 'ICO', 'VDS-DVE', 'CSmith', 'Testbench'
+    ],
+    'Processor Architecture': [
+        'MMU', 'ISA', 'ISA-Coverage', 'Action-Points', 'Debug-Unit', 'RISC-V', 'Processor-State', 'Assembly-Language'
+    ],
+    'Processor Verification': [
+        'Verification', 'Test-Generation', 'Co-Simulation',
+        'PLV', 'MLV', 'Coverage', 'Cov2Gen', 'Constraints',
+        'Configuration-Space'
+    ],
+    'Data Formats': [
+        'JSON', 'Parquet', 'YAML'
     ]
 }
 
@@ -136,7 +152,7 @@ description: Technologies, tools, and methodologies I worked with
   justify-content: center;
   gap: 0.4rem;
   text-decoration: none;
-  padding: 0.15rem 0.65rem;
+  padding: 0.25rem 0.65rem;
   background-color: var(--ifm-color-emphasis-100);
   color: var(--ifm-font-color-base);
   border-radius: 50px;
@@ -175,8 +191,18 @@ description: Technologies, tools, and methodologies I worked with
   line-height: 1;
 }
 
+.skill-pill .count.zero {
+  background-color: #ff4444;
+  color: white;
+}
+
 .skill-pill:hover .count {
   background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.skill-pill:hover .count.zero {
+  background-color: #cc0000;
   color: white;
 }
 
@@ -191,7 +217,7 @@ description: Technologies, tools, and methodologies I worked with
   justify-content: center;
   gap: 0.4rem;
   text-decoration: none;
-  padding: 0.15rem 0.65rem;
+  padding: 0.25rem 0.65rem;
   margin: 0;
   background-color: var(--ifm-color-emphasis-100);
   color: var(--ifm-font-color-base);
@@ -236,8 +262,18 @@ description: Technologies, tools, and methodologies I worked with
   line-height: 1;
 }
 
+.skill-dropdown-btn .count.zero {
+  background-color: #ff4444;
+  color: white;
+}
+
 .skill-dropdown-btn:hover .count {
   background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.skill-dropdown-btn:hover .count.zero {
+  background-color: #cc0000;
   color: white;
 }
 
@@ -308,8 +344,18 @@ description: Technologies, tools, and methodologies I worked with
   color: var(--ifm-color-emphasis-900);
 }
 
+[data-theme='dark'] .skill-pill .count.zero {
+  background-color: #ff4444;
+  color: white;
+}
+
 [data-theme='dark'] .skill-pill:hover .count {
   background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+[data-theme='dark'] .skill-pill:hover .count.zero {
+  background-color: #cc0000;
   color: white;
 }
 
@@ -332,8 +378,18 @@ description: Technologies, tools, and methodologies I worked with
   color: var(--ifm-color-emphasis-900);
 }
 
+[data-theme='dark'] .skill-dropdown-btn .count.zero {
+  background-color: #ff4444;
+  color: white;
+}
+
 [data-theme='dark'] .skill-dropdown-btn:hover .count {
   background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+[data-theme='dark'] .skill-dropdown-btn:hover .count.zero {
+  background-color: #cc0000;
   color: white;
 }
 
@@ -361,18 +417,51 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
 
     # Generate content for each category
     for category in list(CATEGORIES.keys()) + ['Other']:
-        if category not in categorized_tags:
-            continue
-
         content += f"\n## {category}\n\n"
         content += '<div className="skillset-pills">\n'
 
-        for tag, sections_dict in sorted(categorized_tags[category]):
-            # Calculate total doc count across all sections
-            total_count = sum(len(docs) for docs in sections_dict.values())
+        # Get tags for this category
+        if category == 'Other':
+            # For Other category, use tags from categorized_tags
+            if category in categorized_tags:
+                tags_to_show = sorted(categorized_tags[category])
+            else:
+                tags_to_show = []
+        else:
+            # For defined categories, show ALL tags from CATEGORIES
+            defined_tags = CATEGORIES.get(category, [])
+            tags_with_docs = {tag for tag, _ in categorized_tags.get(category, [])}
 
+            # Combine: tags with docs first, then missing tags
+            tags_to_show = []
+            for tag in defined_tags:
+                if tag in tags_with_docs:
+                    # Find the sections_dict for this tag
+                    for t, sections_dict in categorized_tags.get(category, []):
+                        if t == tag:
+                            tags_to_show.append((tag, sections_dict))
+                            break
+                else:
+                    # Tag defined but has no documents
+                    tags_to_show.append((tag, {}))
+
+        # Sort tags by total count (highest first), then alphabetically
+        tags_with_counts = []
+        for tag, sections_dict in tags_to_show:
+            total_count = sum(len(docs) for docs in sections_dict.values())
+            tags_with_counts.append((tag, sections_dict, total_count))
+
+        # Sort by count (descending) then by tag name (ascending)
+        tags_with_counts.sort(key=lambda x: (-x[2], x[0].lower()))
+
+        for tag, sections_dict, total_count in tags_with_counts:
+
+            # If no documents, show as non-clickable pill with red count
+            if total_count == 0:
+                style_obj = "{{cursor: 'default'}}"
+                content += f'  <span className="skill-pill" style={style_obj}>{tag}<span className="count zero">0</span></span>\n'
             # If tag appears in only one section, show a simple pill
-            if len(sections_dict) == 1:
+            elif len(sections_dict) == 1:
                 section, docs = list(sections_dict.items())[0]
                 tag_slug = tag.lower().replace(' ', '-').replace('_', '-')
                 url = f'/{section}/tags/{tag_slug}'
