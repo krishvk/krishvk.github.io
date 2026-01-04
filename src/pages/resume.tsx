@@ -13,7 +13,7 @@ export default function Resume(): ReactNode {
   const educationUrl = useBaseUrl('/about-me/education');
   const positionsUrl = useBaseUrl('/about-me/positions-held');
   const workUrl = useBaseUrl('/work');
-  const rpgsUrl = useBaseUrl('/work/verification-tools/rpgs/rpgs');
+  const rpgsUrl = useBaseUrl('/work/rpgs');
   const logAnomalyUrl = useBaseUrl('/academic/log-anomaly-detector');
   const coSimUrl = useBaseUrl('/work/verification-tools/co-simulation');
   const cForgeUrl = useBaseUrl('/work/verification-tools/c-forge');
@@ -52,8 +52,10 @@ export default function Resume(): ReactNode {
           </a>
         </div>
         <div className={styles.htmlResume}>
-          {/* Left Sidebar */}
-          <div className={styles.sidebar}>
+          {/* Page 1 */}
+          <div className={styles.page}>
+            {/* Left Sidebar - Page 1 */}
+            <div className={styles.sidebar}>
             {/* Photo */}
             <div className={styles.photoContainer}>
               <img
@@ -106,22 +108,7 @@ export default function Resume(): ReactNode {
             {/* Professional Summary */}
             <div className={styles.sidebarSection}>
               <h2>Professional Summary</h2>
-              <p>15+ years of experience in processor-level verification. Led development of critical verification infrastructure supporting 50+ engineers.</p>
-            </div>
-
-            {/* Technical Skills */}
-            <div className={styles.sidebarSection}>
-              <h2>Technical Skills</h2>
-              <div className={styles.skillCategory}>Languages:</div>
-              <p>SystemVerilog, Python, Perl, C/C++, SQL</p>
-              <div className={styles.skillCategory}>Verification:</div>
-              <p>UVM, Processor Verification, Coverage-Driven</p>
-              <div className={styles.skillCategory}>ML/AI:</div>
-              <p>scikit-learn, NLP, Unsupervised Learning, Anomaly Detection</p>
-              <div className={styles.skillCategory}>Tools:</div>
-              <p>Grafana, GitLab CI/CD, Docusaurus, Sphinx, Doxygen, Verdi</p>
-              <div className={styles.skillCategory}>Infrastructure:</div>
-              <p>Git, GitLab, Regression Automation, Monitoring</p>
+              <p>Principal Engineer with 15+ years in processor verification. Led development of 3 generations of Random Program Generators serving 50+ engineers across multiple product lines. Specialized in verification infrastructure, ML/AI applications, and process improvement.</p>
             </div>
 
             {/* Education */}
@@ -138,23 +125,28 @@ export default function Resume(): ReactNode {
             {/* Awards */}
             <div className={styles.sidebarSection}>
               <h2>Awards & Recognition</h2>
-              <p>Received a certificate of recommendation from HARVARD University, Cambridge, MA, USA, acknowledging my performance in an online coding competition held in collaboration with NASA on TopCoder (2012)</p>
-              <p>More on LinkedIn</p>
+              <p><strong>Harvard University Certificate</strong><br />
+              Certificate of recommendation from Harvard University, Cambridge, MA, USA, for performance in online coding competition held in collaboration with NASA on TopCoder (2012)</p>
+              <p style={{marginTop: '8px'}}><strong>Industry Recognition</strong><br />
+              Multiple Synopsys awards for technical contributions and innovation</p>
+              <p style={{fontSize: '8pt', marginTop: '5px'}}>More awards and certifications on LinkedIn</p>
             </div>
+
+            {/* Skills moved to page 2 */}
           </div>
 
-          {/* Right Content */}
-          <div className={styles.content}>
+            {/* Right Content - Page 1 */}
+            <div className={styles.content}>
             {/* Header with Name and Experience */}
             <div className={styles.contentHeader}>
-              <h1>Vijaya Krishna Kasula</h1>
+              <h1><span className={styles.otherName}>Vijaya</span> Krishna <span className={styles.otherName}>Kasula</span></h1>
               <div className={styles.experienceLine}>
                 <div className={styles.experienceMainLine}>
-                  Principal Engineer, Processor Verification @ Synopsys Jul 2010 - Present
+                  Principal Engineer, Processor Verification @ Synopsys | Jul 2010 - Present (15+ years)
                 </div>
                 <div className={styles.experienceSubLine}>
                   <p>Worked as a contractor from SoCtronics from Jul 2010 - Feb 2014{' '}
-                  <a href={positionsUrl} target="_blank" rel="noopener noreferrer" className={styles.smallLink}>(details)</a>
+                  <a href={positionsUrl} target="_blank" rel="noopener noreferrer" className={styles.smallLink}>(full)</a>
                   </p>
                 </div>
               </div>
@@ -171,10 +163,13 @@ export default function Resume(): ReactNode {
                 </div>
                 <div className={styles.itemSubtitle}>Lead Developer & Product Manager, Synopsys</div>
                 <ul className={styles.itemList}>
-                  <li>Designed and developed multiple RPGs: Offline RPG, Online RPG (Stepping), Python Environment, C-based Environment</li>
-                  <li>Managed product lifecycle end-to-end, supporting 50+ verification engineers across multiple product lines</li>
-                  <li>Developed SystemVerilog-based generator with coverage-driven features (Cov2gen)</li>
-                  <li>Impact: Enabled comprehensive processor feature coverage, reduced test development time significantly</li>
+                  <li>Designed and developed 3 generations of RPGs from scratch for ARC processor verification, each addressing different design philosophies</li>
+                  <li>G1 (Perl-based, 2011-2020): Fast offline instruction generator for random instruction sequences</li>
+                  <li>G2 (SystemVerilog-based): State-aware generator with coverage-driven features (Cov2gen) for targeted test generation</li>
+                  <li>G3 (C-based): Advanced scenario generator with flexible API framework</li>
+                  <li>Managed product lifecycle end-to-end, supporting 50+ verification engineers across multiple parallel product lines</li>
+                  <li>Handled complex challenges: multi-issue scheduling, multicore systems, cache coherency, MMU/MPU, VLIW, SIMD</li>
+                  <li>Impact: Significantly reduced test development time, boosted productivity across product lines</li>
                 </ul>
               </div>
 
@@ -183,11 +178,27 @@ export default function Resume(): ReactNode {
                   <div className={styles.itemTitle}>AI-ML Log Anomaly Detector <a href={logAnomalyUrl} target="_blank" rel="noopener noreferrer" className={styles.smallLink}>(details)</a></div>
                   <div className={styles.itemDate}>Nov 2021 - Feb 2022</div>
                 </div>
-                <div className={styles.itemSubtitle}>Master's Thesis Project, BITS Pilani, Deployed in production at Synopsys</div>
+                <div className={styles.itemSubtitle}>Master's Thesis Project, BITS Pilani | Deployed in Production at Synopsys</div>
                 <ul className={styles.itemList}>
-                  <li>Developed intelligent log analyzer using scikit-learn, NLP, and unsupervised learning</li>
-                  <li>Evaluated on 10 datasets with 400M+ reference log lines, tested 36 model combinations</li>
-                  <li>Deployed in production at Synopsys, automating verification failure log triaging</li>
+                  <li>Developed intelligent log analyzer using scikit-learn, NLTK, NLP, and unsupervised learning algorithms</li>
+                  <li>Evaluated on 10 diverse datasets with 400M+ reference log lines, tested 36 model combinations</li>
+                  <li>Implemented advanced techniques: hashing vectorizer, KD-tree, decision tree, random forest, clustering</li>
+                  <li>Successfully deployed in production at Synopsys, automating verification failure log triaging</li>
+                  <li>Impact: Reduced manual triaging effort, accelerated failure analysis workflow</li>
+                </ul>
+              </div>
+
+              <div className={styles.item}>
+                <div className={styles.itemHeader}>
+                  <div className={styles.itemTitle}>C-Forge <a href={cForgeUrl} target="_blank" rel="noopener noreferrer" className={styles.smallLink}>(details)</a></div>
+                  <div className={styles.itemDate}>2024 - 2025</div>
+                </div>
+                <div className={styles.itemSubtitle}>Sole Developer, Synopsys</div>
+                <ul className={styles.itemList}>
+                  <li>Designed efficient configuration generator for configuration space verification of ARC Processor IP</li>
+                  <li>Automated generation of diverse processor configurations covering complex configuration spaces</li>
+                  <li>Presented at Purple Poster event (Synopsys internal innovation showcase) 2025</li>
+                  <li>Impact: Improved configuration space coverage, reduced manual configuration efforts</li>
                 </ul>
               </div>
 
@@ -199,19 +210,78 @@ export default function Resume(): ReactNode {
                 <div className={styles.itemSubtitle}>Sole Developer, Synopsys</div>
                 <ul className={styles.itemList}>
                   <li>Designed and implemented robust co-simulation environment for processor-level verification</li>
-                  <li>Enabled seamless integration between testbenches and golden reference models</li>
+                  <li>Enabled seamless integration between SystemVerilog testbenches and C-based golden reference models</li>
+                  <li>Developed efficient communication protocols for real-time state synchronization</li>
+                  <li>Impact: Enhanced verification accuracy through comprehensive state comparison</li>
                 </ul>
               </div>
 
               <div className={styles.item}>
                 <div className={styles.itemHeader}>
-                  <div className={styles.itemTitle}>C-Forge <a href={cForgeUrl} target="_blank" rel="noopener noreferrer" className={styles.smallLink}>(details)</a></div>
-                  <div className={styles.itemDate}>2025</div>
+                  <div className={styles.itemTitle}>Verification Dashboard & Infrastructure</div>
+                  <div className={styles.itemDate}>2018 - Present</div>
                 </div>
-                <div className={styles.itemSubtitle}>Sole Developer, Synopsys</div>
+                <div className={styles.itemSubtitle}>Technical Lead, Synopsys</div>
                 <ul className={styles.itemList}>
-                  <li>Efficient configuration generator for configuration space verification of ARC Processor IP</li>
-                  <li>Presented at Purple Poster event (Synopsys) 2025</li>
+                  <li>Built comprehensive verification dashboard using Grafana, Plotly-Dash, and Streamlit</li>
+                  <li>Developed regression automation framework and monitoring infrastructure</li>
+                  <li>Integrated with GitLab CI/CD for continuous verification workflows</li>
+                  <li>Created documentation systems using Docusaurus, Sphinx, and Doxygen</li>
+                  <li>Impact: Improved team visibility, reduced debugging time, enhanced collaboration</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          {/* Page 2 */}
+          <div className={styles.page}>
+            {/* Left Sidebar - Page 2 (Complete Skillset) */}
+            <div className={styles.sidebar}>
+              <div className={styles.sidebarSection}>
+                <h2>Skillset</h2>
+                <div className={styles.skillCategory}>Programming & Scripting Languages:</div>
+                <p>Python, C, C++, SystemVerilog, MySQL, E, Perl, Shell, Bash, Tcsh, Zsh</p>
+                <div className={styles.skillCategory}>AI & Machine Learning:</div>
+                <p>scikit-learn, NLTK, Pandas, Anomaly Detection, Clustering, Hashing Vectorizer, KD-Tree, Decision Tree, Random Forest</p>
+                <div className={styles.skillCategory}>Data Visualization:</div>
+                <p>Streamlit, Plotly-Dash, Grafana</p>
+                <div className={styles.skillCategory}>Programming Tools & Libraries:</div>
+                <p>Bison, Flex, Yacc, Graphviz, Dot, Compilers, argparse</p>
+                <div className={styles.skillCategory}>Version Control & CI/CD:</div>
+                <p>Git, GitLab, GitHub, SVN, Perforce, LSF, Farm</p>
+                <div className={styles.skillCategory}>Documentation Tools:</div>
+                <p>Docusaurus, Sphinx, Doxygen</p>
+                <div className={styles.skillCategory}>EDA & Verification Tools:</div>
+                <p>Verdi, VCS, Specman, ICO, VDS-DVE, CSmith, Testbench</p>
+                <div className={styles.skillCategory}>Processor Architecture:</div>
+                <p>MMU, ISA, ISA Coverage, Action Points, Debug Unit, RISC-V, Processor State, Assembly Language</p>
+                <div className={styles.skillCategory}>Processor Verification:</div>
+                <p>Verification, Test Generation, Co-Simulation, PLV, MLV, Coverage, Cov2Gen, Constraints, Configuration Space</p>
+                <div className={styles.skillCategory}>Data Formats:</div>
+                <p>JSON, Parquet, YAML</p>
+              </div>
+            </div>
+
+            {/* Right Content - Page 2 */}
+            <div className={styles.content}>
+
+            {/* Leadership & Management */}
+            <div className={styles.contentSection}>
+              <h2>Leadership & Management</h2>
+
+              <div className={styles.item}>
+                <div className={styles.itemHeader}>
+                  <div className={styles.itemTitle}>Verification Best Practices Team (VBPT)</div>
+                  <div className={styles.itemDate}>2020 - Present</div>
+                </div>
+                <div className={styles.itemSubtitle}>Team Lead, Synopsys</div>
+                <ul className={styles.itemList}>
+                  <li>Led cross-functional team responsible for verification infrastructure and process improvement</li>
+                  <li>Established best practices, guidelines, and standards for verification across product lines</li>
+                  <li>Managed innovation initiatives and explored AI/ML capabilities for verification automation</li>
+                  <li>Drove Git migration project, transitioning team from legacy version control systems</li>
+                  <li>Mentored engineers on verification methodologies, tools, and industry best practices</li>
                 </ul>
               </div>
             </div>
@@ -220,9 +290,9 @@ export default function Resume(): ReactNode {
             <div className={styles.contentSection}>
               <h2>Publications & Presentations <a href={publicationsUrl} target="_blank" rel="noopener noreferrer" className={styles.smallLink}>(all)</a></h2>
               <div className={styles.publicationItem}>Kasula, V. K. (2025). <em>C-Forge, Efficient Configuration Generator for Configuration Space Verification of ARC Processor IP</em>. Purple Poster, Synopsys.</div>
-              <div className={styles.publicationItem}>Kasula, V. K., & Chedella, S. S. (2016). <em>Barrier Insertion in Test Programs for Controlled Verification of Cache Coherency</em>. SITC, Bangalore.</div>
-              <div className={styles.publicationItem}>Kasula, V. K. (2016). <em>Reverse Generation Technique for Functional Verification of Processor Cores</em>. SITC, Bangalore.</div>
-              <div className={styles.publicationItem}>Kasula, V. K., & Tadiboina, G. K. (2016). <em>Test Generation for Processors with Extended Address Capability</em>. SITC, Bangalore.</div>
+              <div className={styles.publicationItem}>Kasula, V. K., & Chedella, S. S. (2016). <em>Barrier Insertion in Test Programs for Controlled Verification of Cache Coherency</em>. Synopsys India Technical Conference (SITC), Bangalore.</div>
+              <div className={styles.publicationItem}>Kasula, V. K. (2016). <em>Reverse Generation Technique for Functional Verification of Processor Cores</em>. Synopsys India Technical Conference (SITC), Bangalore.</div>
+              <div className={styles.publicationItem}>Kasula, V. K., & Tadiboina, G. K. (2016). <em>Test Generation for Processors with Extended Address Capability</em>. Synopsys India Technical Conference (SITC), Bangalore.</div>
             </div>
 
             {/* Open Source */}
@@ -251,6 +321,7 @@ export default function Resume(): ReactNode {
                 </ul>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </main>

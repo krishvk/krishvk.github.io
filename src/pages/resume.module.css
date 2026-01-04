@@ -1,10 +1,11 @@
 .resumeContainer {
-  padding: 0;
+  padding: 40px 20px;
   margin: 0;
   width: 100%;
   background: #f5f5f5;
   min-height: 100vh;
   position: relative;
+  overflow-x: auto;
 }
 
 .downloadSection {
@@ -70,15 +71,36 @@
   }
 }
 
+/* Define exact page size for print */
+@page {
+  size: 210mm 297mm; /* A4 exact size */
+  margin: 0; /* No margins */
+}
+
+/* Wrapper for 2-page layout */
 .htmlResume {
   display: flex;
-  width: 100%;
-  min-height: 100vh;
-  max-width: 210mm; /* A4 width */
+  flex-direction: row;
+  width: fit-content;
   margin: 0 auto;
+  gap: 30px;
+}
+
+/* Each page */
+.page {
+  display: flex;
+  width: 210mm; /* A4 width */
+  height: 297mm; /* A4 height */
   background: white;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  overflow: visible;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Page 2 - add top margin for better look */
+.page:nth-child(2) .sidebar,
+.page:nth-child(2) .content {
+  padding-top: 40px;
 }
 
 /* Left Sidebar - Colored */
@@ -89,7 +111,10 @@
   padding: 20px 15px;
   display: flex;
   flex-direction: column;
-  overflow: visible;
+  overflow: hidden;
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 /* Right Content - White */
@@ -97,7 +122,8 @@
   width: 67%;
   background-color: white;
   padding: 25px 30px;
-  overflow: visible;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Right Column Header */
@@ -113,6 +139,12 @@
   margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.otherName {
+  font-weight: 400;
+  color: #666;
+  opacity: 0.7;
 }
 
 .contentHeader .contentTitle {
@@ -284,17 +316,17 @@
 
 /* Content Sections */
 .contentSection {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .contentSection h2 {
-  font-size: 11pt;
+  font-size: 10.5pt;
   font-weight: bold;
   color: #1a1a1a;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding-bottom: 5px;
+  padding-bottom: 4px;
   border-bottom: 1.5px solid #163853;
 }
 
@@ -308,7 +340,7 @@
 
 /* Experience/Project Items */
 .item {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .itemHeader {
@@ -362,11 +394,12 @@
 }
 
 .itemList li {
-  font-size: 9pt;
-  margin-bottom: 3px;
+  font-size: 8.5pt;
+  margin-bottom: 2px;
   position: relative;
   padding-left: 12px;
   word-wrap: break-word;
+  line-height: 1.3;
 }
 
 .itemList li:before {
@@ -375,7 +408,7 @@
   left: 0;
   color: #163853;
   font-weight: normal;
-  font-size: 8pt;
+  font-size: 7pt;
 }
 
 .publicationItem {
@@ -388,10 +421,151 @@
   font-style: italic;
 }
 
+/* Print styles */
+@media print {
+  @page {
+    margin: 0;
+  }
+
+  .downloadSection {
+    display: none !important;
+  }
+
+  .resumeContainer {
+    padding: 0;
+    margin: 0;
+    background: white;
+    min-height: auto;
+  }
+
+  .htmlResume {
+    box-shadow: none;
+    flex-direction: column;
+    width: 210mm;
+    gap: 0;
+    margin: 0;
+  }
+
+  .page {
+    box-shadow: none;
+    page-break-after: always;
+    overflow: visible;
+    height: 297mm; /* Keep exact A4 height */
+    margin: 0;
+    padding: 0;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  /* Reset page 2 top margin for print */
+  .page:nth-child(2) .sidebar,
+  .page:nth-child(2) .content {
+    padding-top: 20px;
+  }
+
+  /* Reduce padding for print to maximize content space */
+  .sidebar {
+    padding: 15px 12px;
+    page-break-inside: auto;
+    overflow: visible;
+  }
+
+  .content {
+    padding: 20px 20px;
+    page-break-inside: auto;
+    overflow: visible;
+  }
+
+  /* Slightly reduce font size for long lines to prevent overflow */
+  .experienceMainLine {
+    font-size: 8.5pt;
+    line-height: 1.3;
+  }
+
+  .experienceLine {
+    font-size: 8.5pt;
+  }
+
+  /* Try to keep sections together */
+  .contentSection {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .contentSection h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Try to keep items together, but allow breaks if needed */
+  .item {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    orphans: 2;
+    widows: 2;
+  }
+
+  .itemHeader {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Allow lists to break if they're too long */
+  .itemList {
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  .itemList li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Try to keep sidebar sections together */
+  .sidebarSection {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .sidebarSection h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Allow page breaks before sections if needed */
+  .contentSection {
+    page-break-before: auto;
+    break-before: auto;
+  }
+
+  /* Avoid page break right after content header */
+  .contentHeader {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .experienceLine {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+}
+
 @media (max-width: 768px) {
+  .resumeContainer {
+    padding: 20px 10px;
+  }
+
   .htmlResume {
     flex-direction: column;
-    max-width: 100%;
+    gap: 20px;
+  }
+
+  .page {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
   }
 
   .sidebar {
