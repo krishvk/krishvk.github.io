@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# FPGA Tracer for Debugging
+# FPGA Tracer for Debugging*
 
 *[To be filled]*
 

@@ -4,6 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Head from '@docusaurus/Head';
 import styles from './resume.module.css';
+import {skillsData} from '../data/skillsData';
 
 export default function Resume(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
@@ -240,26 +241,12 @@ export default function Resume(): ReactNode {
             <div className={styles.sidebar}>
               <div className={styles.sidebarSection}>
                 <h2>Skillset</h2>
-                <div className={styles.skillCategory}>Programming & Scripting Languages:</div>
-                <p>Python, C, C++, SystemVerilog, MySQL, E, Perl, Shell, Bash, Tcsh, Zsh</p>
-                <div className={styles.skillCategory}>AI & Machine Learning:</div>
-                <p>scikit-learn, NLTK, Pandas, Anomaly Detection, Clustering, Hashing Vectorizer, KD-Tree, Decision Tree, Random Forest</p>
-                <div className={styles.skillCategory}>Data Visualization:</div>
-                <p>Streamlit, Plotly-Dash, Grafana</p>
-                <div className={styles.skillCategory}>Programming Tools & Libraries:</div>
-                <p>Bison, Flex, Yacc, Graphviz, Dot, Compilers, argparse</p>
-                <div className={styles.skillCategory}>Version Control & CI/CD:</div>
-                <p>Git, GitLab, GitHub, SVN, Perforce, LSF, Farm</p>
-                <div className={styles.skillCategory}>Documentation Tools:</div>
-                <p>Docusaurus, Sphinx, Doxygen</p>
-                <div className={styles.skillCategory}>EDA & Verification Tools:</div>
-                <p>Verdi, VCS, Specman, ICO, VDS-DVE, CSmith, Testbench</p>
-                <div className={styles.skillCategory}>Processor Architecture:</div>
-                <p>MMU, ISA, ISA Coverage, Action Points, Debug Unit, RISC-V, Processor State, Assembly Language</p>
-                <div className={styles.skillCategory}>Processor Verification:</div>
-                <p>Verification, Test Generation, Co-Simulation, PLV, MLV, Coverage, Cov2Gen, Constraints, Configuration Space</p>
-                <div className={styles.skillCategory}>Data Formats:</div>
-                <p>JSON, Parquet, YAML</p>
+                {skillsData.map((category, index) => (
+                  <div key={index}>
+                    <div className={styles.skillCategory}>{category.name}:</div>
+                    <p>{category.skills.join(', ')}</p>
+                  </div>
+                ))}
               </div>
             </div>
 

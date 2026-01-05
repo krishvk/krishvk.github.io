@@ -1,5 +1,9 @@
 {
-  "label": "G2: State Aware Generator",
   "position": 3,
-  "collapsed": false
+  "collapsed": false,
+  "description": "A SystemVerilog based state aware instruction generator",
+  "link": {
+    "type": "doc",
+    "id": "rpgs/g2-state-aware-generator/g2-state-aware-generator"
+  }
 }

@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Regression Automation
+# Regression Automation*
 
 *[To be filled]*
 

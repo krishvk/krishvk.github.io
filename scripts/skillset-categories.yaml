@@ -1,0 +1,113 @@
+# Skillset Category Mappings
+# This file categorizes tags into skill areas.
+# When new tags are detected, they will be automatically added to the "Others" section.
+# You can manually move tags between categories by editing this file.
+
+categories:
+  Programming & Scripting Languages:
+  - Python
+  - C
+  - C++
+  - SystemVerilog
+  - MySQL
+  - E
+  - Perl
+  - Shell
+  - Bash
+  - Tcsh
+  - Zsh
+  AI & Machine Learning:
+  - scikit-learn
+  - NLTK
+  - Pandas
+  - anomaly-detection
+  - clustering
+  - hashing-vectorizer
+  - kd-tree
+  - decision-tree
+  - random-forest
+  - vibe-coding
+  - Windsurf
+  - GithubCopilot
+  - AI
+  - AI-IDE
+  Data Visualization:
+  - Streamlit
+  - Plotly-Dash
+  - Grafana
+  Tools & Libraries:
+  - Bison
+  - Flex
+  - Yacc
+  - Graphviz
+  - Dot
+  - Compilers
+  - argparse
+  - VSCode
+  - Cursor
+  - Gvim
+  Version Control & CI/CD:
+  - Git
+  - GitLab
+  - GitHub
+  - SVN
+  - Perforce
+  - LSF
+  - Farm
+  Documentation:
+  - Docusaurus
+  - Sphinx
+  - Doxygen
+  - Markdown
+  - RST
+  EDA & Verification:
+  - Verdi
+  - VCS
+  - Specman
+  - ICO
+  - VCS-DVE
+  - CSmith
+  - Testbench
+  Processor Architecture:
+  - MMU
+  - ISA
+  - ISA-Coverage
+  - Action-Points
+  - Debug-Unit
+  - RISC-V
+  - Processor-State
+  - Assembly-Language
+  - Cache-Coherency
+  Processor Verification:
+  - Verification
+  - Test-Generation
+  - Co-Simulation
+  - PLV
+  - MLV
+  - Coverage
+  - Cov2Gen
+  - Constraints
+  - Configuration-Space
+  Data Formats:
+  - JSON
+  - Parquet
+  - YAML
+  Others:
+  - 8D
+  - Automation
+  - Best-Practices
+  - Checklists
+  - Documentation
+  - Guidelines
+  - HVP
+  - Jama
+  - Leadership
+  - Makefile
+  - Project-Dashboard
+  - Prototyping
+  - Sessions
+  - Templates
+  - Training
+  - Verification-Plans
+  - WSL
+  - Workaround-Management

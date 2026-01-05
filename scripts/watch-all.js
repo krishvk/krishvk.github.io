@@ -3,8 +3,9 @@
 /**
  * Watch all project files and auto-generate content as needed:
  * 1. Resume files (tsx, css) → Generate PDF
- * 2. Markdown files with tags → Generate skillset
- * 
+ * 2. Markdown files with tags → Sync categories → Generate skills data → Generate skillset
+ * 3. Category YAML file → Generate skills data → Generate skillset
+ *
  * Run this in parallel with `npm start` for full dev experience.
  */
 
@@ -21,6 +22,8 @@ const RESUME_FILES = [
 ];
 
 const DOCS_DIR = path.join(PROJECT_ROOT, 'docs');
+const SKILLSET_CATEGORIES_FILE = path.join(PROJECT_ROOT,
+                                           'scripts/skillset-categories.yaml');
 
 // Debounce timers
 let resumeTimer = null;
@@ -36,7 +39,7 @@ console.log('🔍 Starting project watcher...\n');
 function runCommand(command, args, label) {
   return new Promise((resolve, reject) => {
     console.log(`\n📦 ${label}...`);
-    
+
     const proc = spawn(command, args, {
       cwd: PROJECT_ROOT,
       stdio: 'inherit',
@@ -77,8 +80,8 @@ async function generateResume() {
   }
 }
 
-// Generate skillset
-async function generateSkillset() {
+// Generate skillset from markdown changes (sync categories first)
+async function generateSkillsetFromMarkdown() {
   if (isGeneratingSkillset) {
     console.log('⏳ Skillset generation already in progress, skipping...');
     return;
@@ -86,7 +89,32 @@ async function generateSkillset() {
 
   isGeneratingSkillset = true;
   try {
-    await runCommand('python3', ['scripts/generate-skillset.py'], 'Generating skillset page');
+    await runCommand('python3', ['scripts/sync-categories.py'],
+                     'Syncing categories');
+    await runCommand('node', ['scripts/generate-skills-data.js'],
+                     'Generating skills data');
+    await runCommand('python3', ['scripts/generate-skillset.py'],
+                     'Generating skillset page');
+  } catch (error) {
+    // Error already logged
+  } finally {
+    isGeneratingSkillset = false;
+  }
+}
+
+// Generate skillset from YAML changes (no sync needed, user edited manually)
+async function generateSkillsetFromYaml() {
+  if (isGeneratingSkillset) {
+    console.log('⏳ Skillset generation already in progress, skipping...');
+    return;
+  }
+
+  isGeneratingSkillset = true;
+  try {
+    await runCommand('node', ['scripts/generate-skills-data.js'],
+                     'Regenerating skills data');
+    await runCommand('python3', ['scripts/generate-skillset.py'],
+                     'Regenerating skillset from updated categories');
   } catch (error) {
     // Error already logged
   } finally {
@@ -98,11 +126,11 @@ async function generateSkillset() {
 RESUME_FILES.forEach((file) => {
   const fileName = path.basename(file);
   console.log(`👀 Watching: ${fileName}`);
-  
+
   fs.watch(file, (eventType) => {
     if (eventType === 'change') {
       console.log(`\n🔄 Detected change in ${fileName}`);
-      
+
       // Debounce: wait 1 second after last change
       if (resumeTimer) clearTimeout(resumeTimer);
       resumeTimer = setTimeout(() => {
@@ -116,20 +144,21 @@ RESUME_FILES.forEach((file) => {
 function watchDirectory(dir) {
   fs.readdirSync(dir, { withFileTypes: true }).forEach((dirent) => {
     const fullPath = path.join(dir, dirent.name);
-    
+
     if (dirent.isDirectory()) {
       // Recursively watch subdirectories
       watchDirectory(fullPath);
-    } else if (dirent.isFile() && dirent.name.endsWith('.md')) {
+    } else if (dirent.isFile() &&
+               (dirent.name.endsWith('.md') || dirent.name.endsWith('.mdx'))) {
       fs.watch(fullPath, (eventType) => {
         if (eventType === 'change') {
           const relativePath = path.relative(PROJECT_ROOT, fullPath);
           console.log(`\n🔄 Detected change in ${relativePath}`);
-          
+
           // Debounce: wait 1 second after last change
           if (skillsetTimer) clearTimeout(skillsetTimer);
           skillsetTimer = setTimeout(() => {
-            generateSkillset();
+            generateSkillsetFromMarkdown();
           }, 1000);
         }
       });
@@ -137,12 +166,28 @@ function watchDirectory(dir) {
   });
 }
 
-console.log(`👀 Watching: docs/**/*.md\n`);
+console.log(`👀 Watching: docs/**/*.{md,mdx}`);
 watchDirectory(DOCS_DIR);
 
+// Watch skillset categories YAML file
+const yamlFileName = path.basename(SKILLSET_CATEGORIES_FILE);
+console.log(`👀 Watching: scripts/${yamlFileName}\n`);
+fs.watch(SKILLSET_CATEGORIES_FILE, (eventType) => {
+  if (eventType === 'change') {
+    console.log(`\n🔄 Detected change in ${yamlFileName} (manual edit)`);
+
+    // Debounce: wait 1 second after last change
+    if (skillsetTimer) clearTimeout(skillsetTimer);
+    skillsetTimer = setTimeout(() => {
+      generateSkillsetFromYaml();
+    }, 1000);
+  }
+});
+
 console.log('✨ Project watcher is running!');
-console.log('   • Edit resume files → PDF auto-regenerates');
-console.log('   • Edit markdown files → Skillset auto-regenerates');
+console.log('   • Edit resume files → PDF regenerates');
+console.log('   • Edit markdown/MDX files → Categories sync → Skillset regenerates');
+console.log('   • Edit categories YAML → Skillset regenerates');
 console.log('\n💡 Tip: Run "npm start" in another terminal for live preview\n');
 console.log('Press Ctrl+C to stop watching...\n');
 

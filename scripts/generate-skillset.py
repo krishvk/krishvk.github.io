@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
 Generate skillset page from tags in all markdown files.
+Reads category mappings from skillset-categories.yaml.
+
+Note: Run sync-categories.py first to ensure categories are up-to-date.
 """
 
 import os
@@ -9,44 +12,18 @@ from pathlib import Path
 from collections import defaultdict
 import yaml
 
-# Category mappings - categorize tags into skill areas
-CATEGORIES = {
-    'Programming & Scripting Languages': [
-        'Python', 'C', 'C++', 'SystemVerilog', 'MySQL', 'E',
-        'Perl', 'Shell', 'Bash', 'Tcsh', 'Zsh'
-    ],
-    'AI & Machine Learning': [
-        'scikit-learn', 'NLTK', 'Pandas',
-        'anomaly-detection', 'clustering', 'hashing-vectorizer',
-        'kd-tree', 'decision-tree', 'random-forest'
-    ],
-    'Data Visualization': [
-        'Streamlit', 'Plotly-Dash', 'Grafana'
-    ],
-    'Programming Tools & Libraries': [
-        'Bison', 'Flex', 'Yacc', 'Graphviz', 'Dot', 'Compilers', 'argparse'
-    ],
-    'Version Control & CI/CD': [
-        'Git', 'GitLab', 'GitHub', 'SVN', 'Perforce', 'LSF', 'Farm'
-    ],
-    'Documentation Tools': [
-        'Docusaurus', 'Sphinx', 'Doxygen'
-    ],
-    'EDA & Verification Tools': [
-        'Verdi', 'VCS', 'Specman', 'ICO', 'VDS-DVE', 'CSmith', 'Testbench'
-    ],
-    'Processor Architecture': [
-        'MMU', 'ISA', 'ISA-Coverage', 'Action-Points', 'Debug-Unit', 'RISC-V', 'Processor-State', 'Assembly-Language'
-    ],
-    'Processor Verification': [
-        'Verification', 'Test-Generation', 'Co-Simulation',
-        'PLV', 'MLV', 'Coverage', 'Cov2Gen', 'Constraints',
-        'Configuration-Space'
-    ],
-    'Data Formats': [
-        'JSON', 'Parquet', 'YAML'
-    ]
-}
+
+def load_categories(yaml_file):
+    """Load category mappings from YAML file."""
+    if not yaml_file.exists():
+        print(f"Error: Category file {yaml_file} not found.")
+        print("Please run sync-categories.py first.")
+        return None
+
+    with open(yaml_file, 'r', encoding='utf-8') as f:
+        data = yaml.safe_load(f)
+
+    return data.get('categories', {})
 
 def extract_frontmatter(content):
     """Extract YAML frontmatter from markdown content."""
@@ -63,7 +40,7 @@ def get_all_markdown_files(docs_dir):
     md_files = []
     for root, dirs, files in os.walk(docs_dir):
         for file in files:
-            if file.endswith('.md'):
+            if file.endswith('.md') or file.endswith('.mdx'):
                 md_files.append(os.path.join(root, file))
     return md_files
 
@@ -83,15 +60,20 @@ def extract_tags_from_files(docs_dir):
         if tags:
             # Get relative path and convert to URL
             rel_path = os.path.relpath(filepath, docs_dir)
-            # Remove .md extension and convert to URL path
-            url_path = '/' + rel_path[:-3].replace(os.sep, '/')
+            # Remove file extension (.md or .mdx) and convert to URL path
+            path_without_ext = os.path.splitext(rel_path)[0]
+            url_path = '/' + path_without_ext.replace(os.sep, '/')
 
             # Determine which section this doc belongs to
             section = rel_path.split(os.sep)[0]
 
             # Get document title (first H1 heading)
             title_match = re.search(r'^#\s+(.+)$', content, re.MULTILINE)
-            title = title_match.group(1) if title_match else os.path.basename(filepath)[:-3]
+            if title_match:
+                title = title_match.group(1)
+            else:
+                # Use filename without extension as fallback
+                title = os.path.splitext(os.path.basename(filepath))[0]
 
             for tag in tags:
                 tag_to_docs[tag][section].append({
@@ -102,29 +84,34 @@ def extract_tags_from_files(docs_dir):
 
     return tag_to_docs
 
-def categorize_tags(tag_to_docs):
-    """Categorize tags into skill areas."""
+def categorize_tags(tag_to_docs, categories):
+    """
+    Categorize tags into skill areas based on the YAML categories.
+    """
     categorized = defaultdict(list)
-    uncategorized = []
+    uncategorized_tags = []
 
+    # Categorize all tags
     for tag, sections_dict in sorted(tag_to_docs.items()):
         placed = False
-        for category, tag_list in CATEGORIES.items():
+        for category, tag_list in categories.items():
             if tag in tag_list:
                 categorized[category].append((tag, sections_dict))
                 placed = True
                 break
 
         if not placed:
-            uncategorized.append((tag, sections_dict))
+            uncategorized_tags.append(tag)
 
-    # Add uncategorized to "Other" category if any exist
-    if uncategorized:
-        categorized['Other'] = uncategorized
+    # Warn about uncategorized tags
+    if uncategorized_tags:
+        print(f"Warning: {len(uncategorized_tags)} tag(s) not in categories "
+              f"YAML: {', '.join(sorted(uncategorized_tags))}")
+        print("Run sync-categories.py to update the YAML file.")
 
     return categorized
 
-def generate_skillset_page(categorized_tags, output_file):
+def generate_skillset_page(categorized_tags, categories, output_file):
     """Generate the skillset MDX page."""
 
     content = """---
@@ -132,12 +119,256 @@ title: Skillset
 description: Technologies, tools, and methodologies I worked with
 ---
 
+import BrowserOnly from '@docusaurus/BrowserOnly';
+
+<BrowserOnly>
+  {() => {
+    const initSkillsetHover = () => {
+    const pillsContainer = document.querySelector('.skillset-pills');
+    if (!pillsContainer) return;
+
+    let categoryLabel = null;
+    let currentCategory = null;
+
+    // Get or create category label element
+    function getCategoryLabel() {
+      if (!categoryLabel) {
+        categoryLabel = document.createElement('div');
+        categoryLabel.className = 'skill-category-label';
+        categoryLabel.style.display = 'none';
+        pillsContainer.appendChild(categoryLabel);
+      }
+      return categoryLabel;
+    }
+
+    // Store current category bounding boxes
+    let currentBoundingBoxes = [];
+
+    // Calculate bounding boxes for a category (grouped by rows)
+    function getCategoryBoundingBoxes(category) {
+      const items = Array.from(
+        pillsContainer.querySelectorAll('.skill-pill, .skill-dropdown')
+      ).filter(item => item.getAttribute('data-category') === category);
+
+      if (items.length === 0) return [];
+
+      const containerRect = pillsContainer.getBoundingClientRect();
+      const boxes = [];
+      const rows = new Map(); // Map of row Y positions to items
+
+      // Group items by row (same Y position, with tolerance)
+      items.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        const relativeTop = rect.top - containerRect.top;
+        const relativeBottom = rect.bottom - containerRect.top;
+
+        // Find existing row within tolerance (5px)
+        let foundRow = false;
+        for (const [rowY, rowItems] of rows.entries()) {
+          if (Math.abs(relativeTop - rowY) < 5) {
+            rowItems.push({ item, rect, relativeTop, relativeBottom });
+            foundRow = true;
+            break;
+          }
+        }
+
+        if (!foundRow) {
+          rows.set(relativeTop, [{ item, rect, relativeTop, relativeBottom }]);
+        }
+      });
+
+      // Create bounding boxes for each row
+      rows.forEach(rowItems => {
+        if (rowItems.length === 0) return;
+
+        // Find leftmost and rightmost items in this row
+        let minLeft = Infinity;
+        let maxRight = -Infinity;
+        let minTop = Infinity;
+        let maxBottom = -Infinity;
+
+        rowItems.forEach(({ rect, relativeTop, relativeBottom }) => {
+          const relativeLeft = rect.left - containerRect.left;
+          const relativeRight = rect.right - containerRect.left;
+
+          minLeft = Math.min(minLeft, relativeLeft);
+          maxRight = Math.max(maxRight, relativeRight);
+          minTop = Math.min(minTop, relativeTop);
+          maxBottom = Math.max(maxBottom, relativeBottom);
+        });
+
+        // Add padding to bounding box (half gap size)
+        const padding = 0.25;
+        boxes.push({
+          left: minLeft - padding,
+          right: maxRight + padding,
+          top: minTop - padding,
+          bottom: maxBottom + padding
+        });
+      });
+
+      return boxes;
+    }
+
+    // Check if point is within any bounding box
+    function isPointInBoundingBoxes(x, y, boxes) {
+      const containerRect = pillsContainer.getBoundingClientRect();
+      const relativeX = x - containerRect.left;
+      const relativeY = y - containerRect.top;
+
+      return boxes.some(box => {
+        return relativeX >= box.left &&
+               relativeX <= box.right &&
+               relativeY >= box.top &&
+               relativeY <= box.bottom;
+      });
+    }
+
+    // Update bounding boxes when category changes
+    function updateBoundingBoxes(category) {
+      if (category) {
+        currentBoundingBoxes = getCategoryBoundingBoxes(category);
+      } else {
+        currentBoundingBoxes = [];
+      }
+    }
+
+    // Highlight category by fading others
+    function highlightCategory(category) {
+      if (currentCategory === category) return;
+      currentCategory = category;
+
+      const allItems = pillsContainer.querySelectorAll('.skill-pill, .skill-dropdown');
+
+      if (!category) {
+        // Remove fade from all
+        allItems.forEach(item => item.classList.remove('faded'));
+        updateBoundingBoxes(null);
+        return;
+      }
+
+      // Add fade to items NOT in this category
+      allItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        if (itemCategory === category) {
+          item.classList.remove('faded');
+        } else {
+          item.classList.add('faded');
+        }
+      });
+
+      updateBoundingBoxes(category);
+    }
+
+    // Show category label in fixed position on first row of active pills
+    function showCategoryLabel(category) {
+      const label = getCategoryLabel();
+      label.textContent = category;
+      label.style.display = 'block';
+
+      // Position label on the first row of active pills
+      const activeItems = Array.from(
+        pillsContainer.querySelectorAll('.skill-pill:not(.faded), .skill-dropdown:not(.faded)')
+      ).filter(item => item.getAttribute('data-category') === category);
+
+      if (activeItems.length > 0) {
+        // Find the topmost active pill
+        const containerRect = pillsContainer.getBoundingClientRect();
+        let minTop = Infinity;
+
+        activeItems.forEach(item => {
+          const rect = item.getBoundingClientRect();
+          const relativeTop = rect.top - containerRect.top;
+          minTop = Math.min(minTop, relativeTop);
+        });
+
+        // Position label at the same vertical position as first row
+        label.style.top = minTop + 'px';
+      }
+    }
+
+    // Hide category label
+    function hideCategoryLabel() {
+      if (categoryLabel) {
+        categoryLabel.style.display = 'none';
+      }
+    }
+
+    // Attach hover listeners to all pills and dropdowns
+    const allItems = pillsContainer.querySelectorAll('.skill-pill, .skill-dropdown');
+    allItems.forEach(item => {
+      const category = item.getAttribute('data-category');
+      if (!category) return;
+
+      item.addEventListener('mouseenter', () => {
+        highlightCategory(category);
+        showCategoryLabel(category);
+      });
+    });
+
+    // Also handle dropdown menu hover to keep category highlighted
+    const allDropdownMenus = pillsContainer.querySelectorAll('.skill-dropdown-menu');
+    allDropdownMenus.forEach(menu => {
+      const dropdown = menu.closest('.skill-dropdown');
+      const category = dropdown?.getAttribute('data-category');
+      if (!category) return;
+
+      menu.addEventListener('mouseenter', () => {
+        highlightCategory(category);
+        showCategoryLabel(category);
+      });
+    });
+
+    // Track mouse movement over container to maintain highlight in gaps
+    pillsContainer.addEventListener('mousemove', (e) => {
+      if (currentCategory && currentBoundingBoxes.length > 0) {
+        // Check if mouse is within bounding boxes of current category
+        if (isPointInBoundingBoxes(e.clientX, e.clientY, currentBoundingBoxes)) {
+          // Maintain current category highlight
+          return;
+        }
+      }
+
+      // Check if mouse is directly over a pill
+      const element = document.elementFromPoint(e.clientX, e.clientY);
+      const pill = element?.closest('.skill-pill, .skill-dropdown, .skill-dropdown-menu');
+
+      if (pill) {
+        const category = pill.classList.contains('skill-dropdown-menu')
+          ? pill.closest('.skill-dropdown')?.getAttribute('data-category')
+          : pill.getAttribute('data-category');
+
+        if (category && category !== currentCategory) {
+          highlightCategory(category);
+          showCategoryLabel(category);
+        }
+      } else if (currentCategory) {
+        // Mouse is in gap and not in bounding box, clear highlight
+        highlightCategory(null);
+        hideCategoryLabel();
+      }
+    });
+
+    // Clear highlights when leaving the container
+    pillsContainer.addEventListener('mouseleave', () => {
+      highlightCategory(null);
+      hideCategoryLabel();
+    });
+  };
+
+    // Initialize immediately
+    setTimeout(initSkillsetHover, 100);
+    return null;
+  }}
+</BrowserOnly>
+
 <style>{`
 .skillset-pills {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .skill-item {
@@ -165,6 +396,34 @@ description: Technologies, tools, and methodologies I worked with
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   position: relative;
+  z-index: 1;
+}
+
+.skill-pill.faded,
+.skill-dropdown.faded .skill-dropdown-btn {
+  opacity: 0.25;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.skill-dropdown-menu {
+  opacity: 1 !important;
+}
+
+.skill-category-label {
+  position: absolute;
+  left: 0;
+  background: var(--ifm-color-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 1001;
+  white-space: nowrap;
+  transform: translateX(calc(-100% - 1rem));
 }
 
 .skill-pill:hover {
@@ -209,6 +468,12 @@ description: Technologies, tools, and methodologies I worked with
 .skill-dropdown {
   position: relative;
   display: inline-block;
+  z-index: 1;
+}
+
+.skill-dropdown:hover,
+.skill-dropdown:focus-within {
+  z-index: 10000;
 }
 
 .skill-dropdown-btn {
@@ -282,17 +547,29 @@ description: Technologies, tools, and methodologies I worked with
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 0.125rem;
-  background: var(--ifm-background-surface-color);
+  margin-top: 0;
+  padding-top: 0.5rem;
+  background: var(--ifm-background-surface-color) !important;
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  z-index: 10000 !important;
   min-width: 180px;
-  padding: 0.5rem 0;
+  isolation: isolate;
 }
 
-.skill-dropdown:hover .skill-dropdown-menu {
+.skill-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+  background: transparent;
+}
+
+.skill-dropdown:hover .skill-dropdown-menu,
+.skill-dropdown:focus-within .skill-dropdown-menu {
   display: block;
 }
 
@@ -300,11 +577,19 @@ description: Technologies, tools, and methodologies I worked with
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 0.65rem 1rem;
   color: var(--ifm-font-color-base);
   text-decoration: none;
   transition: background-color 0.15s ease;
   font-size: 0.875rem;
+}
+
+.skill-dropdown-item:first-child {
+  margin-top: 0.5rem;
+}
+
+.skill-dropdown-item:last-child {
+  margin-bottom: 0.5rem;
 }
 
 .skill-dropdown-item:hover {
@@ -407,43 +692,45 @@ description: Technologies, tools, and methodologies I worked with
   background-color: var(--ifm-color-emphasis-400);
   color: var(--ifm-color-emphasis-900);
 }
+
+[data-theme='dark'] .skill-category-label {
+  background: var(--ifm-color-primary-dark);
+}
 `}</style>
 
 # Skillset
 
 A comprehensive view of technologies, tools, and methodologies I worked with across my projects.
 
+<div className="skillset-pills">
 """
 
+    # Collect all pills from all categories
+    all_pills = []
+
     # Generate content for each category
-    for category in list(CATEGORIES.keys()) + ['Other']:
-        content += f"\n## {category}\n\n"
-        content += '<div className="skillset-pills">\n'
+    # Show all categories from the YAML, including Others if it has tags
+    for category in categories.keys():
+        # Skip Others if it's empty
+        if category == 'Others' and not categories[category]:
+            continue
 
         # Get tags for this category
-        if category == 'Other':
-            # For Other category, use tags from categorized_tags
-            if category in categorized_tags:
-                tags_to_show = sorted(categorized_tags[category])
-            else:
-                tags_to_show = []
-        else:
-            # For defined categories, show ALL tags from CATEGORIES
-            defined_tags = CATEGORIES.get(category, [])
-            tags_with_docs = {tag for tag, _ in categorized_tags.get(category, [])}
+        defined_tags = categories.get(category, [])
+        tags_with_docs = {tag for tag, _ in categorized_tags.get(category, [])}
 
-            # Combine: tags with docs first, then missing tags
-            tags_to_show = []
-            for tag in defined_tags:
-                if tag in tags_with_docs:
-                    # Find the sections_dict for this tag
-                    for t, sections_dict in categorized_tags.get(category, []):
-                        if t == tag:
-                            tags_to_show.append((tag, sections_dict))
-                            break
-                else:
-                    # Tag defined but has no documents
-                    tags_to_show.append((tag, {}))
+        # Combine: tags with docs first, then missing tags
+        tags_to_show = []
+        for tag in defined_tags:
+            if tag in tags_with_docs:
+                # Find the sections_dict for this tag
+                for t, sections_dict in categorized_tags.get(category, []):
+                    if t == tag:
+                        tags_to_show.append((tag, sections_dict))
+                        break
+            else:
+                # Tag defined but has no documents
+                tags_to_show.append((tag, {}))
 
         # Sort tags by total count (highest first), then alphabetically
         tags_with_counts = []
@@ -455,11 +742,12 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
         tags_with_counts.sort(key=lambda x: (-x[2], x[0].lower()))
 
         for tag, sections_dict, total_count in tags_with_counts:
+            pill_html = ''
 
             # If no documents, show as non-clickable pill with red count
             if total_count == 0:
                 style_obj = "{{cursor: 'default'}}"
-                content += f'  <span className="skill-pill" style={style_obj}>{tag}<span className="count zero">0</span></span>\n'
+                pill_html = f'<span className="skill-pill" data-category="{category}" style={style_obj}>{tag}<span className="count zero">0</span></span>'
             # If tag appears in only one section, show a simple pill
             elif len(sections_dict) == 1:
                 section, docs = list(sections_dict.items())[0]
@@ -471,12 +759,12 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
                 if len(docs) > 3:
                     doc_titles += f', +{len(docs)-3} more'
 
-                content += f'  <a href="{url}" className="skill-pill" title="{doc_titles}">{tag}<span className="count">{len(docs)}</span></a>\n'
+                pill_html = f'<a href="{url}" className="skill-pill" data-category="{category}" title="{doc_titles}">{tag}<span className="count">{len(docs)}</span></a>'
             else:
                 # Tag appears in multiple sections - show dropdown
-                content += f'  <div className="skill-dropdown">\n'
-                content += f'    <button className="skill-dropdown-btn">{tag}<span className="count">{total_count}</span></button>\n'
-                content += '    <div className="skill-dropdown-menu">\n'
+                pill_html = f'<div className="skill-dropdown" data-category="{category}">\n'
+                pill_html += f'  <button className="skill-dropdown-btn">{tag}<span className="count">{total_count}</span></button>\n'
+                pill_html += '  <div className="skill-dropdown-menu">\n'
 
                 # Sort sections by doc count (most docs first)
                 for section, docs in sorted(sections_dict.items(), key=lambda x: len(x[1]), reverse=True):
@@ -484,15 +772,21 @@ A comprehensive view of technologies, tools, and methodologies I worked with acr
                     url = f'/{section}/tags/{tag_slug}'
                     section_label = section.replace('-', ' ').title()
 
-                    content += f'      <a href="{url}" className="skill-dropdown-item">\n'
-                    content += f'        <span className="section-label">{section_label}</span>\n'
-                    content += f'        <span className="section-count">{len(docs)}</span>\n'
-                    content += '      </a>\n'
+                    pill_html += f'    <a href="{url}" className="skill-dropdown-item">\n'
+                    pill_html += f'      <span className="section-label">{section_label}</span>\n'
+                    pill_html += f'      <span className="section-count">{len(docs)}</span>\n'
+                    pill_html += '    </a>\n'
 
-                content += '    </div>\n'
-                content += '  </div>\n'
+                pill_html += '  </div>\n'
+                pill_html += '</div>'
 
-        content += '</div>\n'
+            all_pills.append(pill_html)
+
+    # Add all pills to the content
+    for pill in all_pills:
+        content += '  ' + pill + '\n'
+
+    content += '</div>\n'
 
     # Write to file
     with open(output_file, 'w', encoding='utf-8') as f:
@@ -507,6 +801,14 @@ def main():
     repo_root = script_dir.parent
     docs_dir = repo_root / 'docs'
     output_file = repo_root / 'src' / 'pages' / 'skillset.mdx'
+    yaml_file = script_dir / 'skillset-categories.yaml'
+
+    # Load category mappings
+    print(f"Loading categories from {yaml_file.name}...")
+    categories = load_categories(yaml_file)
+
+    if categories is None:
+        return
 
     # Extract tags from all markdown files
     print(f"Scanning {docs_dir} for tags...")
@@ -516,11 +818,11 @@ def main():
         print("No tags found in any markdown files.")
         return
 
-    # Categorize tags
-    categorized = categorize_tags(tag_to_docs)
+    # Categorize tags based on YAML
+    categorized = categorize_tags(tag_to_docs, categories)
 
     # Generate the skillset page
-    generate_skillset_page(categorized, output_file)
+    generate_skillset_page(categorized, categories, output_file)
 
 if __name__ == '__main__':
     main()

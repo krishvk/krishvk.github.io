@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Managing Innovation
+# Git Migration*
 
 *[To be filled]*
 

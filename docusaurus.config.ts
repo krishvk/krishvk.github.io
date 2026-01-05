@@ -127,7 +127,7 @@ const config: Config = {
         src: 'img/logo.jpg',
       },
       items: [
-        {type: 'doc', docId: 'rpgs/rpgs', docsPluginId: 'work', position: 'left', label: 'Work'},
+        {type: 'doc', docId: 'rpgs/index', docsPluginId: 'work', position: 'left', label: 'Work'},
         {type: 'doc', docId: 'log-anomaly-detector', docsPluginId: 'academic', position: 'left', label: 'Academic'},
         {type: 'doc', docId: 'argparse-enh', docsPluginId: 'personal', position: 'left', label: 'Personal'},
         {type: 'doc', docId: 'publications', docsPluginId: 'about-me', position: 'left', label: 'About'},

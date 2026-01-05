@@ -7,12 +7,13 @@ tags:
   - PLV
 ---
 
-# Co-Simulation
+# Co-Simulation*
 
 Prototyped the experimental co-simulation flow to automate the verification of processor level
 simulations. Worked with the team managing Golden model and implemented and maintained reusable
-interface that can be used in multiple verification components. This environment which was later managed by a dedicated team became a critical
-component of the verification infrastructure for Synopsys ARC processors.
+interface that can be used in multiple verification components. This environment which was later
+managed by a dedicated team became a critical component of the verification infrastructure for
+Synopsys ARC processors.
 
 ## Key Features
 

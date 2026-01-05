@@ -18,42 +18,15 @@ RPGs:
     G3:
     Extension Generator:
 
-VBPT:
-    - more vbpt stuff
-    - workaround management
-    - VBPT Team, not personal activities:
-        - HVP
-        - Jama
-        - Spec Linking Guidelines
-        - Utilities around coverage back linking
-        - articles on best practices and new tools explored
-        - Coding Guidelines
-        - Identifying and training the team members on cutting edge tools within and out of Synopsys
-        - Participating in audits and 8Ds
-        - Streamlining processes across the team (Strict coverage exclusions with Verdi)
-        - Cross breading the best practices, formalizing the processes
-
 Infrastructure:
     - Co-Simulation
-    - C-Forge
-    - Darpan
     - fsdb tracer
     - IPXACT
-    - Log Anomaly Detector
-
-Verification:
-    - ISA Coverage
-    - Action Points
-    - MPU
-    - MMU
-
-cfgLoader, cfgMan
 
 Onesearch docs
 Dita
 farm utils
 hgCosim
 ipxact
-
-ISA Coverage
-Cache Coherency
+KSS
+First to use VSCODE in the verif team, KSS

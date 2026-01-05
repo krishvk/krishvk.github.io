@@ -3,12 +3,256 @@ title: Skillset
 description: Technologies, tools, and methodologies I worked with
 ---
 
+import BrowserOnly from '@docusaurus/BrowserOnly';
+
+<BrowserOnly>
+  {() => {
+    const initSkillsetHover = () => {
+    const pillsContainer = document.querySelector('.skillset-pills');
+    if (!pillsContainer) return;
+
+    let categoryLabel = null;
+    let currentCategory = null;
+
+    // Get or create category label element
+    function getCategoryLabel() {
+      if (!categoryLabel) {
+        categoryLabel = document.createElement('div');
+        categoryLabel.className = 'skill-category-label';
+        categoryLabel.style.display = 'none';
+        pillsContainer.appendChild(categoryLabel);
+      }
+      return categoryLabel;
+    }
+
+    // Store current category bounding boxes
+    let currentBoundingBoxes = [];
+
+    // Calculate bounding boxes for a category (grouped by rows)
+    function getCategoryBoundingBoxes(category) {
+      const items = Array.from(
+        pillsContainer.querySelectorAll('.skill-pill, .skill-dropdown')
+      ).filter(item => item.getAttribute('data-category') === category);
+
+      if (items.length === 0) return [];
+
+      const containerRect = pillsContainer.getBoundingClientRect();
+      const boxes = [];
+      const rows = new Map(); // Map of row Y positions to items
+
+      // Group items by row (same Y position, with tolerance)
+      items.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        const relativeTop = rect.top - containerRect.top;
+        const relativeBottom = rect.bottom - containerRect.top;
+        
+        // Find existing row within tolerance (5px)
+        let foundRow = false;
+        for (const [rowY, rowItems] of rows.entries()) {
+          if (Math.abs(relativeTop - rowY) < 5) {
+            rowItems.push({ item, rect, relativeTop, relativeBottom });
+            foundRow = true;
+            break;
+          }
+        }
+        
+        if (!foundRow) {
+          rows.set(relativeTop, [{ item, rect, relativeTop, relativeBottom }]);
+        }
+      });
+
+      // Create bounding boxes for each row
+      rows.forEach(rowItems => {
+        if (rowItems.length === 0) return;
+
+        // Find leftmost and rightmost items in this row
+        let minLeft = Infinity;
+        let maxRight = -Infinity;
+        let minTop = Infinity;
+        let maxBottom = -Infinity;
+
+        rowItems.forEach(({ rect, relativeTop, relativeBottom }) => {
+          const relativeLeft = rect.left - containerRect.left;
+          const relativeRight = rect.right - containerRect.left;
+          
+          minLeft = Math.min(minLeft, relativeLeft);
+          maxRight = Math.max(maxRight, relativeRight);
+          minTop = Math.min(minTop, relativeTop);
+          maxBottom = Math.max(maxBottom, relativeBottom);
+        });
+
+        // Add padding to bounding box (half gap size)
+        const padding = 0.25;
+        boxes.push({
+          left: minLeft - padding,
+          right: maxRight + padding,
+          top: minTop - padding,
+          bottom: maxBottom + padding
+        });
+      });
+
+      return boxes;
+    }
+
+    // Check if point is within any bounding box
+    function isPointInBoundingBoxes(x, y, boxes) {
+      const containerRect = pillsContainer.getBoundingClientRect();
+      const relativeX = x - containerRect.left;
+      const relativeY = y - containerRect.top;
+
+      return boxes.some(box => {
+        return relativeX >= box.left &&
+               relativeX <= box.right &&
+               relativeY >= box.top &&
+               relativeY <= box.bottom;
+      });
+    }
+
+    // Update bounding boxes when category changes
+    function updateBoundingBoxes(category) {
+      if (category) {
+        currentBoundingBoxes = getCategoryBoundingBoxes(category);
+      } else {
+        currentBoundingBoxes = [];
+      }
+    }
+
+    // Highlight category by fading others
+    function highlightCategory(category) {
+      if (currentCategory === category) return;
+      currentCategory = category;
+
+      const allItems = pillsContainer.querySelectorAll('.skill-pill, .skill-dropdown');
+
+      if (!category) {
+        // Remove fade from all
+        allItems.forEach(item => item.classList.remove('faded'));
+        updateBoundingBoxes(null);
+        return;
+      }
+
+      // Add fade to items NOT in this category
+      allItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        if (itemCategory === category) {
+          item.classList.remove('faded');
+        } else {
+          item.classList.add('faded');
+        }
+      });
+      
+      updateBoundingBoxes(category);
+    }
+
+    // Show category label in fixed position on first row of active pills
+    function showCategoryLabel(category) {
+      const label = getCategoryLabel();
+      label.textContent = category;
+      label.style.display = 'block';
+
+      // Position label on the first row of active pills
+      const activeItems = Array.from(
+        pillsContainer.querySelectorAll('.skill-pill:not(.faded), .skill-dropdown:not(.faded)')
+      ).filter(item => item.getAttribute('data-category') === category);
+
+      if (activeItems.length > 0) {
+        // Find the topmost active pill
+        const containerRect = pillsContainer.getBoundingClientRect();
+        let minTop = Infinity;
+
+        activeItems.forEach(item => {
+          const rect = item.getBoundingClientRect();
+          const relativeTop = rect.top - containerRect.top;
+          minTop = Math.min(minTop, relativeTop);
+        });
+
+        // Position label at the same vertical position as first row
+        label.style.top = minTop + 'px';
+      }
+    }
+
+    // Hide category label
+    function hideCategoryLabel() {
+      if (categoryLabel) {
+        categoryLabel.style.display = 'none';
+      }
+    }
+
+    // Attach hover listeners to all pills and dropdowns
+    const allItems = pillsContainer.querySelectorAll('.skill-pill, .skill-dropdown');
+    allItems.forEach(item => {
+      const category = item.getAttribute('data-category');
+      if (!category) return;
+
+      item.addEventListener('mouseenter', () => {
+        highlightCategory(category);
+        showCategoryLabel(category);
+      });
+    });
+
+    // Also handle dropdown menu hover to keep category highlighted
+    const allDropdownMenus = pillsContainer.querySelectorAll('.skill-dropdown-menu');
+    allDropdownMenus.forEach(menu => {
+      const dropdown = menu.closest('.skill-dropdown');
+      const category = dropdown?.getAttribute('data-category');
+      if (!category) return;
+
+      menu.addEventListener('mouseenter', () => {
+        highlightCategory(category);
+        showCategoryLabel(category);
+      });
+    });
+
+    // Track mouse movement over container to maintain highlight in gaps
+    pillsContainer.addEventListener('mousemove', (e) => {
+      if (currentCategory && currentBoundingBoxes.length > 0) {
+        // Check if mouse is within bounding boxes of current category
+        if (isPointInBoundingBoxes(e.clientX, e.clientY, currentBoundingBoxes)) {
+          // Maintain current category highlight
+          return;
+        }
+      }
+
+      // Check if mouse is directly over a pill
+      const element = document.elementFromPoint(e.clientX, e.clientY);
+      const pill = element?.closest('.skill-pill, .skill-dropdown, .skill-dropdown-menu');
+      
+      if (pill) {
+        const category = pill.classList.contains('skill-dropdown-menu')
+          ? pill.closest('.skill-dropdown')?.getAttribute('data-category')
+          : pill.getAttribute('data-category');
+        
+        if (category && category !== currentCategory) {
+          highlightCategory(category);
+          showCategoryLabel(category);
+        }
+      } else if (currentCategory) {
+        // Mouse is in gap and not in bounding box, clear highlight
+        highlightCategory(null);
+        hideCategoryLabel();
+      }
+    });
+
+    // Clear highlights when leaving the container
+    pillsContainer.addEventListener('mouseleave', () => {
+      highlightCategory(null);
+      hideCategoryLabel();
+    });
+  };
+
+    // Initialize immediately
+    setTimeout(initSkillsetHover, 100);
+    return null;
+  }}
+</BrowserOnly>
+
 <style>{`
 .skillset-pills {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .skill-item {
@@ -36,6 +280,34 @@ description: Technologies, tools, and methodologies I worked with
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   position: relative;
+  z-index: 1;
+}
+
+.skill-pill.faded,
+.skill-dropdown.faded .skill-dropdown-btn {
+  opacity: 0.25;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.skill-dropdown-menu {
+  opacity: 1 !important;
+}
+
+.skill-category-label {
+  position: absolute;
+  left: 0;
+  background: var(--ifm-color-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 1001;
+  white-space: nowrap;
+  transform: translateX(calc(-100% - 1rem));
 }
 
 .skill-pill:hover {
@@ -80,6 +352,12 @@ description: Technologies, tools, and methodologies I worked with
 .skill-dropdown {
   position: relative;
   display: inline-block;
+  z-index: 1;
+}
+
+.skill-dropdown:hover,
+.skill-dropdown:focus-within {
+  z-index: 10000;
 }
 
 .skill-dropdown-btn {
@@ -153,17 +431,29 @@ description: Technologies, tools, and methodologies I worked with
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 0.125rem;
-  background: var(--ifm-background-surface-color);
+  margin-top: 0;
+  padding-top: 0.5rem;
+  background: var(--ifm-background-surface-color) !important;
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  z-index: 10000 !important;
   min-width: 180px;
-  padding: 0.5rem 0;
+  isolation: isolate;
 }
 
-.skill-dropdown:hover .skill-dropdown-menu {
+.skill-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+  background: transparent;
+}
+
+.skill-dropdown:hover .skill-dropdown-menu,
+.skill-dropdown:focus-within .skill-dropdown-menu {
   display: block;
 }
 
@@ -171,11 +461,19 @@ description: Technologies, tools, and methodologies I worked with
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 0.65rem 1rem;
   color: var(--ifm-font-color-base);
   text-decoration: none;
   transition: background-color 0.15s ease;
   font-size: 0.875rem;
+}
+
+.skill-dropdown-item:first-child {
+  margin-top: 0.5rem;
+}
+
+.skill-dropdown-item:last-child {
+  margin-bottom: 0.5rem;
 }
 
 .skill-dropdown-item:hover {
@@ -278,268 +576,271 @@ description: Technologies, tools, and methodologies I worked with
   background-color: var(--ifm-color-emphasis-400);
   color: var(--ifm-color-emphasis-900);
 }
+
+[data-theme='dark'] .skill-category-label {
+  background: var(--ifm-color-primary-dark);
+}
 `}</style>
 
 # Skillset
 
 A comprehensive view of technologies, tools, and methodologies I worked with across my projects.
 
-
-## Programming & Scripting Languages
-
 <div className="skillset-pills">
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">Python<span className="count">7</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/python" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">4</span>
-      </a>
-      <a href="/personal/tags/python" className="skill-dropdown-item">
-        <span className="section-label">Personal</span>
-        <span className="section-count">2</span>
-      </a>
-      <a href="/academic/tags/python" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
+  <div className="skill-dropdown" data-category="Programming & Scripting Languages">
+  <button className="skill-dropdown-btn">Python<span className="count">8</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/python" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">5</span>
+    </a>
+    <a href="/personal/tags/python" className="skill-dropdown-item">
+      <span className="section-label">Personal</span>
+      <span className="section-count">2</span>
+    </a>
+    <a href="/academic/tags/python" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
   </div>
-  <a href="/work/tags/systemverilog" className="skill-pill" title="Verification Tracks, C-Forge, Co-Simulation, +1 more">SystemVerilog<span className="count">4</span></a>
-  <a href="/work/tags/c" className="skill-pill" title="G3: C Based Scenario Generator">C<span className="count">1</span></a>
-  <a href="/work/tags/c++" className="skill-pill" title="G3: C Based Scenario Generator">C++<span className="count">1</span></a>
-  <a href="/work/tags/e" className="skill-pill" title="Verification Tracks">E<span className="count">1</span></a>
-  <a href="/work/tags/mysql" className="skill-pill" title="Project Dashboard">MySQL<span className="count">1</span></a>
-  <a href="/personal/tags/shell" className="skill-pill" title="argparse-enh">Shell<span className="count">1</span></a>
-  <span className="skill-pill" style={{cursor: 'default'}}>Bash<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>Perl<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>Tcsh<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>Zsh<span className="count zero">0</span></span>
 </div>
-
-## AI & Machine Learning
-
-<div className="skillset-pills">
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">scikit-learn<span className="count">3</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/scikit-learn" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">2</span>
-      </a>
-      <a href="/academic/tags/scikit-learn" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
+  <a href="/work/tags/systemverilog" className="skill-pill" data-category="Programming & Scripting Languages" title="Verification Tracks, C-Forge, Co-Simulation*, +1 more">SystemVerilog<span className="count">4</span></a>
+  <a href="/work/tags/c" className="skill-pill" data-category="Programming & Scripting Languages" title="G3: C Based Scenario Generator, G1: Offline Test Generator*, G2: State Aware Generator*">C<span className="count">3</span></a>
+  <a href="/work/tags/c++" className="skill-pill" data-category="Programming & Scripting Languages" title="G3: C Based Scenario Generator, G1: Offline Test Generator*, G2: State Aware Generator*">C++<span className="count">3</span></a>
+  <div className="skill-dropdown" data-category="Programming & Scripting Languages">
+  <button className="skill-dropdown-btn">Shell<span className="count">3</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/shell" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">2</span>
+    </a>
+    <a href="/personal/tags/shell" className="skill-dropdown-item">
+      <span className="section-label">Personal</span>
+      <span className="section-count">1</span>
+    </a>
   </div>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">anomaly-detection<span className="count">2</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/anomaly-detection" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">1</span>
-      </a>
-      <a href="/academic/tags/anomaly-detection" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
-  </div>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">clustering<span className="count">2</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/clustering" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">1</span>
-      </a>
-      <a href="/academic/tags/clustering" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
-  </div>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">hashing-vectorizer<span className="count">2</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/hashing-vectorizer" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">1</span>
-      </a>
-      <a href="/academic/tags/hashing-vectorizer" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
-  </div>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">kd-tree<span className="count">2</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/kd-tree" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">1</span>
-      </a>
-      <a href="/academic/tags/kd-tree" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
-  </div>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">NLTK<span className="count">2</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/nltk" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">1</span>
-      </a>
-      <a href="/academic/tags/nltk" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
-  </div>
-  <a href="/work/tags/decision-tree" className="skill-pill" title="C-Forge">decision-tree<span className="count">1</span></a>
-  <a href="/work/tags/pandas" className="skill-pill" title="C-Forge">Pandas<span className="count">1</span></a>
-  <a href="/work/tags/random-forest" className="skill-pill" title="C-Forge">random-forest<span className="count">1</span></a>
 </div>
-
-## Data Visualization
-
-<div className="skillset-pills">
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">Streamlit<span className="count">4</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/streamlit" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">3</span>
-      </a>
-      <a href="/academic/tags/streamlit" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
+  <a href="/work/tags/bash" className="skill-pill" data-category="Programming & Scripting Languages" title="G1: Offline Test Generator*, G2: State Aware Generator*">Bash<span className="count">2</span></a>
+  <a href="/work/tags/perl" className="skill-pill" data-category="Programming & Scripting Languages" title="G1: Offline Test Generator*, G2: State Aware Generator*">Perl<span className="count">2</span></a>
+  <a href="/work/tags/tcsh" className="skill-pill" data-category="Programming & Scripting Languages" title="G1: Offline Test Generator*, G2: State Aware Generator*">Tcsh<span className="count">2</span></a>
+  <a href="/work/tags/e" className="skill-pill" data-category="Programming & Scripting Languages" title="Verification Tracks">E<span className="count">1</span></a>
+  <a href="/work/tags/mysql" className="skill-pill" data-category="Programming & Scripting Languages" title="Project Dashboard">MySQL<span className="count">1</span></a>
+  <span className="skill-pill" data-category="Programming & Scripting Languages" style={{cursor: 'default'}}>Zsh<span className="count zero">0</span></span>
+  <div className="skill-dropdown" data-category="AI & Machine Learning">
+  <button className="skill-dropdown-btn">scikit-learn<span className="count">3</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/scikit-learn" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">2</span>
+    </a>
+    <a href="/academic/tags/scikit-learn" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
   </div>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">Plotly-Dash<span className="count">2</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/plotly-dash" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">1</span>
-      </a>
-      <a href="/academic/tags/plotly-dash" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
+</div>
+  <div className="skill-dropdown" data-category="AI & Machine Learning">
+  <button className="skill-dropdown-btn">anomaly-detection<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/anomaly-detection" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/academic/tags/anomaly-detection" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
   </div>
-  <a href="/work/tags/grafana" className="skill-pill" title="Project Dashboard">Grafana<span className="count">1</span></a>
 </div>
-
-## Programming Tools & Libraries
-
-<div className="skillset-pills">
-  <a href="/personal/tags/argparse" className="skill-pill" title="argparse-enh">argparse<span className="count">1</span></a>
-  <a href="/personal/tags/bison" className="skill-pill" title="txtoflow">Bison<span className="count">1</span></a>
-  <a href="/personal/tags/compilers" className="skill-pill" title="txtoflow">Compilers<span className="count">1</span></a>
-  <a href="/personal/tags/dot" className="skill-pill" title="txtoflow">Dot<span className="count">1</span></a>
-  <a href="/personal/tags/flex" className="skill-pill" title="txtoflow">Flex<span className="count">1</span></a>
-  <a href="/personal/tags/graphviz" className="skill-pill" title="txtoflow">Graphviz<span className="count">1</span></a>
-  <span className="skill-pill" style={{cursor: 'default'}}>Yacc<span className="count zero">0</span></span>
-</div>
-
-## Version Control & CI/CD
-
-<div className="skillset-pills">
-  <span className="skill-pill" style={{cursor: 'default'}}>Farm<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>Git<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>GitHub<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>GitLab<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>LSF<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>Perforce<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>SVN<span className="count zero">0</span></span>
-</div>
-
-## Documentation Tools
-
-<div className="skillset-pills">
-  <a href="/work/tags/docusaurus" className="skill-pill" title="Project Dashboard">Docusaurus<span className="count">1</span></a>
-  <span className="skill-pill" style={{cursor: 'default'}}>Doxygen<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>Sphinx<span className="count zero">0</span></span>
-</div>
-
-## EDA & Verification Tools
-
-<div className="skillset-pills">
-  <a href="/work/tags/csmith" className="skill-pill" title="G3: C Based Scenario Generator">CSmith<span className="count">1</span></a>
-  <a href="/work/tags/ico" className="skill-pill" title="C-Forge">ICO<span className="count">1</span></a>
-  <a href="/work/tags/specman" className="skill-pill" title="Verification Tracks">Specman<span className="count">1</span></a>
-  <a href="/work/tags/testbench" className="skill-pill" title="Verification Tracks">Testbench<span className="count">1</span></a>
-  <a href="/work/tags/vcs" className="skill-pill" title="C-Forge">VCS<span className="count">1</span></a>
-  <a href="/work/tags/vds-dve" className="skill-pill" title="Verification Tracks">VDS-DVE<span className="count">1</span></a>
-  <span className="skill-pill" style={{cursor: 'default'}}>Verdi<span className="count zero">0</span></span>
-</div>
-
-## Processor Architecture
-
-<div className="skillset-pills">
-  <a href="/work/tags/action-points" className="skill-pill" title="Verification Tracks">Action-Points<span className="count">1</span></a>
-  <a href="/work/tags/assembly-language" className="skill-pill" title="Verification Tracks">Assembly-Language<span className="count">1</span></a>
-  <a href="/work/tags/debug-unit" className="skill-pill" title="Verification Tracks">Debug-Unit<span className="count">1</span></a>
-  <a href="/work/tags/mmu" className="skill-pill" title="Verification Tracks">MMU<span className="count">1</span></a>
-  <a href="/work/tags/processor-state" className="skill-pill" title="G2: State Aware Generator">Processor-State<span className="count">1</span></a>
-  <a href="/work/tags/risc-v" className="skill-pill" title="G3: C Based Scenario Generator">RISC-V<span className="count">1</span></a>
-  <span className="skill-pill" style={{cursor: 'default'}}>ISA<span className="count zero">0</span></span>
-  <span className="skill-pill" style={{cursor: 'default'}}>ISA-Coverage<span className="count zero">0</span></span>
-</div>
-
-## Processor Verification
-
-<div className="skillset-pills">
-  <a href="/work/tags/verification" className="skill-pill" title="Verification Tracks, C-Forge, Project Dashboard, +2 more">Verification<span className="count">5</span></a>
-  <a href="/work/tags/coverage" className="skill-pill" title="Verification Tracks, C-Forge, G2: State Aware Generator">Coverage<span className="count">3</span></a>
-  <a href="/work/tags/plv" className="skill-pill" title="Verification Tracks, Co-Simulation, G3: C Based Scenario Generator">PLV<span className="count">3</span></a>
-  <a href="/work/tags/cov2gen" className="skill-pill" title="C-Forge, G2: State Aware Generator">Cov2Gen<span className="count">2</span></a>
-  <a href="/work/tags/test-generation" className="skill-pill" title="G3: C Based Scenario Generator, G2: State Aware Generator">Test-Generation<span className="count">2</span></a>
-  <a href="/work/tags/co-simulation" className="skill-pill" title="Co-Simulation">Co-Simulation<span className="count">1</span></a>
-  <a href="/work/tags/configuration-space" className="skill-pill" title="C-Forge">Configuration-Space<span className="count">1</span></a>
-  <a href="/work/tags/constraints" className="skill-pill" title="G2: State Aware Generator">Constraints<span className="count">1</span></a>
-  <a href="/work/tags/mlv" className="skill-pill" title="Verification Tracks">MLV<span className="count">1</span></a>
-</div>
-
-## Data Formats
-
-<div className="skillset-pills">
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">JSON<span className="count">2</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/json" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">1</span>
-      </a>
-      <a href="/academic/tags/json" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
+  <div className="skill-dropdown" data-category="AI & Machine Learning">
+  <button className="skill-dropdown-btn">clustering<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/clustering" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/academic/tags/clustering" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
   </div>
-  <div className="skill-dropdown">
-    <button className="skill-dropdown-btn">Parquet<span className="count">2</span></button>
-    <div className="skill-dropdown-menu">
-      <a href="/work/tags/parquet" className="skill-dropdown-item">
-        <span className="section-label">Work</span>
-        <span className="section-count">1</span>
-      </a>
-      <a href="/academic/tags/parquet" className="skill-dropdown-item">
-        <span className="section-label">Academic</span>
-        <span className="section-count">1</span>
-      </a>
-    </div>
-  </div>
-  <span className="skill-pill" style={{cursor: 'default'}}>YAML<span className="count zero">0</span></span>
 </div>
-
-## Other
-
-<div className="skillset-pills">
-  <a href="/work/tags/project-dashboard" className="skill-pill" title="Project Dashboard">Project-Dashboard<span className="count">1</span></a>
+  <div className="skill-dropdown" data-category="AI & Machine Learning">
+  <button className="skill-dropdown-btn">hashing-vectorizer<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/hashing-vectorizer" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/academic/tags/hashing-vectorizer" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
+  </div>
+</div>
+  <div className="skill-dropdown" data-category="AI & Machine Learning">
+  <button className="skill-dropdown-btn">kd-tree<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/kd-tree" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/academic/tags/kd-tree" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
+  </div>
+</div>
+  <div className="skill-dropdown" data-category="AI & Machine Learning">
+  <button className="skill-dropdown-btn">NLTK<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/nltk" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/academic/tags/nltk" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
+  </div>
+</div>
+  <a href="/work/tags/ai" className="skill-pill" data-category="AI & Machine Learning" title="Verification Best Practices Team (VBPT)">AI<span className="count">1</span></a>
+  <a href="/work/tags/ai-ide" className="skill-pill" data-category="AI & Machine Learning" title="Verification Best Practices Team (VBPT)">AI-IDE<span className="count">1</span></a>
+  <a href="/work/tags/decision-tree" className="skill-pill" data-category="AI & Machine Learning" title="C-Forge">decision-tree<span className="count">1</span></a>
+  <a href="/work/tags/githubcopilot" className="skill-pill" data-category="AI & Machine Learning" title="Verification Best Practices Team (VBPT)">GithubCopilot<span className="count">1</span></a>
+  <a href="/work/tags/pandas" className="skill-pill" data-category="AI & Machine Learning" title="C-Forge">Pandas<span className="count">1</span></a>
+  <a href="/work/tags/random-forest" className="skill-pill" data-category="AI & Machine Learning" title="C-Forge">random-forest<span className="count">1</span></a>
+  <a href="/personal/tags/vibe-coding" className="skill-pill" data-category="AI & Machine Learning" title="Personal Website">vibe-coding<span className="count">1</span></a>
+  <a href="/work/tags/windsurf" className="skill-pill" data-category="AI & Machine Learning" title="Verification Best Practices Team (VBPT)">Windsurf<span className="count">1</span></a>
+  <div className="skill-dropdown" data-category="Data Visualization">
+  <button className="skill-dropdown-btn">Streamlit<span className="count">4</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/streamlit" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">3</span>
+    </a>
+    <a href="/academic/tags/streamlit" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
+  </div>
+</div>
+  <div className="skill-dropdown" data-category="Data Visualization">
+  <button className="skill-dropdown-btn">Plotly-Dash<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/plotly-dash" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/academic/tags/plotly-dash" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
+  </div>
+</div>
+  <a href="/work/tags/grafana" className="skill-pill" data-category="Data Visualization" title="Project Dashboard">Grafana<span className="count">1</span></a>
+  <a href="/work/tags/vscode" className="skill-pill" data-category="Tools & Libraries" title="Verification Best Practices Team (VBPT), G2: State Aware Generator*">VSCode<span className="count">2</span></a>
+  <a href="/personal/tags/argparse" className="skill-pill" data-category="Tools & Libraries" title="argparse-enh">argparse<span className="count">1</span></a>
+  <a href="/personal/tags/bison" className="skill-pill" data-category="Tools & Libraries" title="txtoflow">Bison<span className="count">1</span></a>
+  <a href="/personal/tags/compilers" className="skill-pill" data-category="Tools & Libraries" title="txtoflow">Compilers<span className="count">1</span></a>
+  <a href="/work/tags/cursor" className="skill-pill" data-category="Tools & Libraries" title="Verification Best Practices Team (VBPT)">Cursor<span className="count">1</span></a>
+  <a href="/personal/tags/dot" className="skill-pill" data-category="Tools & Libraries" title="txtoflow">Dot<span className="count">1</span></a>
+  <a href="/personal/tags/flex" className="skill-pill" data-category="Tools & Libraries" title="txtoflow">Flex<span className="count">1</span></a>
+  <a href="/personal/tags/graphviz" className="skill-pill" data-category="Tools & Libraries" title="txtoflow">Graphviz<span className="count">1</span></a>
+  <a href="/work/tags/gvim" className="skill-pill" data-category="Tools & Libraries" title="G1: Offline Test Generator*">Gvim<span className="count">1</span></a>
+  <span className="skill-pill" data-category="Tools & Libraries" style={{cursor: 'default'}}>Yacc<span className="count zero">0</span></span>
+  <span className="skill-pill" data-category="Version Control & CI/CD" style={{cursor: 'default'}}>Farm<span className="count zero">0</span></span>
+  <span className="skill-pill" data-category="Version Control & CI/CD" style={{cursor: 'default'}}>Git<span className="count zero">0</span></span>
+  <span className="skill-pill" data-category="Version Control & CI/CD" style={{cursor: 'default'}}>GitHub<span className="count zero">0</span></span>
+  <span className="skill-pill" data-category="Version Control & CI/CD" style={{cursor: 'default'}}>GitLab<span className="count zero">0</span></span>
+  <span className="skill-pill" data-category="Version Control & CI/CD" style={{cursor: 'default'}}>LSF<span className="count zero">0</span></span>
+  <span className="skill-pill" data-category="Version Control & CI/CD" style={{cursor: 'default'}}>Perforce<span className="count zero">0</span></span>
+  <span className="skill-pill" data-category="Version Control & CI/CD" style={{cursor: 'default'}}>SVN<span className="count zero">0</span></span>
+  <div className="skill-dropdown" data-category="Documentation">
+  <button className="skill-dropdown-btn">Docusaurus<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/docusaurus" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/personal/tags/docusaurus" className="skill-dropdown-item">
+      <span className="section-label">Personal</span>
+      <span className="section-count">1</span>
+    </a>
+  </div>
+</div>
+  <a href="/work/tags/doxygen" className="skill-pill" data-category="Documentation" title="G2: State Aware Generator*">Doxygen<span className="count">1</span></a>
+  <a href="/work/tags/markdown" className="skill-pill" data-category="Documentation" title="G2: State Aware Generator*">Markdown<span className="count">1</span></a>
+  <a href="/work/tags/rst" className="skill-pill" data-category="Documentation" title="G2: State Aware Generator*">RST<span className="count">1</span></a>
+  <a href="/work/tags/sphinx" className="skill-pill" data-category="Documentation" title="G2: State Aware Generator*">Sphinx<span className="count">1</span></a>
+  <a href="/work/tags/csmith" className="skill-pill" data-category="EDA & Verification" title="G3: C Based Scenario Generator">CSmith<span className="count">1</span></a>
+  <a href="/work/tags/ico" className="skill-pill" data-category="EDA & Verification" title="C-Forge">ICO<span className="count">1</span></a>
+  <a href="/work/tags/specman" className="skill-pill" data-category="EDA & Verification" title="Verification Tracks">Specman<span className="count">1</span></a>
+  <a href="/work/tags/testbench" className="skill-pill" data-category="EDA & Verification" title="Verification Tracks">Testbench<span className="count">1</span></a>
+  <a href="/work/tags/vcs" className="skill-pill" data-category="EDA & Verification" title="C-Forge">VCS<span className="count">1</span></a>
+  <a href="/work/tags/vcs-dve" className="skill-pill" data-category="EDA & Verification" title="Verification Tracks">VCS-DVE<span className="count">1</span></a>
+  <span className="skill-pill" data-category="EDA & Verification" style={{cursor: 'default'}}>Verdi<span className="count zero">0</span></span>
+  <a href="/work/tags/action-points" className="skill-pill" data-category="Processor Architecture" title="Verification Tracks">Action-Points<span className="count">1</span></a>
+  <a href="/work/tags/assembly-language" className="skill-pill" data-category="Processor Architecture" title="Verification Tracks">Assembly-Language<span className="count">1</span></a>
+  <a href="/work/tags/cache-coherency" className="skill-pill" data-category="Processor Architecture" title="Verification Tracks">Cache-Coherency<span className="count">1</span></a>
+  <a href="/work/tags/debug-unit" className="skill-pill" data-category="Processor Architecture" title="Verification Tracks">Debug-Unit<span className="count">1</span></a>
+  <a href="/work/tags/isa-coverage" className="skill-pill" data-category="Processor Architecture" title="Verification Tracks">ISA-Coverage<span className="count">1</span></a>
+  <a href="/work/tags/mmu" className="skill-pill" data-category="Processor Architecture" title="Verification Tracks">MMU<span className="count">1</span></a>
+  <a href="/work/tags/processor-state" className="skill-pill" data-category="Processor Architecture" title="G2: State Aware Generator*">Processor-State<span className="count">1</span></a>
+  <a href="/work/tags/risc-v" className="skill-pill" data-category="Processor Architecture" title="G3: C Based Scenario Generator">RISC-V<span className="count">1</span></a>
+  <span className="skill-pill" data-category="Processor Architecture" style={{cursor: 'default'}}>ISA<span className="count zero">0</span></span>
+  <a href="/work/tags/verification" className="skill-pill" data-category="Processor Verification" title="Verification Tracks, C-Forge, Project Dashboard, +3 more">Verification<span className="count">6</span></a>
+  <a href="/work/tags/plv" className="skill-pill" data-category="Processor Verification" title="Verification Tracks, Co-Simulation*, G3: C Based Scenario Generator">PLV<span className="count">3</span></a>
+  <a href="/work/tags/cov2gen" className="skill-pill" data-category="Processor Verification" title="C-Forge, G2: State Aware Generator*">Cov2Gen<span className="count">2</span></a>
+  <a href="/work/tags/coverage" className="skill-pill" data-category="Processor Verification" title="C-Forge, G2: State Aware Generator*">Coverage<span className="count">2</span></a>
+  <a href="/work/tags/test-generation" className="skill-pill" data-category="Processor Verification" title="G3: C Based Scenario Generator, G2: State Aware Generator*">Test-Generation<span className="count">2</span></a>
+  <a href="/work/tags/co-simulation" className="skill-pill" data-category="Processor Verification" title="Co-Simulation*">Co-Simulation<span className="count">1</span></a>
+  <a href="/work/tags/configuration-space" className="skill-pill" data-category="Processor Verification" title="C-Forge">Configuration-Space<span className="count">1</span></a>
+  <a href="/work/tags/constraints" className="skill-pill" data-category="Processor Verification" title="G2: State Aware Generator*">Constraints<span className="count">1</span></a>
+  <a href="/work/tags/mlv" className="skill-pill" data-category="Processor Verification" title="Verification Tracks">MLV<span className="count">1</span></a>
+  <div className="skill-dropdown" data-category="Data Formats">
+  <button className="skill-dropdown-btn">JSON<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/json" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/academic/tags/json" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
+  </div>
+</div>
+  <div className="skill-dropdown" data-category="Data Formats">
+  <button className="skill-dropdown-btn">Parquet<span className="count">2</span></button>
+  <div className="skill-dropdown-menu">
+    <a href="/work/tags/parquet" className="skill-dropdown-item">
+      <span className="section-label">Work</span>
+      <span className="section-count">1</span>
+    </a>
+    <a href="/academic/tags/parquet" className="skill-dropdown-item">
+      <span className="section-label">Academic</span>
+      <span className="section-count">1</span>
+    </a>
+  </div>
+</div>
+  <span className="skill-pill" data-category="Data Formats" style={{cursor: 'default'}}>YAML<span className="count zero">0</span></span>
+  <a href="/work/tags/makefile" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), G1: Offline Test Generator*, G2: State Aware Generator*">Makefile<span className="count">3</span></a>
+  <a href="/work/tags/wsl" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), G1: Offline Test Generator*, G2: State Aware Generator*">WSL<span className="count">3</span></a>
+  <a href="/work/tags/automation" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), Verification Best Practices Team (VBPT)">Automation<span className="count">2</span></a>
+  <a href="/work/tags/documentation" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), Verification Best Practices Team (VBPT)">Documentation<span className="count">2</span></a>
+  <a href="/work/tags/guidelines" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), Verification Best Practices Team (VBPT)">Guidelines<span className="count">2</span></a>
+  <a href="/work/tags/prototyping" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), Verification Best Practices Team (VBPT)">Prototyping<span className="count">2</span></a>
+  <a href="/work/tags/sessions" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), Verification Best Practices Team (VBPT)">Sessions<span className="count">2</span></a>
+  <a href="/work/tags/templates" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), Verification Best Practices Team (VBPT)">Templates<span className="count">2</span></a>
+  <a href="/work/tags/training" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT), Verification Best Practices Team (VBPT)">Training<span className="count">2</span></a>
+  <a href="/work/tags/8d" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT)">8D<span className="count">1</span></a>
+  <a href="/work/tags/best-practices" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT)">Best-Practices<span className="count">1</span></a>
+  <a href="/work/tags/checklists" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT)">Checklists<span className="count">1</span></a>
+  <a href="/work/tags/hvp" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT)">HVP<span className="count">1</span></a>
+  <a href="/work/tags/jama" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT)">Jama<span className="count">1</span></a>
+  <a href="/work/tags/leadership" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT)">Leadership<span className="count">1</span></a>
+  <a href="/work/tags/project-dashboard" className="skill-pill" data-category="Others" title="Project Dashboard">Project-Dashboard<span className="count">1</span></a>
+  <a href="/work/tags/verification-plans" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT)">Verification-Plans<span className="count">1</span></a>
+  <a href="/work/tags/workaround-management" className="skill-pill" data-category="Others" title="Verification Best Practices Team (VBPT)">Workaround-Management<span className="count">1</span></a>
 </div>
