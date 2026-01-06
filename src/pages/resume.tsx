@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react';
+import {useEffect, useLayoutEffect} from 'react';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,6 +8,84 @@ import styles from './resume.module.css';
 import {skillsData} from '../data/skillsData';
 
 export default function Resume(): ReactNode {
+  // Use useLayoutEffect for immediate layout fixes before paint
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Reset scroll position to top when component mounts and ensure layout
+  // is properly calculated after all content loads
+  useEffect(() => {
+    // Immediate scroll reset
+    window.scrollTo(0, 0);
+
+    let rafId2: number | null = null;
+    let rafId3: number | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    // Wait for fonts and images to load
+    const waitForResources = async () => {
+      try {
+        await document.fonts.ready;
+        // Wait for images to load
+        const images = document.querySelectorAll('img');
+        await Promise.all(
+          Array.from(images).map(
+            (img) =>
+              new Promise((resolve) => {
+                if (img.complete) {
+                  resolve(null);
+                } else {
+                  img.onload = resolve;
+                  img.onerror = resolve;
+                }
+              })
+          )
+        );
+      } catch (e) {
+        // Ignore errors
+      }
+    };
+
+    // Use requestAnimationFrame to ensure DOM is ready
+    const rafId1 = requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      // Force a reflow to ensure layout is calculated
+      document.body.offsetHeight;
+
+      // Double RAF to ensure layout is fully stable
+      rafId2 = requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        // Triple RAF for extra stability
+        rafId3 = requestAnimationFrame(() => {
+          window.scrollTo(0, 0);
+        });
+      });
+
+      // Wait for resources and then reset scroll
+      waitForResources().then(() => {
+        window.scrollTo(0, 0);
+      });
+
+      // Also ensure scroll is reset after layout fully stabilizes
+      timeoutId = setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 300);
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId1);
+      if (rafId2 !== null) {
+        cancelAnimationFrame(rafId2);
+      }
+      if (rafId3 !== null) {
+        cancelAnimationFrame(rafId3);
+      }
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, []);
   const {siteConfig} = useDocusaurusContext();
   const photoUrl = useBaseUrl('/img/photo.jpg');
   const logoUrl = useBaseUrl('/img/logo.jpg');

@@ -27,6 +27,13 @@ I appreciated the opportunity to work closely with Krishna.`,
     author: 'Venkateshwaran S'
   },
   {
+    text: `Krishna has good knowledge on the Processor Architecture (Especially ARC, RISC-V, etc..)
+where he developed the highly effective instruction generator. I was consistently impressed by his
+depth of understanding and hands-on expertise. His strong grasp of the RISC-V ISA, constraint
+handling, and corner cases significantly improved the verification quality.`,
+    author: 'Satish Bhavanari'
+  },
+  {
     text: `Krishna has strong processor architecture knowledge and was a key contributor
 behind the development of instruction stream generators. He is always open to challenges,
 dives deep into problem-solving, and consistently comes up with innovative solutions. He
