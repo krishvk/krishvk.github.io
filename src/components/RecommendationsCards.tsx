@@ -167,8 +167,18 @@ export default function RecommendationsCards(): React.ReactElement {
     });
 
     const autoScroll = (timestamp: number) => {
+      // Don't auto-scroll if paused or user is interacting
+      if (isPaused || isUserInteracting) {
+        // Keep updating timestamp even when paused to avoid large jumps on resume
+        if (lastTimestampRef.value === 0) {
+          lastTimestampRef.value = timestamp;
+        }
+        animationFrameId = requestAnimationFrame(autoScroll);
+        return;
+      }
+
       // Reset timestamp when resuming from pause to avoid large deltaTime jumps
-      if (!lastTimestampRef.value || isPaused || isUserInteracting) {
+      if (!lastTimestampRef.value) {
         lastTimestampRef.value = timestamp;
         animationFrameId = requestAnimationFrame(autoScroll);
         return;
@@ -176,12 +186,6 @@ export default function RecommendationsCards(): React.ReactElement {
 
       const deltaTime = timestamp - lastTimestampRef.value;
       lastTimestampRef.value = timestamp;
-
-      // Don't auto-scroll if paused or user is interacting
-      if (isPaused || isUserInteracting) {
-        animationFrameId = requestAnimationFrame(autoScroll);
-        return;
-      }
 
       if (container) {
         const singleSetWidth = getSingleSetWidth();
