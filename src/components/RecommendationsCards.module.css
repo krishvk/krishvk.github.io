@@ -5,73 +5,201 @@
 
 .scrollContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 2rem;
   padding: 1rem 0.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Hide scrollbar for cleaner Android-like experience */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .card {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  min-width: 300px;
+  width: 300px;
+  max-width: 300px;
+  max-height: 70vh;
+  flex-shrink: 0;
   background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
   border: 1px solid var(--ifm-color-emphasis-200);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .quoteIcon {
-  font-size: 4rem;
+  font-size: 2.5rem;
   line-height: 1;
   color: var(--ifm-color-primary);
   opacity: 0.2;
   position: absolute;
-  top: 1rem;
-  left: 1.5rem;
+  top: 0.75rem;
+  left: 1rem;
   font-family: Georgia, serif;
 }
 
 .text {
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.6;
   color: var(--ifm-font-color-base);
-  margin: 2rem 0 1.5rem 0;
-  white-space: pre-line;
+  margin: 1.25rem 0 1rem 0;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: justify;
   position: relative;
   z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ifm-color-emphasis-300) transparent;
+}
+
+.text::-webkit-scrollbar {
+  width: 6px;
+}
+
+.text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.text::-webkit-scrollbar-thumb {
+  background-color: var(--ifm-color-emphasis-300);
+  border-radius: 3px;
+}
+
+.text::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ifm-color-emphasis-400);
 }
 
 .author {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--ifm-color-primary);
   font-style: italic;
   text-align: right;
   margin-top: auto;
+  padding-top: 0.75rem;
+  flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
   .card {
-    padding: 1.5rem;
+    min-width: 280px;
+    width: 280px;
+    max-width: 280px;
+    max-height: 75vh;
+    padding: 1rem;
   }
 
   .text {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    margin: 1rem 0 0.75rem 0;
   }
 
   .quoteIcon {
-    font-size: 3rem;
+    font-size: 2rem;
+    top: 0.5rem;
+    left: 0.75rem;
+  }
+
+  .author {
+    font-size: 0.8rem;
+    padding-top: 0.5rem;
   }
 
   .scrollContainer {
     gap: 1.5rem;
+    padding: 1rem 0.25rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .card {
+    min-width: 350px;
+    width: 350px;
+    max-width: 350px;
+    max-height: 65vh;
+  }
+}
+
+@media (min-width: 1025px) {
+  .card {
+    min-width: 400px;
+    width: 400px;
+    max-width: 400px;
+    max-height: 60vh;
+  }
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--ifm-color-emphasis-300);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  outline: none;
+}
+
+.dot:hover {
+  background-color: var(--ifm-color-emphasis-400);
+  transform: scale(1.2);
+}
+
+.dot.active {
+  background-color: var(--ifm-color-primary);
+  width: 24px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .indicators {
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dot.active {
+    width: 20px;
+    height: 8px;
   }
 }

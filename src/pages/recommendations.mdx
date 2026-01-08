@@ -1,10 +1,24 @@
 ---
-sidebar_position: 4
+title: Recommendations
+description: Professional recommendations from colleagues
+hide_table_of_contents: true
 ---
 
 import RecommendationsCards from '@site/src/components/RecommendationsCards';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
-# Recommendations
+<BrowserOnly>
+  {() => {
+    if (typeof window !== 'undefined') {
+      document.body.classList.add('page-recommendations');
+      const mainWrapper = document.querySelector('.main-wrapper');
+      if (mainWrapper) {
+        mainWrapper.classList.add('recommendations-full-width');
+      }
+    }
+    return null;
+  }}
+</BrowserOnly>
 
 ## NASA Tournament Lab Recommendation
 

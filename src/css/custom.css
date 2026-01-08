@@ -1059,3 +1059,31 @@ pre,
 [data-theme='dark'] .publication-item:hover {
   background: var(--ifm-color-emphasis-300);
 }
+
+/* Full width layout for recommendations page */
+body.page-recommendations .main-wrapper,
+body.page-recommendations .container,
+body.page-recommendations main {
+  max-width: 100% !important;
+}
+
+body.page-recommendations .recommendations-full-width {
+  max-width: 100% !important;
+}
+
+/* Hide table of contents on recommendations page */
+body.page-recommendations .table-of-contents {
+  display: none !important;
+}
+
+/* Ensure content area uses full width */
+body.page-recommendations .main-wrapper > .container {
+  max-width: 100% !important;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  body.page-recommendations .main-wrapper > .container {
+    padding: 0 1rem;
+  }
+}
