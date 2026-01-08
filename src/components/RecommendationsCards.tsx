@@ -7,6 +7,9 @@ export default function RecommendationsCards(): React.ReactElement {
   const [isPaused, setIsPaused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollSpeed = 0.5; // pixels per frame
+  // Refs to track text scrolling state (accessible from JSX handlers)
+  const isScrollingTextRef = useRef(false);
+  const textScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Update active index based on scroll position
   // Use modulo to map duplicated indices back to original recommendations
@@ -81,45 +84,9 @@ export default function RecommendationsCards(): React.ReactElement {
       return lastCardRight - firstCardLeft + gap;
     };
 
-    // Detect user interaction (mouse wheel, touch, etc.)
-    // Since scrollbar is hidden, we only need to detect wheel/touch events
-    const handleUserInteraction = () => {
-      // Ignore scroll events during reset or auto-scroll to prevent false
-      // user interaction detection
-      if (isResetting || isAutoScrolling) {
-        lastScrollLeft = container.scrollLeft;
-        return;
-      }
-
-      const currentScroll = container.scrollLeft;
-      const scrollDelta = Math.abs(currentScroll - lastScrollLeft);
-
-      // Only detect user interaction if the scroll change is significant
-      // and in a direction that suggests user input (not our auto-scroll)
-      // Auto-scroll always moves forward, so backward or large jumps indicate
-      // user input
-      const singleSetWidth = getSingleSetWidth();
-      const isBackwardScroll = currentScroll < lastScrollLeft;
-      // More than 10% of set width
-      const isLargeJump =
-        singleSetWidth > 0 && scrollDelta > singleSetWidth * 0.1;
-
-      if ((isBackwardScroll || isLargeJump) && scrollDelta > 5) {
-        isUserInteracting = true;
-        setIsPaused(true);
-        // Reset timestamp to prevent timing issues
-        lastTimestampRef.value = 0;
-        clearTimeout(userInteractionTimeout);
-        userInteractionTimeout = setTimeout(() => {
-          isUserInteracting = false;
-          setIsPaused(false);
-          // Reset timestamp when resuming
-          lastTimestampRef.value = 0;
-        }, 2000);
-      }
-
-      lastScrollLeft = currentScroll;
-    };
+    // Don't use scroll events to detect user interaction - they're too unreliable
+    // Only use direct input events (mousedown, touchstart, wheel) on the container
+    // This prevents false triggers from page scrolling or other events
 
     // Also detect wheel events directly for better responsiveness
     // Text elements stop propagation, so this only fires for container-level
@@ -139,28 +106,46 @@ export default function RecommendationsCards(): React.ReactElement {
         return;
       }
 
-      // Container-level wheel event - pause auto-scroll
+      // Only pause on horizontal wheel events (deltaX)
+      // Vertical scrolling (deltaY) of the page should not affect container scroll
+      // Container scrolls horizontally, so only horizontal wheel events matter
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) {
+        // Primarily vertical scroll, ignore it
+        return;
+      }
+
+      // Container-level horizontal wheel event - pause auto-scroll
       isUserInteracting = true;
       setIsPaused(true);
-      // Reset timestamp to prevent timing issues
-      lastTimestampRef.value = 0;
       clearTimeout(userInteractionTimeout);
       userInteractionTimeout = setTimeout(() => {
         isUserInteracting = false;
         setIsPaused(false);
-        // Reset timestamp when resuming to avoid large deltaTime on first frame
-        lastTimestampRef.value = 0;
+        // Don't reset timestamp - let it continue from where it was
+        // This prevents speed jumps when resuming
       }, 2000);
     };
 
-    // Listen for scroll events (wheel, touch, etc.)
-    // Only detect scroll changes on the container itself
-    container.addEventListener(
-      'scroll',
-      handleUserInteraction,
-      { passive: true }
-    );
-    // Use capture phase to catch events before they bubble
+    // Listen for direct user interactions on the container only
+    // This is the most reliable way to detect user intent
+    const handleContainerInteraction = () => {
+      isUserInteracting = true;
+      setIsPaused(true);
+      clearTimeout(userInteractionTimeout);
+      userInteractionTimeout = setTimeout(() => {
+        isUserInteracting = false;
+        setIsPaused(false);
+      }, 2000);
+    };
+
+    // Only listen to direct input events on the container
+    // Don't listen to scroll events - they're unreliable and fire for many reasons
+    container.addEventListener('mousedown', handleContainerInteraction);
+    container.addEventListener('touchstart', handleContainerInteraction, {
+      passive: true
+    });
+
+    // Only listen to horizontal wheel events on the container
     container.addEventListener('wheel', handleWheel as EventListener, {
       passive: true,
       capture: false
@@ -234,9 +219,13 @@ export default function RecommendationsCards(): React.ReactElement {
     animationFrameId = requestAnimationFrame(autoScroll);
 
     return () => {
-      container.removeEventListener('scroll', handleUserInteraction);
       container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener('mousedown', handleContainerInteraction);
+      container.removeEventListener('touchstart', handleContainerInteraction);
       clearTimeout(userInteractionTimeout);
+      if (textScrollTimeoutRef.current) {
+        clearTimeout(textScrollTimeoutRef.current);
+      }
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
@@ -303,32 +292,20 @@ export default function RecommendationsCards(): React.ReactElement {
               <p
                 className={styles.text}
                 onWheel={(e) => {
-                  // Stop wheel events from bubbling to container when scrolling text
-                  // Only allow propagation if text is at boundary and scroll would
-                  // affect container
-                  const textElement = e.currentTarget;
-                  const isScrollable =
-                    textElement.scrollHeight > textElement.clientHeight;
+                  // Always stop wheel events from bubbling to container when
+                  // scrolling inside text elements
+                  // This prevents the container's auto-scroll from pausing
+                  e.stopPropagation();
 
-                  if (isScrollable) {
-                    const isAtTop = textElement.scrollTop <= 1;
-                    const isAtBottom =
-                      textElement.scrollTop >=
-                      textElement.scrollHeight - textElement.clientHeight - 1;
-
-                    // If primarily vertical scroll and not at boundary, stop it
-                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                      if (!isAtTop && !isAtBottom) {
-                        e.stopPropagation();
-                      } else if (
-                        (isAtTop && e.deltaY > 0) ||
-                        (isAtBottom && e.deltaY < 0)
-                      ) {
-                        // Scrolling within text bounds, stop propagation
-                        e.stopPropagation();
-                      }
-                    }
+                  // Mark that user is scrolling text to ignore container scroll
+                  // events during this time
+                  isScrollingTextRef.current = true;
+                  if (textScrollTimeoutRef.current) {
+                    clearTimeout(textScrollTimeoutRef.current);
                   }
+                  textScrollTimeoutRef.current = setTimeout(() => {
+                    isScrollingTextRef.current = false;
+                  }, 100);
                 }}
               >
                 {rec.text.split('\n\n').map((paragraph, pIndex, array) => (
