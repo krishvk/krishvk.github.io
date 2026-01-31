@@ -3,44 +3,119 @@
   margin: 2rem 0;
 }
 
-.scrollContainer {
+.carouselWrapper {
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  padding: 1rem 0.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  /* Hide scrollbar for cleaner Android-like experience */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  align-items: center;
+  gap: 1rem;
+  position: relative;
 }
 
-.scrollContainer::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+.cardsContainer {
+  flex: 1;
+  position: relative;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1rem;
+  overflow: hidden;
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-color-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+  outline: none;
+}
+
+.navButton:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+  transform: scale(1.1);
+}
+
+.navButton:active {
+  transform: scale(0.95);
+}
+
+.navButton:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .navButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carouselWrapper {
+    gap: 0.5rem;
+  }
 }
 
 .card {
-  min-width: 300px;
-  width: 300px;
-  max-width: 300px;
-  max-height: 70vh;
-  flex-shrink: 0;
+  height: 500px;
   background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
   border: 1px solid var(--ifm-color-emphasis-200);
   border-radius: 12px;
   padding: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+
+.cardPrev {
+  min-width: 250px;
+  width: 250px;
+  max-width: 250px;
+  opacity: 0.6;
+  transform: scale(0.85) translateX(20px);
+  filter: blur(1px);
+}
+
+.cardActive {
+  min-width: 300px;
+  width: 300px;
+  max-width: 300px;
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cardNext {
+  min-width: 250px;
+  width: 250px;
+  max-width: 250px;
+  opacity: 0.6;
+  transform: scale(0.85) translateX(-20px);
+  filter: blur(1px);
+}
+
+.cardPrev:hover,
+.cardNext:hover {
+  opacity: 0.8;
+  transform: scale(0.9);
+  filter: blur(0.5px);
 }
 
 .card:hover {
-  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
@@ -101,12 +176,35 @@
 }
 
 @media (max-width: 768px) {
+  .cardsContainer {
+    height: 450px;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+  }
+
   .card {
+    height: 450px;
+    padding: 1rem;
+  }
+
+  .cardPrev {
+    min-width: 180px;
+    width: 180px;
+    max-width: 180px;
+    transform: scale(0.8) translateX(10px);
+  }
+
+  .cardActive {
     min-width: 280px;
     width: 280px;
     max-width: 280px;
-    max-height: 75vh;
-    padding: 1rem;
+  }
+
+  .cardNext {
+    min-width: 180px;
+    width: 180px;
+    max-width: 180px;
+    transform: scale(0.8) translateX(-10px);
   }
 
   .text {
@@ -124,28 +222,55 @@
     font-size: 0.8rem;
     padding-top: 0.5rem;
   }
-
-  .scrollContainer {
-    gap: 1.5rem;
-    padding: 1rem 0.25rem;
-  }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .card {
+  .cardsContainer {
+    height: 500px;
+    gap: 1.25rem;
+  }
+
+  .cardPrev {
+    min-width: 280px;
+    width: 280px;
+    max-width: 280px;
+  }
+
+  .cardActive {
     min-width: 350px;
     width: 350px;
     max-width: 350px;
-    max-height: 65vh;
+  }
+
+  .cardNext {
+    min-width: 280px;
+    width: 280px;
+    max-width: 280px;
   }
 }
 
 @media (min-width: 1025px) {
-  .card {
+  .cardsContainer {
+    height: 500px;
+    gap: 2rem;
+  }
+
+  .cardPrev {
+    min-width: 300px;
+    width: 300px;
+    max-width: 300px;
+  }
+
+  .cardActive {
     min-width: 400px;
     width: 400px;
     max-width: 400px;
-    max-height: 60vh;
+  }
+
+  .cardNext {
+    min-width: 300px;
+    width: 300px;
+    max-width: 300px;
   }
 }
 
