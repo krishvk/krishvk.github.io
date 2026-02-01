@@ -5,7 +5,12 @@ import {recommendations} from '../data/recommendations';
 export default function RecommendationsCards(): React.ReactElement {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
   const autoAdvanceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const startTimeRef = useRef<number>(Date.now());
+  const AUTO_ADVANCE_DURATION = 5000; // 5 seconds
+  const PROGRESS_UPDATE_INTERVAL = 50; // Update every 50ms for smooth animation
 
   // Auto-advance to next card every 5 seconds when not paused
   useEffect(() => {
@@ -14,16 +19,35 @@ export default function RecommendationsCards(): React.ReactElement {
         clearTimeout(autoAdvanceTimeoutRef.current);
         autoAdvanceTimeoutRef.current = null;
       }
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+        progressIntervalRef.current = null;
+      }
       return;
     }
 
+    // Reset progress and start time
+    setProgress(0);
+    startTimeRef.current = Date.now();
+
+    // Update progress smoothly
+    progressIntervalRef.current = setInterval(() => {
+      const elapsed = Date.now() - startTimeRef.current;
+      const newProgress = Math.min((elapsed / AUTO_ADVANCE_DURATION) * 100, 100);
+      setProgress(newProgress);
+    }, PROGRESS_UPDATE_INTERVAL);
+
     autoAdvanceTimeoutRef.current = setTimeout(() => {
       setActiveIndex((prev) => (prev + 1) % recommendations.length);
-    }, 5000);
+      setProgress(0);
+    }, AUTO_ADVANCE_DURATION);
 
     return () => {
       if (autoAdvanceTimeoutRef.current) {
         clearTimeout(autoAdvanceTimeoutRef.current);
+      }
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
       }
     };
   }, [activeIndex, isPaused]);
@@ -132,7 +156,14 @@ export default function RecommendationsCards(): React.ReactElement {
             }`}
             onClick={() => goToIndex(index)}
             aria-label={`Go to recommendation ${index + 1}`}
-          />
+          >
+            {index === activeIndex && !isPaused && (
+              <div
+                className={styles.progressBar}
+                style={{ width: `${progress}%` }}
+              />
+            )}
+          </button>
         ))}
       </div>
     </div>

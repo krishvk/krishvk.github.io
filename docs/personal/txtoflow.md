@@ -7,6 +7,10 @@ tags:
   - Bison
   - Graphviz
   - Dot
+  - SLY
+  - Lex
+  - Yacc
+  - Python
 ---
 
 # txtoflow

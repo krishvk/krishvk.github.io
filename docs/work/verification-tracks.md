@@ -19,13 +19,15 @@ tags:
 
 # Verification Tracks
 
-Handled end-to-end verification of `ISA Coverage`, `Action Points`, `MMU`, `Debug` features at `MLV`
-and `PLV` levels. Analyzed the spec, debugged the failures, defined verification strategy and
-verification plan, coverage metrics, implemented testbenches in `SystemVerilog`, coverage, test
-cases etc.
+Handled end-to-end verification of `ISA Coverage`, `Action Points`,
+[MMU](https://en.wikipedia.org/wiki/Memory_management_unit), `Debug` features at `MLV` and `PLV`
+levels. Analyzed the spec, debugged the failures, defined verification strategy and verification
+plan, coverage metrics, implemented testbenches in
+[SystemVerilog](https://en.wikipedia.org/wiki/SystemVerilog), coverage, test cases etc.
 
-Extensively supported the `Cache Coherency` verification by developing the testcases and features in
-[G2](./rpgs/g2-state-aware-generator/g2-state-aware-generator.md) that aid the verification.
+Extensively supported the [Cache Coherency](https://en.wikipedia.org/wiki/Cache_coherence)
+verification by developing the testcases and features in [G1](./rpgs/g1-offline-test-generator.md)
+and [G2](./rpgs/g2-state-aware-generator/g2-state-aware-generator.md) that aid the verification.
 
 ---
 

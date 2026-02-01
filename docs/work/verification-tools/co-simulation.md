@@ -7,7 +7,7 @@ tags:
   - PLV
 ---
 
-# Co-Simulation*
+# Co-Simulation
 
 Prototyped the experimental co-simulation flow to automate the verification of processor level
 simulations. Worked with the team managing Golden model and implemented and maintained reusable
@@ -15,28 +15,24 @@ interface that can be used in multiple verification components. This environment
 managed by a dedicated team became a critical component of the verification infrastructure for
 Synopsys ARC processors.
 
-## Key Features
+This changed the entire verification methodology since the tests no longer need to care about how a
+feature should be tested, instead the test just focuses on triggering various scenarios while the
+verification is handled by the co-simulation environment. This simplified the test development and
+made space to rapid development of more complex test scenarios
 
-- Seamless integration between testbenches and golden models
-- Real-time synchronization and communication
-- Support for complex processor architectures
-- Scalable architecture for multiple processor variants
-- Efficient communication protocols between simulation components
+For example, random programs often overwrite registers, requiring complex instruction chaining to
+force reuse and propagate errors—this slows down generation and adds hidden constraints that
+complicate test development. With co-simulation, the environment continuously monitors processor
+state, making register overwrites irrelevant, enabling a robust test development framework.
 
-## Technical Implementation
-
-- Developed communication protocols between simulation components
-- Implemented synchronization mechanisms for accurate verification
-- Created reusable framework for different processor configurations
-- Optimized for performance and reliability
+Similarly, while a shared counter can smoke-test cache-coherency, it only exercises limited protocol
+states (typically shared ↔ exclusive transitions). Co-simulation enables triggering any random state
+transition without manual orchestration to provision for bug detection, naturally exposing bugs that
+would otherwise require careful test design.
 
 ## Impact
 
-- Enabled comprehensive processor-level verification
-- Improved verification coverage and efficiency
-- Reduced verification cycle time
-- Supported verification of complex multicore architectures
-- Enhanced debugging capabilities through integrated simulation
+- Prototyped and paved the way for more robust verification methodology for ARC processors
 
 ---
 

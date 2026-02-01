@@ -14,7 +14,7 @@ tags:
 # G3: C Based Scenario Generator
 
 While the G2 focuses on constructing the test sequences instruction by instruction, it suffers from
-slowness due to the need to communicate with the golden model, maintain processor status etc. It
+slowness due to the need to communicate with the golden model, maintain processor state etc. It
 also is challenging to think at instruction level to achieve high level scenarios. Often times, high
 level scenarios does not care what instructions are used to achieve the purpose.
 
@@ -28,6 +28,10 @@ test developer time spent in filling in random functions. Reimplements the
 [G2](./g2-state-aware-generator/g2-state-aware-generator.md) in a more scalable way to serve the
 needs of the new generator. Auto generates linker scripts and other build files for the generated C
 programs.
+
+The tool also introduces additional dimensions of randomization, a single test can be compiled for
+different processor variants, different compiler flags, auto generated linker scripts can link to
+different memory regions and layouts etc. drastically increasing the scope of a single test
 
 ## Status
 

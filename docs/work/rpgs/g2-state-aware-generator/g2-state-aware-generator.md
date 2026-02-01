@@ -22,6 +22,10 @@ tags:
   - C
   - WSL
   - VSCode
+  - Bash
+  - Zsh
+  - ISA
+  - YAML
 ---
 
 # G2: State Aware Generator*

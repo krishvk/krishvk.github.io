@@ -293,6 +293,10 @@
   transition: all 0.3s ease;
   padding: 0;
   outline: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dot:hover {
@@ -301,10 +305,22 @@
 }
 
 .dot.active {
-  background-color: var(--ifm-color-primary);
+  background-color: var(--ifm-color-emphasis-200);
   width: 24px;
   height: 10px;
   border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--ifm-color-primary);
+  border-radius: 5px;
+  transition: width 0.05s linear;
 }
 
 .dot:focus-visible {

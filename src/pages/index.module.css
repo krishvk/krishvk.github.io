@@ -4,35 +4,212 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+  padding: 2.5rem 0;
   position: relative;
   overflow: hidden;
   background: var(--hero-bg);
   color: var(--hero-text-color);
 }
 
+.heroContent {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 .profileWrap {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
 }
 
-/* No transform needed - image has white padding at top */
-.profileWrap img {
-  transform: none;
+.profileImage {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@media screen and (max-width: 600px) {
-  .profileWrap img {
-    transform: none;
-  }
+.profileImage:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='dark'] .profileImage {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .profileImage:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.heroText {
+  flex: 1;
+  text-align: left;
+}
+
+.heroTitle {
+  margin: 0 0 0.75rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hero-text-color);
+}
+
+.professionalStatement {
+  padding: 2rem 0;
+  background: var(--ifm-background-color);
+}
+
+.statementContent {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.statementContent p {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--ifm-font-color-base);
+  text-align: center;
+  font-weight: 400;
+}
+
+.statementContent p:last-child {
+  margin-bottom: 0;
+}
+
+
+.heroSubtitle {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--hero-text-color);
+  opacity: 0.9;
+}
+
+.heroDetails {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.heroDetailItem {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--hero-text-color);
+  opacity: 0.85;
+}
+
+.heroDetailSeparator {
+  color: var(--hero-text-color);
+  opacity: 0.5;
+  font-weight: 300;
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 2rem 1rem;
+  }
+
+  .heroContent {
+    gap: 2rem;
+  }
+
+  .profileImage {
+    width: 140px;
+    height: 140px;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.05rem;
+  }
+
+  .heroDetails {
+    gap: 0.5rem;
+  }
+
+  .heroDetailItem {
+    font-size: 0.9rem;
+  }
+
+  .professionalStatement {
+    padding: 1.5rem 0;
+  }
+
+  .statementContent {
+    padding: 0 1.5rem;
+  }
+
+  .statementContent p {
+    font-size: 1.05rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .heroBanner {
+    padding: 1.5rem 1rem;
+  }
+
+  .heroContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .heroText {
+    text-align: center;
+  }
+
+  .profileImage {
+    width: 120px;
+    height: 120px;
+  }
+
+  .heroTitle {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .heroDetails {
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .heroDetailItem {
+    font-size: 0.85rem;
+  }
+
+  .professionalStatement {
+    padding: 1.25rem 0;
+  }
+
+  .statementContent {
+    padding: 0 1rem;
+  }
+
+  .statementContent p {
+    font-size: 1rem;
+    line-height: 1.7;
   }
 }
 

@@ -1,5 +1,4 @@
 RPGs:
-    G1:
     G2:
     - cov2gen
     - SV-Python
@@ -19,14 +18,9 @@ RPGs:
     Extension Generator:
 
 Infrastructure:
-    - Co-Simulation
-    - fsdb tracer
     - IPXACT
 
 Onesearch docs
 Dita
-farm utils
-hgCosim
 ipxact
-KSS
 First to use VSCODE in the verif team, KSS

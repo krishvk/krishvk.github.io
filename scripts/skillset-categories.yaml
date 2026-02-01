@@ -48,7 +48,6 @@ categories:
   - Gvim
   Version Control & CI/CD:
   - Git
-  - GitLab
   - GitHub
   - SVN
   - Perforce
@@ -94,18 +93,36 @@ categories:
   - YAML
   Others:
   - 8D
+  - Action Points
   - Automation
   - Best-Practices
+  - CI/CD
+  - CSRs
+  - Caches
   - Checklists
+  - Coherency
+  - Debug Unit
+  - Debugging
   - Documentation
+  - FPGA
+  - FSDB
+  - Gitlab
   - Guidelines
   - HVP
+  - ISA Coverage
   - Jama
+  - Jira
   - Leadership
+  - Lex
+  - MPU
   - Makefile
+  - Migration
   - Project-Dashboard
   - Prototyping
+  - Regression Automation
+  - SLY
   - Sessions
+  - Synopsys
   - Templates
   - Training
   - Verification-Plans
