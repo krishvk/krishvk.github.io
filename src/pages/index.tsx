@@ -96,8 +96,12 @@ export default function Home(): ReactNode {
       <main>
         <HomepageFeatures />
       </main>
-      <ThemeSelector />
-      <FontSelector />
+      {typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && (
+        <>
+          <ThemeSelector />
+          <FontSelector />
+        </>
+      )}
     </Layout>
   );
 }

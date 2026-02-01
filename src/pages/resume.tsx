@@ -131,7 +131,7 @@ export default function Resume(): ReactNode {
             <span className={styles.downloadButtonText}>Download PDF</span>
           </a>
         </div>
-        <div className={styles.htmlResume}>
+        <div className={`${styles.htmlResume} ${typeof window !== 'undefined' && process.env.NODE_ENV === 'development' ? styles.devMode : ''}`}>
           {/* Page 1 */}
           <div className={styles.page}>
             {/* Left Sidebar - Page 1 */}

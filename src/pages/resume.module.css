@@ -96,6 +96,21 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   overflow: visible;
   box-sizing: border-box;
+  position: relative; /* For absolute positioned border box */
+}
+
+/* Strict A4 border box overlay - only in dev mode */
+.devMode .page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 210mm; /* Strict A4 width */
+  height: 297mm; /* Strict A4 height */
+  border: 1px solid rgba(255, 0, 0, 0.4); /* Red border to show A4 boundaries */
+  pointer-events: none; /* Don't interfere with content */
+  z-index: 1;
+  box-sizing: border-box;
 }
 
 /* Page 2 - add top margin for better look */
@@ -454,6 +469,10 @@
     height: 297mm; /* Keep exact A4 height */
     margin: 0;
     padding: 0;
+  }
+
+  .devMode .page::before {
+    display: none; /* Remove border box in print */
   }
 
   .page:last-child {
