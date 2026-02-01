@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+description: Educational background including M.Tech in Data Science & Engineering from BITS Pilani and Bachelor's degree in Electronics and Communication Engineering.
 ---
 
 # Education

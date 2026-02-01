@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-description: A Perl based offline instruction generator
+description: Perl-based offline instruction generator for ARC processors. Primary RPG for 6+ years supporting 20-30 verification engineers across multiple product lines.
 tags:
   - Perl
   - Shell
@@ -18,7 +18,7 @@ tags:
   - Cache-Coherency
   - ISA-Coverage
   - Action-Points
-  - Debug Unit
+  - Debug-Unit
   - CSRs
 ---
 
@@ -33,7 +33,7 @@ embedded processors. Supported features like
 [Caches](https://en.wikipedia.org/wiki/CPU_cache),
 [Coherency](https://en.wikipedia.org/wiki/Cache_coherence), ISA Coverage,
 Action Points (Triggers), Debug
-Unit, [CSRs](https://en.wikipedia.org/wiki/Control/Status_Register), etc.
+Unit, and [CSRs](https://en.wikipedia.org/wiki/Control/Status_Register).
 Designed to be fast generator without monitoring the processor state.
 However, as the scenario complexity grew, it suffered with issues due to lack of visibility on
 processor state, generating illegal scenarios. It was hence, phased out for more advanced generators

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+description: Open-source Python library that automatically generates flowcharts from C-like pseudo-code. Built using SLY (Python Lex/Yacc). Available on PyPI.
 tags:
   - Python
   - Compilers

@@ -1,5 +1,6 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
+description: ML-based configuration space optimization tool that reduced verification effort by 50%+ for ARC Processor IP using intelligent coverage optimization.
 tags:
   - Python
   - VCS

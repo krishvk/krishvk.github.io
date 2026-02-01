@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: Enhanced argparse library for Python providing API integration, shell script support, and automatic GUI generation. Available on PyPI.
 tags:
   - Python
   - argparse

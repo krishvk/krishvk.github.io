@@ -1,5 +1,6 @@
 ---
-sidebar_position: 3
+sidebar_position: 6
+description: FSDB tracer tool that generates human-readable instruction execution traces from FPGA emulator waveforms, bridging the gap between FPGA and RTL simulation.
 tags:
   - FSDB
   - Debugging

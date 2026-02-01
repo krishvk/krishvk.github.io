@@ -6,34 +6,39 @@ export default function HomepageFeatures(): ReactNode {
     <section className={styles.features}>
       <div className={styles.cardsContainer}>
         <div className={styles.card}>
-          <h3 className={styles.cardTitle}>Experience & Approach</h3>
+          <h3 className={styles.cardTitle}>Processor Verification</h3>
           <p className={styles.cardText}>
-            Currently working as a Principal Engineer in ASIC Digital Design at Synopsys with over 15 years of experience
-            in processor-level verification. My approach to engineering follows a systematic methodology:
-            <strong> identify the problem</strong>, <strong>plan a comprehensive solution</strong>, and
-            <strong> execute with measurable results</strong>.
+            Deep expertise in processor architecture and verification methodologies.
+            Proficient in complex processor features including MMU, MPU, Cache Coherency,
+            VLIW, SIMD, and multicore systems. Skilled in coverage-driven verification,
+            constraint-based test generation, and both PLV and MLV verification levels.
+            Examples include designing state-aware test generators supporting complex
+            processor features and end-to-end verification of ISA coverage, action points,
+            and debug units.
+          </p>
+        </div>
+
+        <div className={styles.card}>
+          <h3 className={styles.cardTitle}>AI/ML in Verification</h3>
+          <p className={styles.cardText}>
+            Unique ability to apply machine learning techniques to verification challenges.
+            Expertise in anomaly detection, clustering, and classification algorithms for
+            optimization, triaging, and automation in verification workflows. Examples
+            include building AI-ML log anomaly detectors for failure triaging, developing
+            ML-based configuration space optimization tools, and integrating ML-based
+            failure analysis into verification processes.
           </p>
         </div>
 
         <div className={styles.card}>
           <h3 className={styles.cardTitle}>Technical Leadership</h3>
           <p className={styles.cardText}>
-            Throughout my career, I have designed and developed critical verification infrastructure from scratch,
-            including Random Program Generators (RPGs) that support 50+ verification engineers across multiple
-            product lines in Synopsys' ARC processor family. I led the development of offline and online RPGs,
-            Python and C-based test environments, and scalable solutions for test-TB communication and
-            inter-core synchronization.
-          </p>
-        </div>
-
-        <div className={styles.card}>
-          <h3 className={styles.cardTitle}>Innovation & Open Source</h3>
-          <p className={styles.cardText}>
-            As a technical leader, I established and lead the Verification Best Practices team, developing
-            centralized monitoring solutions and standardizing methodologies across teams. I designed and
-            implemented a robust co-simulation environment, created C-Forge for efficient configuration space verification,
-            and developed an AI-ML log analyzer as part of my Master's thesis. Beyond verification, I contribute to
-            open source with tools like <strong>argparse-enh</strong> and <strong>txtoflow</strong>, both available on PyPI.
+            Proven capability in building scalable verification infrastructure from scratch
+            and establishing best practices across teams. Skilled in prototyping new tools,
+            standardizing methodologies, and leading cross-functional initiatives. Examples
+            include leading the Verification Best Practices team, prototyping co-simulation
+            environments that changed verification methodology, and introducing AI tools and
+            modern development practices to verification teams.
           </p>
         </div>
       </div>

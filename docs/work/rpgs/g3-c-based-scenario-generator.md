@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-description: To focus on high level test scenarios/sequences
+description: C-based scenario generator focusing on high-level test scenarios using CSmith. Introduces additional randomization dimensions for processor verification.
 tags:
   - C
   - C++
@@ -14,9 +14,9 @@ tags:
 # G3: C Based Scenario Generator
 
 While the G2 focuses on constructing the test sequences instruction by instruction, it suffers from
-slowness due to the need to communicate with the golden model, maintain processor state etc. It
+slowness due to the need to communicate with the golden model and maintain processor state. It
 also is challenging to think at instruction level to achieve high level scenarios. Often times, high
-level scenarios does not care what instructions are used to achieve the purpose.
+level scenarios do not care what instructions are used to achieve the purpose.
 
 While the G2 solves this problem by providing a lot of building blocks, it only gives incremental
 boost. G3 takes a completely different approach by focusing on high level test scenarios/sequences.

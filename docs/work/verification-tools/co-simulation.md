@@ -1,5 +1,6 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
+description: Prototyped co-simulation environment that revolutionized processor verification methodology for Synopsys ARC processors, enabling robust test development.
 tags:
   - Co-Simulation
   - Verification

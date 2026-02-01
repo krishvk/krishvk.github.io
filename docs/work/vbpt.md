@@ -2,6 +2,7 @@
 sidebar_position: 4
 pagination_next: null
 pagination_prev: null
+description: Leading Verification Best Practices team to establish standards, methodologies, and best practices across multiple product lines at Synopsys.
 tags:
   - Verification
   - Best-Practices

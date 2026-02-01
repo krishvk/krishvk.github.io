@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: Research publications and technical conference presentations on processor verification, configuration space optimization, and verification methodologies.
 ---
 
 # Publications

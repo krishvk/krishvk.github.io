@@ -1,5 +1,6 @@
 ---
-sidebar_position: 1
+sidebar_position: 4
+description: AI-ML log anomaly detector using machine learning for automated failure triaging in processor verification regressions. Master's thesis project.
 tags:
   - Python
   - scikit-learn

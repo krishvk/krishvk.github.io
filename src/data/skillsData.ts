@@ -65,7 +65,13 @@ export const skillsData: SkillCategory[] = [
       'VSCode',
       'Cursor',
       'Gvim',
-      'SLY'
+      'SLY',
+      'BNF',
+      'BeautifulSoup',
+      'Lex',
+      'Makefile',
+      'Verilator',
+      'WSL'
     ]
   },
   {
@@ -73,6 +79,7 @@ export const skillsData: SkillCategory[] = [
     skills: [
       'Git',
       'GitHub',
+      'Gitlab',
       'SVN',
       'Perforce',
       'LSF',
@@ -88,7 +95,10 @@ export const skillsData: SkillCategory[] = [
       'Sphinx',
       'Doxygen',
       'Markdown',
-      'RST'
+      'RST',
+      'DITA',
+      'Documentation',
+      'Templates'
     ]
   },
   {
@@ -102,7 +112,12 @@ export const skillsData: SkillCategory[] = [
       'CSmith',
       'Testbench',
       'FPGA',
-      'FSDB'
+      'FSDB',
+      'HVP',
+      'Synopsys',
+      'Debugging',
+      'IPXACT',
+      'Verification Plans'
     ]
   },
   {
@@ -110,7 +125,8 @@ export const skillsData: SkillCategory[] = [
     skills: [
       'Jama',
       'Jira',
-      '8D'
+      '8D',
+      'Project Dashboard'
     ]
   },
   {
@@ -121,6 +137,7 @@ export const skillsData: SkillCategory[] = [
       'ISA',
       'ISA Coverage',
       'Action Points',
+      'ARC ISA',
       'Debug Unit',
       'RISC V',
       'Processor State',
@@ -153,31 +170,25 @@ export const skillsData: SkillCategory[] = [
     ]
   },
   {
-    name: 'Others',
+    name: 'Process & Methodology',
     skills: [
       'Automation',
       'Best Practices',
       'Checklists',
-      'Debug Unit',
-      'Debugging',
-      'Documentation',
-      'Gitlab',
       'Guidelines',
-      'HVP',
       'Leadership',
-      'Lex',
-      'Makefile',
       'Migration',
-      'Project Dashboard',
       'Prototyping',
       'Regression Automation',
       'Sessions',
-      'Synopsys',
-      'Templates',
       'Training',
-      'Verification Plans',
-      'WSL',
       'Workaround Management'
+    ]
+  },
+  {
+    name: 'Others',
+    skills: [
+      'Ctags'
     ]
   },
 ];

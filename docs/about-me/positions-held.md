@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+description: Professional positions held at Synopsys, progressing from Verification Engineer to Principal Engineer over 15+ years in processor verification.
 ---
 
 # Positions Held

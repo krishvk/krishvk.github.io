@@ -184,6 +184,7 @@ export default function BooksList({ filter = 'all', showStats = true, showSectio
                   alt={book.title}
                   className={styles.bookCover}
                   loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}
@@ -229,6 +230,7 @@ export default function BooksList({ filter = 'all', showStats = true, showSectio
                     alt={book.title}
                     className={styles.bookListCover}
                     loading="lazy"
+                    decoding="async"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}

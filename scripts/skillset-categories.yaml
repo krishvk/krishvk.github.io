@@ -47,9 +47,16 @@ categories:
   - Cursor
   - Gvim
   - SLY
+  - BNF
+  - BeautifulSoup
+  - Lex
+  - Makefile
+  - Verilator
+  - WSL
   Version Control & CI/CD:
   - Git
   - GitHub
+  - Gitlab
   - SVN
   - Perforce
   - LSF
@@ -62,6 +69,9 @@ categories:
   - Doxygen
   - Markdown
   - RST
+  - DITA
+  - Documentation
+  - Templates
   EDA & Verification:
   - Verdi
   - VCS
@@ -72,16 +82,23 @@ categories:
   - Testbench
   - FPGA
   - FSDB
+  - HVP
+  - Synopsys
+  - Debugging
+  - IPXACT
+  - Verification-Plans
   Project Execution:
   - Jama
   - Jira
   - 8D
+  - Project-Dashboard
   Processor Architecture:
   - MMU
   - MPU
   - ISA
   - ISA-Coverage
   - Action-Points
+  - ARC-ISA
   - Debug-Unit
   - RISC-V
   - Processor-State
@@ -103,27 +120,17 @@ categories:
   - JSON
   - Parquet
   - YAML
-  Others:
+  Process & Methodology:
   - Automation
   - Best-Practices
   - Checklists
-  - Debug Unit
-  - Debugging
-  - Documentation
-  - Gitlab
   - Guidelines
-  - HVP
   - Leadership
-  - Lex
-  - Makefile
   - Migration
-  - Project-Dashboard
   - Prototyping
   - Regression Automation
   - Sessions
-  - Synopsys
-  - Templates
   - Training
-  - Verification-Plans
-  - WSL
   - Workaround-Management
+  Others:
+  - Ctags

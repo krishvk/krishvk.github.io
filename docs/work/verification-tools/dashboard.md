@@ -1,5 +1,6 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
+description: Built project dashboards for verification health monitoring. Evolved from Grafana-based to Streamlit-based solution for better automation and visualization.
 tags:
   - Grafana
   - MySQL
