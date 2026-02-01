@@ -46,6 +46,7 @@ categories:
   - VSCode
   - Cursor
   - Gvim
+  - SLY
   Version Control & CI/CD:
   - Git
   - GitHub
@@ -53,6 +54,8 @@ categories:
   - Perforce
   - LSF
   - Farm
+  - CI/CD
+  - OGE
   Documentation:
   - Docusaurus
   - Sphinx
@@ -67,8 +70,15 @@ categories:
   - VCS-DVE
   - CSmith
   - Testbench
+  - FPGA
+  - FSDB
+  Project Execution:
+  - Jama
+  - Jira
+  - 8D
   Processor Architecture:
   - MMU
+  - MPU
   - ISA
   - ISA-Coverage
   - Action-Points
@@ -77,6 +87,8 @@ categories:
   - Processor-State
   - Assembly-Language
   - Cache-Coherency
+  - Caches
+  - CSRs
   Processor Verification:
   - Verification
   - Test-Generation
@@ -92,35 +104,22 @@ categories:
   - Parquet
   - YAML
   Others:
-  - 8D
-  - Action Points
   - Automation
   - Best-Practices
-  - CI/CD
-  - CSRs
-  - Caches
   - Checklists
-  - Coherency
   - Debug Unit
   - Debugging
   - Documentation
-  - FPGA
-  - FSDB
   - Gitlab
   - Guidelines
   - HVP
-  - ISA Coverage
-  - Jama
-  - Jira
   - Leadership
   - Lex
-  - MPU
   - Makefile
   - Migration
   - Project-Dashboard
   - Prototyping
   - Regression Automation
-  - SLY
   - Sessions
   - Synopsys
   - Templates

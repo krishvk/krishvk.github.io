@@ -16,7 +16,7 @@ const rpgsDocs: DocItem[] = [
     description: 'A Perl based offline instruction generator',
   },
   {
-    id: 'rpgs/g2-state-aware-generator/g2-state-aware-generator',
+    id: 'rpgs/g2-state-aware-generator',
     title: 'G2: State Aware Generator',
     description: 'SystemVerilog-based processor state-aware test generation',
   },

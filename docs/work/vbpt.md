@@ -25,15 +25,6 @@ tags:
   - GithubCopilot
   - Cursor
   - VSCode
-  - WSL
-  - Makefile
-  - Templates
-  - Guidelines
-  - Sessions
-  - Training
-  - Documentation
-  - Automation
-  - Prototyping
 ---
 
 # Verification Best Practices (VBPT)

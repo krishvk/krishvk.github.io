@@ -64,7 +64,8 @@ export const skillsData: SkillCategory[] = [
       'Argparse',
       'VSCode',
       'Cursor',
-      'Gvim'
+      'Gvim',
+      'SLY'
     ]
   },
   {
@@ -75,7 +76,9 @@ export const skillsData: SkillCategory[] = [
       'SVN',
       'Perforce',
       'LSF',
-      'Farm'
+      'Farm',
+      'CI/CD',
+      'OGE'
     ]
   },
   {
@@ -97,13 +100,24 @@ export const skillsData: SkillCategory[] = [
       'ICO',
       'VCS DVE',
       'CSmith',
-      'Testbench'
+      'Testbench',
+      'FPGA',
+      'FSDB'
+    ]
+  },
+  {
+    name: 'Project Execution',
+    skills: [
+      'Jama',
+      'Jira',
+      '8D'
     ]
   },
   {
     name: 'Processor Architecture',
     skills: [
       'MMU',
+      'MPU',
       'ISA',
       'ISA Coverage',
       'Action Points',
@@ -111,7 +125,9 @@ export const skillsData: SkillCategory[] = [
       'RISC V',
       'Processor State',
       'Assembly Language',
-      'Cache Coherency'
+      'Cache Coherency',
+      'Caches',
+      'CSRs'
     ]
   },
   {
@@ -139,35 +155,22 @@ export const skillsData: SkillCategory[] = [
   {
     name: 'Others',
     skills: [
-      '8D',
-      'Action Points',
       'Automation',
       'Best Practices',
-      'CI/CD',
-      'CSRs',
-      'Caches',
       'Checklists',
-      'Coherency',
       'Debug Unit',
       'Debugging',
       'Documentation',
-      'FPGA',
-      'FSDB',
       'Gitlab',
       'Guidelines',
       'HVP',
-      'ISA Coverage',
-      'Jama',
-      'Jira',
       'Leadership',
       'Lex',
-      'MPU',
       'Makefile',
       'Migration',
       'Project Dashboard',
       'Prototyping',
       'Regression Automation',
-      'SLY',
       'Sessions',
       'Synopsys',
       'Templates',

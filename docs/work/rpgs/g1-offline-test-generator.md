@@ -15,9 +15,9 @@ tags:
   - MMU
   - MPU
   - Caches
-  - Coherency
-  - ISA Coverage
-  - Action Points
+  - Cache-Coherency
+  - ISA-Coverage
+  - Action-Points
   - Debug Unit
   - CSRs
 ---
