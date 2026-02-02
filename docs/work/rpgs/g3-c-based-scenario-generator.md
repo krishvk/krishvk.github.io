@@ -24,8 +24,8 @@ discarding the need to think at instruction level, maintain processor state etc.
 
 Uses [CSmith](https://github.com/csmith-project/csmith) to generate random C programs to save the
 test developer time spent in filling in random functions. Reimplements the
-[MemoryManager](./g2-state-aware-generator/g2-state-aware-generator.md#memory-manager) from
-[G2](./g2-state-aware-generator/g2-state-aware-generator.md) in a more scalable way to serve the
+[MemoryManager](./g2-state-aware-generator.md#memory-manager) from
+[G2](./g2-state-aware-generator.md) in a more scalable way to serve the
 needs of the new generator. Auto generates linker scripts and other build files for the generated C
 programs.
 

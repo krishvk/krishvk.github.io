@@ -28,7 +28,7 @@ plan, coverage metrics, implemented testbenches in
 
 Extensively supported the [Cache Coherency](https://en.wikipedia.org/wiki/Cache_coherence)
 verification by developing the testcases and features in [G1](./rpgs/g1-offline-test-generator.md)
-and [G2](./rpgs/g2-state-aware-generator/g2-state-aware-generator.md) that aid the verification.
+and [G2](./rpgs/g2-state-aware-generator.md) that aid the verification.
 
 ---
 
