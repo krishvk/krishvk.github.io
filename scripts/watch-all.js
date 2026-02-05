@@ -18,7 +18,8 @@ const PROJECT_ROOT = path.resolve(__dirname, '..');
 // Files to watch
 const RESUME_FILES = [
   path.join(PROJECT_ROOT, 'src/pages/resume.tsx'),
-  path.join(PROJECT_ROOT, 'src/pages/resume.module.css')
+  path.join(PROJECT_ROOT, 'src/pages/resume.module.css'),
+  path.join(PROJECT_ROOT, 'src/data/skillsData.ts')
 ];
 
 const DOCS_DIR = path.join(PROJECT_ROOT, 'docs');
@@ -95,6 +96,8 @@ async function generateSkillsetFromMarkdown() {
                      'Generating skills data');
     await runCommand('python3', ['scripts/generate-skillset.py'],
                      'Generating skillset page');
+    // Also regenerate resume PDF since skillsData.ts changed
+    await generateResume();
   } catch (error) {
     // Error already logged
   } finally {
@@ -115,6 +118,8 @@ async function generateSkillsetFromYaml() {
                      'Regenerating skills data');
     await runCommand('python3', ['scripts/generate-skillset.py'],
                      'Regenerating skillset from updated categories');
+    // Also regenerate resume PDF since skillsData.ts changed
+    await generateResume();
   } catch (error) {
     // Error already logged
   } finally {

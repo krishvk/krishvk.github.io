@@ -403,9 +403,16 @@
   font-weight: 500;
 }
 
+.itemType {
+  font-size: 8.5pt;
+  font-weight: 400;
+  color: #777;
+  font-style: italic;
+}
+
 .itemList {
   list-style: none;
-  padding-left: 15px;
+  padding-left: 12px;
   margin-top: 4px;
 }
 

@@ -4,7 +4,7 @@
 # You can manually move tags between categories by editing this file.
 
 categories:
-  Programming & Scripting Languages:
+  Programming Languages:
   - Python
   - C
   - C++
@@ -53,6 +53,10 @@ categories:
   - Makefile
   - Verilator
   - WSL
+  - Ctags
+  - JSON
+  - Parquet
+  - YAML
   Version Control & CI/CD:
   - Git
   - GitHub
@@ -116,10 +120,6 @@ categories:
   - Cov2Gen
   - Constraints
   - Configuration-Space
-  Data Formats:
-  - JSON
-  - Parquet
-  - YAML
   Process & Methodology:
   - Automation
   - Best-Practices
@@ -132,5 +132,3 @@ categories:
   - Sessions
   - Training
   - Workaround-Management
-  Others:
-  - Ctags

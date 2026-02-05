@@ -10,7 +10,7 @@ export interface SkillCategory {
 
 export const skillsData: SkillCategory[] = [
   {
-    name: 'Programming & Scripting Languages',
+    name: 'Programming Languages',
     skills: [
       'Python',
       'C',
@@ -71,7 +71,11 @@ export const skillsData: SkillCategory[] = [
       'Lex',
       'Makefile',
       'Verilator',
-      'WSL'
+      'WSL',
+      'Ctags',
+      'JSON',
+      'Parquet',
+      'YAML'
     ]
   },
   {
@@ -162,14 +166,6 @@ export const skillsData: SkillCategory[] = [
     ]
   },
   {
-    name: 'Data Formats',
-    skills: [
-      'JSON',
-      'Parquet',
-      'YAML'
-    ]
-  },
-  {
     name: 'Process & Methodology',
     skills: [
       'Automation',
@@ -183,12 +179,6 @@ export const skillsData: SkillCategory[] = [
       'Sessions',
       'Training',
       'Workaround Management'
-    ]
-  },
-  {
-    name: 'Others',
-    skills: [
-      'Ctags'
     ]
   },
 ];
