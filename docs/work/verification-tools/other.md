@@ -6,8 +6,7 @@ tags:
   - OGE
   - MySQL
   - Jira
-  - Regression Automation
-  - Farm
+  - Automation
   - DITA
   - IPXACT
 ---

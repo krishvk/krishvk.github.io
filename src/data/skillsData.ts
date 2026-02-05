@@ -39,9 +39,8 @@ export const skillsData: SkillCategory[] = [
       'Random Forest',
       'Vibe Coding',
       'Windsurf',
-      'GithubCopilot',
-      'AI',
-      'AI IDE'
+      'Cursor',
+      'GithubCopilot'
     ]
   },
   {
@@ -63,7 +62,6 @@ export const skillsData: SkillCategory[] = [
       'Compilers',
       'Argparse',
       'VSCode',
-      'Cursor',
       'Gvim',
       'SLY',
       'BNF',
@@ -87,7 +85,6 @@ export const skillsData: SkillCategory[] = [
       'SVN',
       'Perforce',
       'LSF',
-      'Farm',
       'CI/CD',
       'OGE'
     ]
@@ -101,8 +98,7 @@ export const skillsData: SkillCategory[] = [
       'Markdown',
       'RST',
       'DITA',
-      'Documentation',
-      'Templates'
+      'Documentation'
     ]
   },
   {
@@ -170,13 +166,11 @@ export const skillsData: SkillCategory[] = [
     skills: [
       'Automation',
       'Best Practices',
+      'Templates',
       'Checklists',
       'Guidelines',
       'Leadership',
-      'Migration',
       'Prototyping',
-      'Regression Automation',
-      'Sessions',
       'Training',
       'Workaround Management'
     ]

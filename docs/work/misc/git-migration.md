@@ -3,7 +3,6 @@ sidebar_position: 1
 tags:
   - Git
   - Perforce
-  - Migration
   - CI/CD
   - Synopsys
   - GitHub

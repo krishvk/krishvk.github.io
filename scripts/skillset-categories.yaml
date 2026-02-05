@@ -28,9 +28,8 @@ categories:
   - random-forest
   - vibe-coding
   - Windsurf
+  - Cursor
   - GithubCopilot
-  - AI
-  - AI-IDE
   Data Visualization:
   - Streamlit
   - Plotly-Dash
@@ -44,7 +43,6 @@ categories:
   - Compilers
   - argparse
   - VSCode
-  - Cursor
   - Gvim
   - SLY
   - BNF
@@ -64,7 +62,6 @@ categories:
   - SVN
   - Perforce
   - LSF
-  - Farm
   - CI/CD
   - OGE
   Documentation:
@@ -75,7 +72,6 @@ categories:
   - RST
   - DITA
   - Documentation
-  - Templates
   EDA & Verification:
   - Verdi
   - VCS
@@ -123,12 +119,10 @@ categories:
   Process & Methodology:
   - Automation
   - Best-Practices
+  - Templates
   - Checklists
   - Guidelines
   - Leadership
-  - Migration
   - Prototyping
-  - Regression Automation
-  - Sessions
   - Training
   - Workaround-Management
