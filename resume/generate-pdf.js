@@ -11,7 +11,7 @@ const fs = require('fs');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const PDF_FILE = path.join(PROJECT_ROOT, 'static', 'resume.pdf');
-const RESUME_URL = process.env.RESUME_URL || 'http://localhost:3000/resume';
+const RESUME_URL = process.env.RESUME_URL || 'https://krishvk.gitlab.io/resume';
 
 async function generatePDFFromPage() {
   console.log('Generating PDF from resume page...');
