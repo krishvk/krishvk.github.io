@@ -18,6 +18,29 @@ function text(text: string): string {
 export const recommendations: Recommendation[] = [
   {
     text: text(`
+      Krishna is the kind of engineer every team hopes to have. He has a rare ability to look beyond
+      existing approaches and guide the team toward advanced solutions that often seem impossible at
+      first.
+
+      Whether the challenge is in hardware or software, and regardless of whether it falls within
+      his immediate area of expertise, Krishna always knows how to approach a problem with clarity
+      and confidence. His problem-solving mindset and structured thinking consistently lead to
+      effective solutions.
+
+      Beyond technical skills, what truly sets him apart is his optimism. Whether the situation is
+      technical or non-technical, he remains positive and focused. I believe that mindset is what
+      enables him to achieve outcomes that sometimes feel out of reach for others.
+
+      On a personal note, I feel fortunate to have started my career under him. His guidance and
+      honest feedback played a significant role in shaping my professional growth and building my
+      confidence.
+
+      To sum up he is a great mentor and true pioneer who inspires those around him!!!
+    `),
+    author: 'Nikhil Mammula'
+  },
+  {
+    text: text(`
       Krishna is a highly talented software engineer and is one of that rare
       breed that people turn to to "get things done" when a problem arises.
       His work is always of a high quality, and his work rate is exceptional.
