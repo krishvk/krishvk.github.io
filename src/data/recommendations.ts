@@ -18,6 +18,18 @@ function text(text: string): string {
 export const recommendations: Recommendation[] = [
   {
     text: text(`
+      I highly recommend Vijaya Krishna , whom I’ve had the pleasure of working with for five years.
+      He is a powerhouse when it comes to Python, verification, and building out complex automation
+      and scripting frameworks—particularly Random Instruction Generators for ARC Processors. What
+      makes Krishna stand out is that despite being one of the youngest on the team, his output and
+      execution are on par with senior veterans. On top of his technical brilliance, he is
+      incredibly kind and a fantastic team player. I would eagerly work with him again given the
+      chance...!
+    `),
+    author: 'Vijay Kumar Bhupathi'
+  },
+  {
+    text: text(`
       Krishna is the kind of engineer every team hopes to have. He has a rare ability to look beyond
       existing approaches and guide the team toward advanced solutions that often seem impossible at
       first.
