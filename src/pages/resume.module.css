@@ -1,4 +1,8 @@
 .resumeContainer {
+  /* Fixed resume palette — intentionally independent of site theme */
+  --resume-link: #e02900;
+  --resume-link-hover: #c82400;
+
   padding: 40px 20px 120px 20px;
   margin: 0;
   width: 100%;
@@ -17,7 +21,7 @@
 }
 
 .downloadButton {
-  background: var(--ifm-color-primary);
+  background: var(--resume-link);
   color: white;
   border: none;
   border-radius: 50px;
@@ -328,6 +332,13 @@
   font-size: 7pt;
   font-weight: normal;
   text-transform: none;
+  color: var(--resume-link);
+  text-decoration: none;
+}
+
+.smallLink:hover {
+  color: var(--resume-link-hover);
+  text-decoration: underline;
 }
 
 /* Content Sections */
@@ -347,11 +358,16 @@
 }
 
 .contentSection h2 a {
-  color: #163853;
+  color: var(--resume-link);
   text-decoration: none;
   font-size: 8pt;
   font-weight: normal;
   text-transform: none;
+}
+
+.contentSection h2 a:hover {
+  color: var(--resume-link-hover);
+  text-decoration: underline;
 }
 
 /* Experience/Project Items */
@@ -377,13 +393,24 @@
 }
 
 .itemTitle a {
-  color: #163853;
+  color: var(--resume-link);
   text-decoration: none;
   font-size: 8pt;
   font-weight: normal;
 }
 
 .itemTitle a:hover {
+  color: var(--resume-link-hover);
+  text-decoration: underline;
+}
+
+.contentSection a {
+  color: var(--resume-link);
+  text-decoration: none;
+}
+
+.contentSection a:hover {
+  color: var(--resume-link-hover);
   text-decoration: underline;
 }
 

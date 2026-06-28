@@ -276,6 +276,16 @@ const themes = {
       accentPurple: '#4bca81',
     },
   },
+  'palette-horizons': {
+    name: 'Horizons',
+    description: 'Navy + Orange-Red',
+    palette: 'horizons',
+    colors: {
+      primary: '#1d2839',
+      accentTeal: '#e02900',
+      accentPurple: '#49525f',
+    },
+  },
   'palette-adobe': {
     name: 'Adobe',
     description: 'Red + Purple',
@@ -348,8 +358,11 @@ const themes = {
   },
 };
 
+const DEFAULT_THEME = 'palette-horizons';
+const DEFAULT_PALETTE = 'horizons';
+
 export default function ThemeSelector(): React.ReactElement {
-  const [currentTheme, setCurrentTheme] = useState<string>('tri-tech');
+  const [currentTheme, setCurrentTheme] = useState<string>(DEFAULT_THEME);
   const [isOpen, setIsOpen] = useState(false);
 
   const applyTheme = (themeKey: string) => {
@@ -360,10 +373,10 @@ export default function ThemeSelector(): React.ReactElement {
 
     // Check if this is a palette-based theme (new CSS palettes)
     if (theme.palette) {
-      // Remove any existing palette attribute
       root.removeAttribute('data-theme-palette');
-      // Set the new palette attribute
-      root.setAttribute('data-theme-palette', theme.palette);
+      if (theme.palette !== DEFAULT_PALETTE) {
+        root.setAttribute('data-theme-palette', theme.palette);
+      }
 
       // Clear any CSS variables that might conflict
       root.style.removeProperty('--ifm-color-primary');
@@ -424,7 +437,7 @@ export default function ThemeSelector(): React.ReactElement {
     } else {
       // Clear any existing palette attribute and apply default theme
       document.documentElement.removeAttribute('data-theme-palette');
-      applyTheme('tri-tech');
+      applyTheme(DEFAULT_THEME);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 2
 description: C-based scenario generator focusing on high-level test scenarios using CSmith. Introduces additional randomization dimensions for processor verification.
 tags:
   - C

@@ -225,10 +225,10 @@ export default function Resume(): ReactNode {
               <h1><span className={styles.otherName}>Vijaya</span> Krishna <span className={styles.otherName}>Kasula</span></h1>
               <div className={styles.experienceLine}>
                 <div className={styles.experienceMainLine}>
-                  Principal Engineer, Processor Verification @ Synopsys | Jul 2010 - Present (15+ years)
+                  PMTS, Processor Verification @ Global Foundries | Jun 2026 - Present
                 </div>
                 <div className={styles.experienceSubLine}>
-                  <p>Worked as a contractor for Synopsys from Jul 2010 - Feb 2014 at SoCtronics{' '}
+                  <p>Previously at Synopsys (Jul 2010 - May 2026); contractor at SoCtronics (Jul 2010 - Feb 2014){' '}
                   <a href={positionsUrl} target="_blank" rel="noopener noreferrer" className={styles.smallLink}>(full)</a>
                   </p>
                 </div>

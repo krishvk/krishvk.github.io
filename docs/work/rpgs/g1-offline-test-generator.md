@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 4
 description: Perl-based offline instruction generator for ARC processors. Primary RPG for 6+ years supporting 20-30 verification engineers across multiple product lines.
 tags:
   - Perl

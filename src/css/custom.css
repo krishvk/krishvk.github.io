@@ -44,34 +44,52 @@
   /* Legacy font variable for compatibility */
   --site-font: var(--font-body);
 
-  /* ===== TRI-COLOR THEME: Tech Gradient (Blue + Teal + Purple) ===== */
-  /* Modern, vibrant, professional - perfect for tech/engineering */
-
-  /* Primary: Deep Blue */
-  --ifm-color-primary: #2563eb;
-  --ifm-color-primary-dark: #1d4ed8;
-  --ifm-color-primary-darker: #1e40af;
-  --ifm-color-primary-darkest: #1e3a8a;
-  --ifm-color-primary-light: #3b82f6;
-  --ifm-color-primary-lighter: #60a5fa;
-  --ifm-color-primary-lightest: #93c5fd;
-
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(37, 99, 235, 0.1);
 
-  /* Hero - Blue to Teal to Purple gradient */
-  --hero-bg: linear-gradient(135deg, #dbeafe 0%, #ccfbf1 40%, #e9d5ff 100%);
-  --hero-text-color: #1e3a8a;
-  --hero-ring: rgba(37, 99, 235, 0.2);
+  /*
+   * Default palette: Horizons (Navy + Orange-Red) — inspired by rohit-sanal style sites.
+   * Production uses :root. ThemeSelector palette blocks override when another theme is picked.
+   */
+  --ifm-background-color: #f9f9fa;
+  --ifm-color-primary: #1d2839;
+  --ifm-color-primary-dark: #151f2e;
+  --ifm-color-primary-darker: #111827;
+  --ifm-color-primary-darkest: #0b1120;
+  --ifm-color-primary-light: #2d3f5c;
+  --ifm-color-primary-lighter: #3d516f;
+  --ifm-color-primary-lightest: #5a6b85;
+  --docusaurus-highlighted-code-line-bg: rgba(29, 40, 57, 0.08);
 
-  /* Tri-color palette */
-  --color-blue: #2563eb;
-  --color-teal: #14b8a6;
-  --color-purple: #7c3aed;
+  --hero-bg: #f9f9fa;
+  --hero-text-color: #1d2839;
+  --hero-ring: rgba(224, 41, 0, 0.25);
+  --hero-pattern-opacity: 0.55;
+  --hero-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%231d2839' stroke-width='0.6' opacity='0.14'%3E%3Cpath d='M0 36h72M36 0v72'/%3E%3Cpath d='M0 0l72 72M72 0L0 72'/%3E%3C/g%3E%3Ccircle cx='36' cy='36' r='2' fill='%23e02900' opacity='0.35'/%3E%3Ccircle cx='0' cy='0' r='1.5' fill='%23e02900' opacity='0.2'/%3E%3Ccircle cx='72' cy='72' r='1.5' fill='%231d2839' opacity='0.2'/%3E%3C/svg%3E");
 
-  /* Accent usage */
-  --accent-teal: #14b8a6;
-  --accent-purple: #7c3aed;
+  --color-secondary: #1d2839;
+  --color-accent: #e02900;
+  --color-emphasis: #49525f;
+  --color-blue: #1d2839;
+  --color-teal: #e02900;
+  --color-purple: #49525f;
+  --accent-teal: #e02900;
+  --accent-purple: #49525f;
+
+  --default-dark-primary: #ff5c33;
+  --default-dark-primary-dark: #e02900;
+  --default-dark-primary-darker: #c82400;
+  --default-dark-primary-darkest: #a01d00;
+  --default-dark-primary-light: #ff7a59;
+  --default-dark-primary-lighter: #ff9980;
+  --default-dark-primary-lightest: #ffb8a6;
+  --default-dark-code-highlight-bg: rgba(255, 92, 51, 0.15);
+  --default-dark-hero-bg: #151f2e;
+  --default-dark-hero-text: #f9f9fa;
+  --default-dark-hero-ring: rgba(255, 92, 51, 0.3);
+  --default-dark-hero-pattern-opacity: 0.3;
+  --default-dark-color-blue: #ff5c33;
+  --default-dark-color-teal: #ff7a59;
+  --default-dark-color-purple: #94a3b8;
 }
 
 /* ===== COLOR PALETTE 1: Microsoft Azure (Blue + Orange) ===== */
@@ -201,7 +219,6 @@
 }
 
 /* ===== COLOR PALETTE 4: Adobe (Red + Purple) ===== */
-/* 60% White/Black | 30% Adobe Red | 5% Purple | 5% Orange */
 [data-theme-palette='adobe'] {
   --ifm-color-primary: #ff0000;
   --ifm-color-primary-dark: #e60000;
@@ -215,10 +232,11 @@
   --hero-bg: linear-gradient(135deg, #ffe5e5 0%, #f3e5f5 100%);
   --hero-text-color: #8b0000;
   --hero-ring: rgba(255, 0, 0, 0.2);
+  --hero-pattern-opacity: 0.4;
 
-  --color-secondary: #ff0000; /* 30% - Adobe Red */
-  --color-accent: #9d4edd; /* 5% - Purple */
-  --color-emphasis: #ff6b35; /* 5% - Orange */
+  --color-secondary: #ff0000;
+  --color-accent: #9d4edd;
+  --color-emphasis: #ff6b35;
   --accent-teal: #14b8a6;
   --accent-purple: #9d4edd;
 }
@@ -236,6 +254,7 @@
   --hero-bg: linear-gradient(135deg, #8b0000 0%, #1a1a1a 100%);
   --hero-text-color: #ffe5e5;
   --hero-ring: rgba(255, 77, 77, 0.25);
+  --hero-pattern-opacity: 0.25;
 
   --color-secondary: #ff4d4d;
   --color-accent: #c77dff;
@@ -494,27 +513,25 @@
   --color-emphasis: #3fb950;
 }
 
-/* Dark mode - uses dynamically set variables or defaults */
+/* Dark mode — JS legacy themes set --dark-* inline; otherwise use :root --default-dark-* */
 [data-theme='dark'] {
-  /* Use JS-set dark theme variables if available, otherwise fallback to defaults */
-  --ifm-color-primary: var(--dark-primary, #60a5fa);
-  --ifm-color-primary-dark: #3b82f6;
-  --ifm-color-primary-darker: #2563eb;
-  --ifm-color-primary-darkest: #1d4ed8;
-  --ifm-color-primary-light: #93c5fd;
-  --ifm-color-primary-lighter: #bfdbfe;
-  --ifm-color-primary-lightest: #dbeafe;
-  --docusaurus-highlighted-code-line-bg: rgba(96, 165, 250, 0.15);
+  --ifm-color-primary: var(--dark-primary, var(--default-dark-primary));
+  --ifm-color-primary-dark: var(--default-dark-primary-dark);
+  --ifm-color-primary-darker: var(--default-dark-primary-darker);
+  --ifm-color-primary-darkest: var(--default-dark-primary-darkest);
+  --ifm-color-primary-light: var(--default-dark-primary-light);
+  --ifm-color-primary-lighter: var(--default-dark-primary-lighter);
+  --ifm-color-primary-lightest: var(--default-dark-primary-lightest);
+  --docusaurus-highlighted-code-line-bg: var(--default-dark-code-highlight-bg);
 
-  /* Dark mode hero - uses JS-set values or defaults */
-  --hero-bg: var(--dark-hero-bg, linear-gradient(135deg, #0f172a 0%, #0c4a6e 40%, #312e81 100%));
-  --hero-text-color: var(--dark-hero-text, #f1f5f9);
-  --hero-ring: rgba(96, 165, 250, 0.25);
+  --hero-bg: var(--dark-hero-bg, var(--default-dark-hero-bg));
+  --hero-text-color: var(--dark-hero-text, var(--default-dark-hero-text));
+  --hero-ring: var(--default-dark-hero-ring);
+  --hero-pattern-opacity: var(--default-dark-hero-pattern-opacity, 0.3);
 
-  /* Dark mode tri-color palette - inherits from light mode or uses defaults */
-  --color-blue: var(--dark-primary, #60a5fa);
-  --color-teal: var(--accent-teal, #2dd4bf);
-  --color-purple: var(--accent-purple, #a78bfa);
+  --color-blue: var(--dark-primary, var(--default-dark-color-blue));
+  --color-teal: var(--accent-teal, var(--default-dark-color-teal));
+  --color-purple: var(--accent-purple, var(--default-dark-color-purple));
 }
 
 /* Hero tweaks */
@@ -563,9 +580,9 @@ pre,
   object-fit: cover;
   object-position: center center;
   display: block;
-  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.2),
-              0 0 0 4px rgba(20, 184, 166, 0.15),
-              0 0 0 8px rgba(124, 58, 237, 0.1);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--ifm-color-primary) 25%, transparent),
+    0 0 0 4px color-mix(in srgb, var(--color-accent) 20%, transparent),
+    0 0 0 8px color-mix(in srgb, var(--color-purple) 12%, transparent);
   margin: 0 auto 1rem auto;
   image-rendering: auto;
   transition: transform 0.3s ease;

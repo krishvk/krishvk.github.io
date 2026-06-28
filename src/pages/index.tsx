@@ -21,7 +21,7 @@ function HomepageHeader() {
             <picture>
               <source type="image/webp" srcSet="/img/logo.webp 160w, /img/logo@2x.webp 320w" sizes="(max-width: 768px) 120px, 180px" />
               <source type="image/jpeg" srcSet="/img/logo.jpg 160w, /img/logo@2x.jpg 320w" sizes="(max-width: 768px) 120px, 180px" />
-              <img src="/img/logo.jpg" srcSet="/img/logo.jpg 160w, /img/logo@2x.jpg 320w" alt="Vijaya Krishna Kasula - Principal Engineer at Synopsys" className={styles.profileImage} width={180} height={180} fetchPriority="high" decoding="async" />
+              <img src="/img/logo.jpg" srcSet="/img/logo.jpg 160w, /img/logo@2x.jpg 320w" alt="Vijaya Krishna Kasula - PMTS at Global Foundries" className={styles.profileImage} width={180} height={180} fetchPriority="high" decoding="async" />
             </picture>
           </div>
 
@@ -29,7 +29,7 @@ function HomepageHeader() {
             <Heading as="h1" className={styles.heroTitle}>
               {siteConfig.title}
             </Heading>
-            <p className={styles.heroSubtitle}>Principal Engineer (ASIC Digital Design) @ Synopsys Hyderabad</p>
+            <p className={styles.heroSubtitle}>PMTS (Principal Member of Technical Staff) @ Global Foundries</p>
             <div className={styles.heroDetails}>
               <span className={styles.heroDetailItem}>15+ years experience in Processor Verification</span>
               <span className={styles.heroDetailSeparator}>•</span>
@@ -49,15 +49,10 @@ export default function Home(): ReactNode {
     '@type': 'Person',
     name: 'Vijaya Krishna Kasula',
     alternateName: 'Krishna',
-    jobTitle: 'Principal Engineer',
+    jobTitle: 'PMTS (Principal Member of Technical Staff)',
     worksFor: {
       '@type': 'Organization',
-      name: 'Synopsys',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Hyderabad',
-        addressCountry: 'IN',
-      },
+      name: 'Global Foundries',
     },
     description: 'Principal Engineer with 15+ years in processor verification. ' +
       'Expert in building verification tools, AI/ML applications, and technical leadership.',
