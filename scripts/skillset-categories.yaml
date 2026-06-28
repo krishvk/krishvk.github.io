@@ -30,6 +30,8 @@ categories:
   - Windsurf
   - Cursor
   - GithubCopilot
+  - LLM
+  - MCP
   Data Visualization:
   - Streamlit
   - Plotly-Dash

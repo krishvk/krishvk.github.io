@@ -23,7 +23,7 @@ const verifInfraDocs: DocItem[] = [
   {
     id: 'verification-tools/log-anomaly-detector',
     title: 'Log Anomaly Detector',
-    description: 'AI-ML log anomaly detector using machine learning for automated failure triaging in processor verification regressions',
+    description: 'LLM-powered failure triage with MCP access to logs, traces, and FSDB waveforms',
   },
   {
     id: 'verification-tools/dashboard',

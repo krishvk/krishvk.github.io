@@ -13,4 +13,12 @@ export const professionalSummary = {
     'advanced verification tools bottom-up using cutting-edge technologies. ' +
     'These solutions have significantly improved productivity and delivered ' +
     'measurable impact across multiple product lines.',
+  keywords: [
+    'Verification Engineer',
+    'Team Lead',
+    'Tool Developer',
+    'Software Architect',
+    'Rare Skill Blend',
+    'Explorer',
+  ],
 };

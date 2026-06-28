@@ -51,14 +51,26 @@ async function generateAll() {
     await runCommand('node', ['scripts/generate-skills-data.js'], PROJECT_ROOT);
     console.log('✅ Skills data generated\n');
 
-    // Step 3 & 4: Generate skillset and resume in parallel
-    await Promise.all([
-      runCommand('python3', ['scripts/generate-skillset.py'], PROJECT_ROOT)
-        .then(() => console.log('✅ Skillset page generated')),
+    // Step 3: Generate skillset page
+    await runCommand('python3', ['scripts/generate-skillset.py'], PROJECT_ROOT);
+    console.log('✅ Skillset page generated\n');
 
-      runCommand('npm', ['run', 'generate-resume'], PROJECT_ROOT)
-        .then(() => console.log('✅ Resume PDF generated'))
-    ]);
+    // Step 4: Resume PDF (optional — needs Chrome system libraries on Linux/WSL)
+    if (process.env.SKIP_RESUME_PDF === '1') {
+      console.log('⏭️  Skipping resume PDF (SKIP_RESUME_PDF=1)\n');
+    } else {
+      try {
+        await runCommand('npm', ['run', 'generate-resume'], PROJECT_ROOT);
+        console.log('✅ Resume PDF generated\n');
+      } catch (error) {
+        console.warn('\n⚠️  Resume PDF generation failed (other content was generated).');
+        console.warn('   On Ubuntu/WSL, chromium-browser is a snap stub — install libs instead:');
+        console.warn('   sudo apt-get install -y libnss3 libasound2t64');
+        console.warn('   (Ubuntu 22.04: use libasound2 instead of libasound2t64)');
+        console.warn('   Then: npm run generate-resume');
+        console.warn(`   Details: ${error.message}\n`);
+      }
+    }
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log(`\n✨ All content generated successfully in ${duration}s`);

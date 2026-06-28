@@ -127,10 +127,25 @@
   font-weight: 400;
 }
 
+.keywords {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.statementContent p.keywords {
+  color: var(--ifm-font-color-base);
+}
+
+.keywordSeparator {
+  font-weight: 300;
+  opacity: 0.6;
+}
+
 .statementContent p:last-child {
   margin-bottom: 0;
 }
-
 
 .heroSubtitle {
   margin: 0 0 0.75rem 0;

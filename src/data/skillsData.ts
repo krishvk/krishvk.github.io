@@ -40,7 +40,9 @@ export const skillsData: SkillCategory[] = [
       'Vibe Coding',
       'Windsurf',
       'Cursor',
-      'GithubCopilot'
+      'GithubCopilot',
+      'LLM',
+      'MCP'
     ]
   },
   {

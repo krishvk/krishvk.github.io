@@ -83,8 +83,15 @@ export default function Home(): ReactNode {
       <HomepageHeader />
       <div className={styles.professionalStatement}>
         <div className={styles.statementContent}>
-          <p>
-            {professionalSummary.full}
+          <p className={styles.keywords}>
+            {professionalSummary.keywords.map((keyword, index) => (
+              <span key={keyword}>
+                {index > 0 && (
+                  <span className={styles.keywordSeparator}> · </span>
+                )}
+                {keyword}
+              </span>
+            ))}
           </p>
         </div>
       </div>

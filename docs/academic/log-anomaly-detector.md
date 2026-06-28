@@ -49,10 +49,9 @@ complexity.
 
 ## Status
 
-Deployed for a while in production at Synopsys, however it is now not being maintained after it
-encountered scalability issues due to the large number of log files overwhelming the server. With
-the advent of Large Language Models (LLMs), it is possible to build a similar tool with less effort
-and more accuracy. Exploring this as a next version.
+Deployed for a while in production at Synopsys. Continued development — including LLM integration
+and MCP-based triage — is documented in the
+[work project page](/work/verification-tools/log-anomaly-detector).
 
 ---
 

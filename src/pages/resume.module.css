@@ -500,7 +500,8 @@
     box-shadow: none;
     page-break-after: always;
     overflow: visible;
-    height: 297mm; /* Keep exact A4 height */
+    min-height: 297mm;
+    height: auto;
     margin: 0;
     padding: 0;
   }
@@ -542,10 +543,9 @@
     font-size: 8.5pt;
   }
 
-  /* Try to keep sections together */
   .contentSection {
-    page-break-inside: avoid;
-    break-inside: avoid;
+    page-break-inside: auto;
+    break-inside: auto;
   }
 
   .contentSection h2 {
@@ -553,10 +553,9 @@
     break-after: avoid;
   }
 
-  /* Try to keep items together, but allow breaks if needed */
   .item {
-    page-break-inside: avoid;
-    break-inside: avoid;
+    page-break-inside: auto;
+    break-inside: auto;
     orphans: 2;
     widows: 2;
   }
@@ -603,6 +602,68 @@
   .experienceLine {
     page-break-after: avoid;
     break-after: avoid;
+  }
+
+  /* Fit-to-A4: tighten vertical spacing so each page stays within 297mm */
+  .content {
+    padding: 16px 20px;
+  }
+
+  .sidebar {
+    padding: 12px 12px;
+  }
+
+  .page:nth-child(2) .sidebar,
+  .page:nth-child(2) .content {
+    padding-top: 14px;
+  }
+
+  .contentHeader {
+    margin-bottom: 12px;
+  }
+
+  .contentSection {
+    margin-bottom: 7px;
+  }
+
+  .contentSection h2 {
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+  }
+
+  .item {
+    margin-bottom: 5px;
+  }
+
+  .itemList {
+    margin-top: 2px;
+  }
+
+  .itemList li {
+    margin-bottom: 1px;
+    line-height: 1.2;
+  }
+
+  .sidebarSection {
+    margin-bottom: 9px;
+  }
+
+  .sidebarSection h2 {
+    margin-bottom: 5px;
+    padding-bottom: 3px;
+  }
+
+  .sidebarSection .skillCategory {
+    margin-top: 4px;
+  }
+
+  .sidebarSection p,
+  .sidebarSection .contactItem {
+    margin-bottom: 3px;
+  }
+
+  .publicationItem {
+    margin-bottom: 3px;
   }
 }
 

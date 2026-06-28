@@ -47,9 +47,53 @@
   --ifm-code-font-size: 95%;
 
   /*
-   * Default palette: Horizons (Navy + Orange-Red) — inspired by rohit-sanal style sites.
-   * Production uses :root. ThemeSelector palette blocks override when another theme is picked.
+   * Default theme: Sunset Vibes (tri-sunset).
+   * Production uses :root. ThemeSelector overrides when another theme is picked.
    */
+  --ifm-background-color: #fafafa;
+  --ifm-color-primary: #f97316;
+  --ifm-color-primary-dark: #ea580c;
+  --ifm-color-primary-darker: #c2410c;
+  --ifm-color-primary-darkest: #9a3412;
+  --ifm-color-primary-light: #fb923c;
+  --ifm-color-primary-lighter: #fdba74;
+  --ifm-color-primary-lightest: #fed7aa;
+  --docusaurus-highlighted-code-line-bg: rgba(249, 115, 22, 0.1);
+
+  --hero-bg: linear-gradient(135deg, #ffedd5 0%, #fce7f3 50%, #f3e8ff 100%);
+  --hero-text-color: #7c2d12;
+  --hero-ring: rgba(249, 115, 22, 0.2);
+  --hero-pattern-opacity: 0.4;
+  --hero-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23f97316' stroke-width='0.6' opacity='0.14'%3E%3Cpath d='M0 36h72M36 0v72'/%3E%3Cpath d='M0 0l72 72M72 0L0 72'/%3E%3C/g%3E%3Ccircle cx='36' cy='36' r='2' fill='%237c3aed' opacity='0.35'/%3E%3Ccircle cx='0' cy='0' r='1.5' fill='%23ec4899' opacity='0.2'/%3E%3Ccircle cx='72' cy='72' r='1.5' fill='%23f97316' opacity='0.2'/%3E%3C/svg%3E");
+
+  --color-secondary: #f97316;
+  --color-accent: #ec4899;
+  --color-emphasis: #7c3aed;
+  --color-blue: #f97316;
+  --color-teal: #ec4899;
+  --color-purple: #7c3aed;
+  --accent-teal: #ec4899;
+  --accent-purple: #7c3aed;
+
+  --default-dark-primary: #fb923c;
+  --default-dark-primary-dark: #f97316;
+  --default-dark-primary-darker: #ea580c;
+  --default-dark-primary-darkest: #c2410c;
+  --default-dark-primary-light: #fdba74;
+  --default-dark-primary-lighter: #fed7aa;
+  --default-dark-primary-lightest: #ffedd5;
+  --default-dark-code-highlight-bg: rgba(251, 146, 60, 0.15);
+  --default-dark-hero-bg: linear-gradient(135deg, #1c1917 0%, #831843 50%, #312e81 100%);
+  --default-dark-hero-text: #fef3c7;
+  --default-dark-hero-ring: rgba(251, 146, 60, 0.25);
+  --default-dark-hero-pattern-opacity: 0.25;
+  --default-dark-color-blue: #fb923c;
+  --default-dark-color-teal: #f472b6;
+  --default-dark-color-purple: #a78bfa;
+}
+
+/* ===== COLOR PALETTE: Horizons (Navy + Orange-Red) ===== */
+[data-theme-palette='horizons'] {
   --ifm-background-color: #f9f9fa;
   --ifm-color-primary: #1d2839;
   --ifm-color-primary-dark: #151f2e;
@@ -74,22 +118,26 @@
   --color-purple: #49525f;
   --accent-teal: #e02900;
   --accent-purple: #49525f;
+}
 
-  --default-dark-primary: #ff5c33;
-  --default-dark-primary-dark: #e02900;
-  --default-dark-primary-darker: #c82400;
-  --default-dark-primary-darkest: #a01d00;
-  --default-dark-primary-light: #ff7a59;
-  --default-dark-primary-lighter: #ff9980;
-  --default-dark-primary-lightest: #ffb8a6;
-  --default-dark-code-highlight-bg: rgba(255, 92, 51, 0.15);
-  --default-dark-hero-bg: #151f2e;
-  --default-dark-hero-text: #f9f9fa;
-  --default-dark-hero-ring: rgba(255, 92, 51, 0.3);
-  --default-dark-hero-pattern-opacity: 0.3;
-  --default-dark-color-blue: #ff5c33;
-  --default-dark-color-teal: #ff7a59;
-  --default-dark-color-purple: #94a3b8;
+[data-theme='dark'][data-theme-palette='horizons'] {
+  --ifm-color-primary: #ff5c33;
+  --ifm-color-primary-dark: #e02900;
+  --ifm-color-primary-darker: #c82400;
+  --ifm-color-primary-darkest: #a01d00;
+  --ifm-color-primary-light: #ff7a59;
+  --ifm-color-primary-lighter: #ff9980;
+  --ifm-color-primary-lightest: #ffb8a6;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 92, 51, 0.15);
+
+  --hero-bg: #151f2e;
+  --hero-text-color: #f9f9fa;
+  --hero-ring: rgba(255, 92, 51, 0.3);
+  --hero-pattern-opacity: 0.3;
+
+  --color-secondary: #ff5c33;
+  --color-accent: #ff7a59;
+  --color-emphasis: #94a3b8;
 }
 
 /* ===== COLOR PALETTE 1: Microsoft Azure (Blue + Orange) ===== */
@@ -237,8 +285,8 @@
   --color-secondary: #ff0000;
   --color-accent: #9d4edd;
   --color-emphasis: #ff6b35;
-  --accent-teal: #14b8a6;
-  --accent-purple: #9d4edd;
+  --accent-teal: #9d4edd;
+  --accent-purple: #ff6b35;
 }
 
 [data-theme='dark'][data-theme-palette='adobe'] {

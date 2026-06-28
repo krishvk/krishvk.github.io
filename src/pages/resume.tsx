@@ -95,7 +95,7 @@ export default function Resume(): ReactNode {
   const positionsUrl = useBaseUrl('/about-me/positions-held');
   const workUrl = useBaseUrl('/work/rpgs');
   const rpgsUrl = useBaseUrl('/work/rpgs');
-  const logAnomalyUrl = useBaseUrl('/academic/log-anomaly-detector');
+  const logAnomalyUrl = useBaseUrl('/work/verification-tools/log-anomaly-detector');
   const coSimUrl = useBaseUrl('/work/verification-tools/co-simulation');
   const cForgeUrl = useBaseUrl('/work/verification-tools/c-forge');
   const dashboardUrl = useBaseUrl('/work/verification-tools/dashboard');
@@ -139,7 +139,7 @@ export default function Resume(): ReactNode {
         </div>
         <div className={`${styles.htmlResume} ${typeof window !== 'undefined' && process.env.NODE_ENV === 'development' ? styles.devMode : ''}`}>
           {/* Page 1 */}
-          <div className={styles.page}>
+          <div className={styles.page} data-resume-page="1">
             {/* Left Sidebar - Page 1 */}
             <div className={styles.sidebar}>
             {/* Photo */}
@@ -263,13 +263,12 @@ export default function Resume(): ReactNode {
                   <div className={styles.itemTitle}>AI-ML Log Anomaly Detector <a href={logAnomalyUrl} target="_blank" rel="noopener noreferrer" className={styles.smallLink}>(details)</a></div>
                   <div className={styles.itemDate}>Feb 2022 - Present (Staggered)</div>
                 </div>
-                <div className={styles.itemSubtitle}>Master's Thesis Project, BITS Pilani | Deployed in Production at Synopsys</div>
+                <div className={styles.itemSubtitle}>Master's Thesis, BITS Pilani | Continued at Synopsys</div>
                 <ul className={styles.itemList}>
-                  <li>Developed intelligent log anomaly detector using scikit-learn, NLTK, and unsupervised learning algorithms</li>
-                  <li>Multi-stage ML pipeline: preprocessing (noise filtering, lemmatization), hashing vectorizer with trigram N-grams, KD-tree nearest neighbor, agglomerative clustering</li>
-                  <li>Handles noise (timestamps, file paths), unordered lines, parallel jobs, and template messages with variable parts</li>
-                  <li>Deployed for a while in production at Synopsys, automating verification failure log triaging</li>
-                  <li>Currently integrating LLMs into the flow for more intelligent clustering</li>
+                  <li>ML pipeline strips noise from regression logs before analysis: preprocessing, trigram hashing vectorizer, KD-tree anomaly detection, agglomerative clustering</li>
+                  <li>Integrated LLMs to categorize failures from de-noised anomalies instead of raw logs</li>
+                  <li>Developed MCP servers so LLMs can query traces and FSDB waveforms for automated triage</li>
+                  <li>Deployed in production at Synopsys; thesis foundation at BITS Pilani</li>
                 </ul>
               </div>
 
@@ -305,7 +304,7 @@ export default function Resume(): ReactNode {
           </div>
 
           {/* Page 2 */}
-          <div className={styles.page}>
+          <div className={styles.page} data-resume-page="2">
             {/* Left Sidebar - Page 2 (Complete Skillset) */}
             <div className={styles.sidebar}>
               {/* Skills - Page 2 (all categories) */}

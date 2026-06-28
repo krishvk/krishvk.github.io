@@ -9,6 +9,8 @@ tags:
   - PLV
   - RISC-V
   - CSmith
+  - Docusaurus
+  - Documentation
 ---
 
 # G3: C Based Scenario Generator
@@ -32,6 +34,12 @@ programs.
 The tool also introduces additional dimensions of randomization, a single test can be compiled for
 different processor variants, different compiler flags, auto generated linker scripts can link to
 different memory regions and layouts etc. drastically increasing the scope of a single test
+
+## Documentation
+
+Introduced [Docusaurus](https://docusaurus.io/) documentation in the team with this tool. With AI
+agents, the workflow ensures 100% documentation on each feature on day one—captured at commit time
+itself.
 
 ## Status
 

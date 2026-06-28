@@ -3,7 +3,6 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-const isDevelopment = process.env.NODE_ENV === 'development';
 const isGitHubPages = process.env.GITHUB_PAGES === 'true';
 
 const config: Config = {
@@ -124,15 +123,14 @@ const config: Config = {
         href: 'https://fonts.googleapis.com/icon?family=Material+Icons',
       },
     },
-    // Development-only: Source Sans Pro font
-    ...(isDevelopment ? [{
+    {
       tagName: 'link',
       attributes: {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700' +
-          '&family=Source+Code+Pro:wght@400;500;600&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800' +
+          '&family=JetBrains+Mono:wght@400;500;600&display=swap',
       },
-    }] : []),
+    },
     // Open Graph tags for social media sharing
     {
       tagName: 'meta',
